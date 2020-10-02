@@ -1,0 +1,35 @@
+﻿<Window x:Class="Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="620">
+    <Grid>
+        <StackPanel>
+            <materialDesign:Card Padding="20" Margin="20">
+                <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}"><Run Text="Please input the master password"/></TextBlock>
+            </materialDesign:Card>
+
+            <PasswordBox
+                Width="200" Margin="30"
+                Style="{StaticResource MaterialDesignOutlinedPasswordFieldPasswordBox}"
+                VerticalAlignment="Center"
+                materialDesign:HintAssist.Hint="Password" />
+            
+            <Button
+                Style="{StaticResource MaterialDesignFlatDarkBgButton}"
+                Width="100"
+                >Login</Button>
+        </StackPanel>
+    </Grid>
+</Window>
