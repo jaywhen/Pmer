@@ -13,23 +13,51 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="620">
+        Title="MainWindow" Height="450" Width="620" WindowStyle="None" 
+        AllowsTransparency="True" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
     <Grid>
-        <StackPanel>
-            <materialDesign:Card Padding="20" Margin="20">
-                <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}"><Run Text="Please input the master password"/></TextBlock>
-            </materialDesign:Card>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <StackPanel>
+                <TextBlock Text="ToDo list" Foreground="#8F8F8F" FontSize="13" Margin="15 15 0 20" />
+                <UniformGrid Columns="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="35" Height="35" Source="./logo.jpg" Margin="10 0 0 0" />
+                        <TextBlock Text="jaywhen" FontSize="14" VerticalAlignment="Center" Margin="5 0 0 0"/>
+                    </StackPanel>
+                    <!--<TextBlock Text="&#xe64b;" FontSize="22" Foreground="#8f8f8f" FontFamily="./Fonts/#iconfont" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" />-->
+                </UniformGrid>
+                
+            </StackPanel>
+        </Grid>
 
-            <PasswordBox
-                Width="200" Margin="30"
-                Style="{StaticResource MaterialDesignOutlinedPasswordFieldPasswordBox}"
-                VerticalAlignment="Center"
-                materialDesign:HintAssist.Hint="Password" />
+        <Grid Grid.Column="1" Background="CadetBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Width="45" Height="30" Content="─" Foreground="Black" BorderThickness="0" Background="Transparent" />
+                <Button Width="45" Height="30" Content="☐" Foreground="Black" BorderThickness="0" Background="Transparent" />
+                <Button Width="45" Height="30" Content="✕" Foreground="Black" BorderThickness="0" Background="Transparent" />
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="我的一天" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="30"/>
+                    <TextBlock Text="10月1日, 星期四" FontSize="15" Foreground="White" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
             
-            <Button
-                Style="{StaticResource MaterialDesignFlatDarkBgButton}"
-                Width="100"
-                >Login</Button>
-        </StackPanel>
+            
+        </Grid>
+
     </Grid>
 </Window>

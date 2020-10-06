@@ -23,6 +23,11 @@ namespace Test
         public MainWindow()
         {
             InitializeComponent();
+            this.MouseDown += (sender, e) =>
+            {
+                if (e.LeftButton == MouseButtonState.Pressed)
+                    this.DragMove();
+            };
         }
     }
 }
