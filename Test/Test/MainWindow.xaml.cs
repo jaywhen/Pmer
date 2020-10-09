@@ -29,5 +29,10 @@ namespace Test
                     this.DragMove();
             };
         }
+
+        private void btnTest_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Good");
+        }
     }
 }

@@ -30,7 +30,8 @@
                     </StackPanel>
                     <!--<TextBlock Text="&#xe64b;" FontSize="22" Foreground="#8f8f8f" FontFamily="./Fonts/#iconfont" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" />-->
                 </UniformGrid>
-                
+                <Button Name="btnTest" Content="TestBtn" Click="btnTest_Click"/>
+
             </StackPanel>
         </Grid>
 
