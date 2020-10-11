@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NonUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="400">
+        Title="MainWindow" Height="450" Width="700">
     <Grid>
         <!--<DockPanel LastChildFill="False">
             <Button Content="btn1" DockPanel.Dock="Top" Height="40" Width="60"/>
@@ -13,14 +13,19 @@
             <Button Content="btn1" DockPanel.Dock="Left" Height="40" Width="60"/>
             <Button Content="btn1" DockPanel.Dock="Right" Height="40" Width="60"/>
         </DockPanel>-->
-        <UniformGrid Columns="2">
+        <!--<UniformGrid Columns="2">
             <Button Content="btn1" DockPanel.Dock="Top" Height="40" Width="60"/>
             <Button Content="btn1" DockPanel.Dock="Top" Height="40" Width="60"/>
             <Button Content="btn1" DockPanel.Dock="Top" Height="40" Width="60"/>
             <Button Content="btn1" DockPanel.Dock="Top" Height="40" Width="60"/>
             <Button Content="btn1" DockPanel.Dock="Top" Height="40" Width="60"/>
             <Button Content="btn1" DockPanel.Dock="Top" Height="40" Width="60"/>
-        </UniformGrid>
+        </UniformGrid>-->
+        <StackPanel>
+            <Slider Name="s1" Value="10" Maximum="100"/>
+            <TextBlock FontSize="{Binding ElementName=s1, Path=Value}"  Text="binding"/>
+        </StackPanel>
+        
 
     </Grid>
 </Window>
