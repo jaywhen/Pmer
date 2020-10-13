@@ -1,0 +1,47 @@
+﻿<Window x:Class="MvvmTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MvvmTest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Text="搜索条件:" VerticalAlignment="Center" Margin="10 0 0 0"/>
+            <TextBox Width="200" Text="{Binding Search}" Height="20" Margin="10 0 0 0" FontSize="13"/>
+            <Button Content="查找" Command="{Binding QueryCommand}" Width="70" Height="20" Margin="10 0 0 0"/>
+            <Button Content="重置" Command="{Binding ResetCommand}" Width="70" Height="20" Margin="10 0 0 0"/>
+            <Button Content="新增" Command="{Binding AddCommand}" Width="70" Height="20" Margin="10 0 0 0"/>
+            <Button Content="退出" Command="{Binding ExitCommand}" Width="70" Height="20" Margin="10 0 0 0"/>
+        </StackPanel>
+        <DataGrid Grid.Row="1" ColumnWidth="*" AutoGenerateColumns="False" 
+                  CanUserAddRows="False"
+                  ItemsSource="{Binding GridModelList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="序号" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="姓名" Binding="{Binding Name}"/>
+                <DataGridTemplateColumn Header="操作">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="修改" Width="60" Height="25" Background="White" Foreground="Black"
+                                        CommandParameter="{Binding Id}"
+                                        Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
+                                
+                                <Button Content="删除" Width="60" Height="25" Background="red" Foreground="White"
+                                        CommandParameter="{Binding Id}"
+                                        Command="{Binding DataContext.DelCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+    </Grid>
+</Window>
