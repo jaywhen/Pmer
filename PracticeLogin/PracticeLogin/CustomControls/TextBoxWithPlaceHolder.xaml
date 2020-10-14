@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="PracticeLogin.CustomControls.TextBoxWithPlaceHolder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PracticeLogin.CustomControls"
+             mc:Ignorable="d" 
+             MinWidth="300"
+             x:Name="_this">
+    
+    <UserControl.Resources>
+        <Style x:Key="credentialTxTtitleStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#a3a3a4"/>
+            <Setter Property="FontSize" Value="20"/>
+            
+            <!--Since we want to reuse this control we will use property binding for our placeholder-->
+            <Setter Property="Text" Value="{Binding PlaceHolder, ElementName=_this}"/>
+            <Setter Property="Padding" Value="2,0"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, ElementName=email}" Value="">
+                    <!--Default Position and fontsize of title-->
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard SpeedRatio="10">
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize" To="20"/>
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" To="0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    
+                    <!--Position and fontsize of title when email textbox has value-->
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard SpeedRatio="10">
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize" To="15"/>
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" To="0 0 0 30"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                    
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="credentialsTxTtitleStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Text" Value="{Binding Text, Mode=TwoWay,ElementName=_this}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="2,0"/>
+            
+            <!--we also need to move our text some point below and also increase font size-->
+            <Style.Triggers>
+                <!--so, to know when to trigger we will first check what is the font size of our title-->
+                <!--if it is  15pt then it means the title in above-->
+                <DataTrigger Binding="{Binding FontSize, ElementName=title}" Value="15">
+                    <!--Default Position and fontsize of title-->
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard SpeedRatio="10">
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize" To="20"/>
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" To="0 20 0 0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+
+                    <!--Position and fontsize of title when email textbox has value-->
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard SpeedRatio="10">
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize" To="15"/>
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" To="0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Border
+            CornerRadius="10"
+            Background="White"
+            Height="70">
+
+        <!--Border Shadow Effect-->
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="23" ShadowDepth="5" Direction="270"
+                                  Color="WhiteSmoke"/>
+        </Border.Effect>
+        <Grid Margin="20,6">
+            <!--Title-->
+            <TextBlock
+                Name="title"
+                Style="{StaticResource credentialTxTtitleStyle}"/>
+
+            <!--TextBox-->
+            <TextBox
+                Name="email"
+                Style="{StaticResource credentialsTxTtitleStyle}"/>
+        </Grid>
+    </Border>
+</UserControl>
