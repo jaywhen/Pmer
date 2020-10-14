@@ -51,6 +51,7 @@
             VerticalAlignment="Center"
                    />
         <PasswordBox Grid.Row="2"
+                     Name="PasswordBox"
                      VerticalAlignment="Center"
                      Margin="170,0,170,0" 
                      />
@@ -59,6 +60,6 @@
                 Content="Login"
                 Foreground="White"
                 Background="Blue"
-                FontSize="30"/>
+                FontSize="30" Click="Button_Click_1"/>
     </Grid>
 </Window>

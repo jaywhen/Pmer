@@ -18,8 +18,6 @@ namespace NonCore.Db
         string userTableName = "MasterPassword";
         // string pwTableName = "Passwords";
 
-
-
         public bool Init()
         {
             // 检查是否有.db && db是否有表 && 表中是否有数据
@@ -118,6 +116,12 @@ namespace NonCore.Db
             }
         }
 
+        // insert
+        public void insertMasterPw(string mpw)
+        {
+            sqlcmd = "insert into " + userTableName + "(id ,master_pw) values (0, " + mpw +")";
+            executeQuery(sqlcmd);
+        }
 
     }
 }

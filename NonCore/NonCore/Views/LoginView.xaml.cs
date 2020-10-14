@@ -23,6 +23,7 @@ namespace NonCore.Views
         public LoginView()
         {
             InitializeComponent();
+
             DbCreator db = new DbCreator();
             db.createDbConnection();
             bool isLogin = db.Init();
@@ -31,6 +32,10 @@ namespace NonCore.Views
             {
                 RegistView registView = new RegistView();
                 registView.ShowDialog();
+                string res = registView.Pw;
+
+                // 插值
+                db.insertMasterPw(res);
             } 
             
         }
@@ -38,6 +43,11 @@ namespace NonCore.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
