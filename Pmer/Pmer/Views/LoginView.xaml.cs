@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pmer.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,23 @@ namespace Pmer.Views
         public LoginView()
         {
             InitializeComponent();
+
+            this.MouseDown += (sender, e) =>
+            {
+                if (e.LeftButton == MouseButtonState.Pressed)
+                    this.DragMove();
+            };
+
+            UserModel usermodel = new UserModel();
+            this.DataContext = usermodel;
+        }
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

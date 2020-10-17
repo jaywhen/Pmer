@@ -11,8 +11,88 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pmer.Views"
         mc:Ignorable="d"
-        Title="LoginView" Height="450" Width="800">
+        WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip"
+        AllowsTransparency="True"
+        MinWidth="500" MinHeight="380"
+        Title="LooginView" Height="380" Width="500">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#0034dd"/>
+        <TextBlock 
+                   FontSize="14"
+                   Foreground="WhiteSmoke"
+                   VerticalAlignment="Center"
+                   Margin="10 0 0 0"
+                   >
+            <Run
+                Text="Welcome! "
+                Foreground="AliceBlue"/>
+            <Run 
+                Text="{Binding UserName}" />
+        </TextBlock>
+        <StackPanel 
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                Foreground="WhiteSmoke"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                ToolTip="MaterialDesignFlatButton" Margin="0,1,0,1.667" Height="Auto"
+                Click="CloseBtn_Click"
+                >
+                ✕
+            </Button>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                TextAlignment="Center"
+                Margin="0,30"
+                >
+                <Run
+                    FontSize="25"
+                    FontWeight="SemiBold"
+                    Text="Enter the master password to log in"/>
+                <LineBreak/>
+                <LineBreak/>
+                <Run
+                    FontSize="20"
+                    Foreground="#A3A3A4"
+                    Text=":)"/>
+            </TextBlock>
+        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <PasswordBox
+                x:Name="PasswordBox"
+                materialDesign:HintAssist.Hint="Password"
+                materialDesign:TextFieldAssist.HasClearButton="True"
+                materialDesign:HintAssist.Foreground="#0034dd"
+                materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                MinWidth="200"
+                Width="200"
+                />
+            <Button Grid.Row="3"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Width="120"
+                Background="#2256ff"
+                ToolTip="Resource name: MaterialDesignRaisedButton" Click="LoginBtn_Click">
+                Go!
+            </Button>
+        </Grid>
 
     </Grid>
 </Window>

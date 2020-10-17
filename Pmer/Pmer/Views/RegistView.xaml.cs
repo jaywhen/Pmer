@@ -23,8 +23,24 @@ namespace Pmer.Views
         public RegistView()
         {
             InitializeComponent();
+            this.MouseDown += (sender, e) =>
+            {
+                if (e.LeftButton == MouseButtonState.Pressed)
+                    this.DragMove();
+            };
+
             UserModel userModel = new UserModel();
             this.DataContext = userModel;
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void SetBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

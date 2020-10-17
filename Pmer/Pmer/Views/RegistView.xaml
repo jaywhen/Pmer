@@ -41,14 +41,73 @@
             <Button
                 Foreground="WhiteSmoke"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                ToolTip="MaterialDesignFlatButton">
+                ToolTip="MaterialDesignFlatButton" Margin="0,1,0,1.667" Height="Auto"
+                Click="CloseBtn_Click"
+                >
                 ✕
             </Button>
+
         </StackPanel>
-        
+
         <StackPanel Grid.Row="1">
-            <!--<TextBlock-->
-            
+            <TextBlock
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                TextAlignment="Center"
+                Margin="0,30"
+                >
+                <Run
+                    FontSize="25"
+                    FontWeight="SemiBold"
+                    Text="Please set a master password"/>
+                <LineBreak/>
+                <Run
+                    FontSize="10"
+                    Foreground="#A3A3A4"
+                    Text="You can just remember the msater password,"/>
+                <Run
+                    FontSize="10"
+                    Foreground="#A3A3A4"
+                    Text="and we will manage the rest for you!"/>
+            </TextBlock>
         </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <PasswordBox
+                x:Name="PasswordBox"
+                materialDesign:HintAssist.Hint="Password"
+                materialDesign:TextFieldAssist.HasClearButton="True"
+                materialDesign:HintAssist.Foreground="#0034dd"
+                materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                MinWidth="200"
+                Width="200"
+                />
+            <PasswordBox Grid.Row="1"
+                x:Name="RePasswordBox"
+                materialDesign:HintAssist.Hint="Confirm Password"
+                materialDesign:TextFieldAssist.HasClearButton="True"
+                materialDesign:HintAssist.Foreground="#0034dd"
+                materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                MinWidth="200"
+                Width="200"
+                />
+            <Button Grid.Row="3"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Width="120"
+                Background="#2256ff"
+                ToolTip="Resource name: MaterialDesignRaisedButton" Click="SetBtn_Click">
+                Set
+            </Button>
+        </Grid>
     </Grid>
 </Window>
