@@ -25,7 +25,6 @@ namespace MvvmTest.ViewModel
             EditCommand = new RelayCommand<int>(t => Edit(t));
             DelCommand = new RelayCommand<int>(t => Del(t));
             AddCommand = new RelayCommand(Add);
-            ExitCommand = new RelayCommand(Exit);
         }
 
         FakeDb fakedb;
@@ -49,7 +48,6 @@ namespace MvvmTest.ViewModel
         public RelayCommand<int> EditCommand { get; set; }
         public RelayCommand<int> DelCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
-        public RelayCommand ExitCommand { get; set; }
         #endregion
 
         public void Query()
@@ -111,9 +109,5 @@ namespace MvvmTest.ViewModel
             }
         }
 
-        public void Exit()
-        {
-            MessageBox.Show("咋关啊", "操作提示", MessageBoxButton.OK, MessageBoxImage.Question);
-        }
     }
 }

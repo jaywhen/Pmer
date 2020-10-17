@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PracticeLogin.Properties
+namespace Pmer.Properties
 {
 
 

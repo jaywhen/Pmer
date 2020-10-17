@@ -13,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PracticeLogin.Pages
+namespace Pmer
 {
     /// <summary>
-    /// LoginPage.xaml 的交互逻辑
+    /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class LoginPage : Page
+    public partial class MainWindow : Window
     {
-        public LoginPage()
+        public MainWindow()
         {
             InitializeComponent();
+
+            
         }
     }
 }

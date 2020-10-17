@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Pmer.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,16 +13,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Pmer
+namespace Pmer.Views
 {
     /// <summary>
-    /// Login.xaml 的交互逻辑
+    /// RegistView.xaml 的交互逻辑
     /// </summary>
-    public partial class Login : Window
+    public partial class RegistView : Window
     {
-        public Login()
+        public RegistView()
         {
             InitializeComponent();
+            UserModel userModel = new UserModel();
+            this.DataContext = userModel;
         }
     }
 }
