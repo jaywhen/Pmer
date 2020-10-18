@@ -33,7 +33,7 @@
                 Text="Welcome! "
                 Foreground="AliceBlue"/>
             <Run 
-                Text="{Binding UserName}" />
+                Text="{Binding MasterUserName}" />
         </TextBlock>
         <StackPanel 
             Orientation="Horizontal"

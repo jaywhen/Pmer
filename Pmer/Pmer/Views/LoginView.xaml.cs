@@ -1,4 +1,5 @@
-﻿using Pmer.ViewModel;
+﻿using Pmer.Db;
+using Pmer.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,15 @@ namespace Pmer.Views
 
             UserModel usermodel = new UserModel();
             this.DataContext = usermodel;
+
+            DbCreator db = new DbCreator();
+            db.createDbConnection();
+            bool isLogin = db.Init();
+            if (!isLogin)
+            {
+                RegistView registView = new RegistView();
+                registView.ShowDialog();
+            }
         }
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
