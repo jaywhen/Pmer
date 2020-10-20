@@ -21,6 +21,11 @@ namespace NonCore.Views
     /// </summary>
     public partial class RegistView : Window
     {
+        public RegistView()
+        {
+            InitializeComponent();
+        }
+
         private string pw;
         public string Pw 
         {
@@ -30,10 +35,7 @@ namespace NonCore.Views
             }
           
         }
-        public RegistView()
-        {
-            InitializeComponent();
-        }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

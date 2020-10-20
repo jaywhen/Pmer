@@ -11,6 +11,7 @@
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
         xmlns:local="clr-namespace:Pmer.Views" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactivity"
+        local:DialogCloser.DialogResult="{Binding DialogResult}"
         mc:Ignorable="d"
         WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True"
@@ -43,7 +44,7 @@
                 Foreground="WhiteSmoke"
                 Style="{StaticResource MaterialDesignFlatButton}"
                 ToolTip="MaterialDesignFlatButton" Margin="0,1,0,1.667" Height="Auto"
-                Click="CloseBtn_Click"
+                Command="{Binding CloseCommand}"
                 >
                 ✕
             </Button>
@@ -116,16 +117,19 @@
             
             <TextBlock Grid.Row="3" 
                        Name="WindowToolTip" 
-                       FontSize="20" 
+                       Text="{Binding WindowToolTip, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       FontSize="18" 
                        TextAlignment="Center" 
                        Visibility="Visible" />
+
             <Button Grid.Row="3"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                Width="120"
-                Background="#2256ff"
-                ToolTip="Resource name: MaterialDesignRaisedButton" Click="SetBtn_Click">
-                Set
-            </Button>
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Width="120"
+                    Background="#2256ff"
+                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                    Content="{Binding RegiBtnContent}"
+                    Command="{Binding RegistCommand}"
+                    />
         </Grid>
     </Grid>
 </Window>

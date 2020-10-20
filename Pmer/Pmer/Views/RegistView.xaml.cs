@@ -36,43 +36,13 @@ namespace Pmer.Views
             
         }
 
-        public class Test
-        {
-
-        }
-
-        
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void SetInformationString(string str)
-        {
-            if (WindowToolTip.Opacity == 1)
-            {
-                DoubleAnimation hidden = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(100));
-                hidden.Completed += delegate
-                {
-                    DoubleAnimation show = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(100));
-                    WindowToolTip.Text = str;
-                    WindowToolTip.BeginAnimation(OpacityProperty, show);
-                };
-                WindowToolTip.BeginAnimation(OpacityProperty, hidden);
-            }
-            else
-            {
-                DoubleAnimation show = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(100));
-                WindowToolTip.Text = str;
-                WindowToolTip.BeginAnimation(OpacityProperty, show);
-            }
-        }
-
-        private void SetBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
     }
 
     public static class PasswordBoxHelper
@@ -121,6 +91,30 @@ namespace Pmer.Views
         {
             base.OnDetaching();
             AssociatedObject.PasswordChanged -= OnPasswordChanged;
+        }
+    }
+
+    public static class DialogCloser
+    {
+        public static readonly DependencyProperty DialogResultProperty =
+            DependencyProperty.RegisterAttached(
+                "DialogResult",
+                typeof(bool?),
+                typeof(DialogCloser),
+                new PropertyMetadata(DialogResultChanged));
+
+        private static void DialogResultChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var window = d as Window;
+            if (window != null)
+            {
+                window.DialogResult = e.NewValue as bool?;
+            }
+        }
+
+        public static void SetDialogResult(Window target, bool? value)
+        {
+            target.SetValue(DialogResultProperty, value);
         }
     }
 }
