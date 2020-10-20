@@ -14,7 +14,7 @@ namespace Pmer.Db
         SQLiteCommand cmd;
         string sqlcmd;
         string dbPath = System.Environment.CurrentDirectory + "\\Db";
-        string dbName = "\\test.db";
+        string dbName = "\\Pmer.db";
         string userTableName = "MasterPassword";
         // string pwTableName = "Passwords";
 
@@ -86,11 +86,8 @@ namespace Pmer.Db
 
         public bool checkIfTableExist(string tableName)
         {
-
-
             cmd.CommandText = "SELECT name FROM sqlite_master WHERE name='" + tableName + "'";
             var result = cmd.ExecuteScalar();
-
             return result != null && result.ToString() == tableName ? true : false;
         }
 
@@ -121,8 +118,17 @@ namespace Pmer.Db
         // insert
         public void insertMasterPw(string mpw)
         {
+            
             sqlcmd = "insert into " + userTableName + "(id ,master_pw) values (0, " + mpw + ")";
             executeQuery(sqlcmd);
+        }
+
+        // search
+        public string getMasterPwFromMpTable()
+        {
+            cmd.CommandText = "SELECT master_pw FROM " + userTableName;
+            var result = cmd.ExecuteScalar();
+            return result.ToString();
         }
 
     }

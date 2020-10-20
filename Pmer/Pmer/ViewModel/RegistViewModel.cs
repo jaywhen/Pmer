@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Pmer.Db;
-using Pmer.Views;
+
 
 namespace Pmer.ViewModel
 {
@@ -30,7 +26,8 @@ namespace Pmer.ViewModel
         private string windowToolTip;
         private bool shouldCloseWindow = false;
         private string regiBtnContent = "Set";
-        //private string 
+
+        // about exit command
         private bool? dialogResult;
         public bool? DialogResult
         {
@@ -42,11 +39,13 @@ namespace Pmer.ViewModel
             }
         }
 
+        // regist button's content
         public string RegiBtnContent
         {
             get { return regiBtnContent; }
             set { regiBtnContent = value; RaisePropertyChanged(); }
         }
+
         public string PassWord
         {
             get { return passWord; }
@@ -116,7 +115,6 @@ namespace Pmer.ViewModel
                 shouldCloseWindow = true;
                 RegiBtnContent = "Close";
                 return;
-
             }
         }
 

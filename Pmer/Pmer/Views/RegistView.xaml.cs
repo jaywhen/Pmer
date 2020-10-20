@@ -45,76 +45,79 @@ namespace Pmer.Views
        
     }
 
-    public static class PasswordBoxHelper
-    {
-        public static readonly DependencyProperty PasswordProperty =
-            DependencyProperty.RegisterAttached("Password",
-            typeof(string), typeof(PasswordBoxHelper),
-            new FrameworkPropertyMetadata(string.Empty, OnPasswordPropertyChanged));
 
-        private static void OnPasswordPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            PasswordBox passwordBox = sender as PasswordBox;
-            string password = (string)e.NewValue;
-            if (passwordBox != null && passwordBox.Password != password)
-                passwordBox.Password = password;
-        }
+    // 移至BaseHandler.cs中了
 
-        public static string GetPassword(DependencyObject dp)
-        {
-            return (string)dp.GetValue(PasswordProperty);
-        }
+    //public static class PasswordBoxHelper
+    //{
+    //    public static readonly DependencyProperty PasswordProperty =
+    //        DependencyProperty.RegisterAttached("Password",
+    //        typeof(string), typeof(PasswordBoxHelper),
+    //        new FrameworkPropertyMetadata(string.Empty, OnPasswordPropertyChanged));
 
-        public static void SetPassword(DependencyObject dp, string value)
-        {
-            dp.SetValue(PasswordProperty, value);
-        }
-    }
+    //    private static void OnPasswordPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+    //    {
+    //        PasswordBox passwordBox = sender as PasswordBox;
+    //        string password = (string)e.NewValue;
+    //        if (passwordBox != null && passwordBox.Password != password)
+    //            passwordBox.Password = password;
+    //    }
 
-    public class PasswordBoxBehavior : Behavior<PasswordBox>
-    {
-        protected override void OnAttached()
-        {
-            base.OnAttached();
-            AssociatedObject.PasswordChanged += OnPasswordChanged;
-        }
+    //    public static string GetPassword(DependencyObject dp)
+    //    {
+    //        return (string)dp.GetValue(PasswordProperty);
+    //    }
 
-        private static void OnPasswordChanged(object sender, RoutedEventArgs e)
-        {
-            PasswordBox passwordBox = sender as PasswordBox;
-            string password = PasswordBoxHelper.GetPassword(passwordBox);
-            if (passwordBox != null && passwordBox.Password != password)
-                PasswordBoxHelper.SetPassword(passwordBox, passwordBox.Password);
-        }
+    //    public static void SetPassword(DependencyObject dp, string value)
+    //    {
+    //        dp.SetValue(PasswordProperty, value);
+    //    }
+    //}
 
-        protected override void OnDetaching()
-        {
-            base.OnDetaching();
-            AssociatedObject.PasswordChanged -= OnPasswordChanged;
-        }
-    }
+    //public class PasswordBoxBehavior : Behavior<PasswordBox>
+    //{
+    //    protected override void OnAttached()
+    //    {
+    //        base.OnAttached();
+    //        AssociatedObject.PasswordChanged += OnPasswordChanged;
+    //    }
 
-    public static class DialogCloser
-    {
-        public static readonly DependencyProperty DialogResultProperty =
-            DependencyProperty.RegisterAttached(
-                "DialogResult",
-                typeof(bool?),
-                typeof(DialogCloser),
-                new PropertyMetadata(DialogResultChanged));
+    //    private static void OnPasswordChanged(object sender, RoutedEventArgs e)
+    //    {
+    //        PasswordBox passwordBox = sender as PasswordBox;
+    //        string password = PasswordBoxHelper.GetPassword(passwordBox);
+    //        if (passwordBox != null && passwordBox.Password != password)
+    //            PasswordBoxHelper.SetPassword(passwordBox, passwordBox.Password);
+    //    }
 
-        private static void DialogResultChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var window = d as Window;
-            if (window != null)
-            {
-                window.DialogResult = e.NewValue as bool?;
-            }
-        }
+    //    protected override void OnDetaching()
+    //    {
+    //        base.OnDetaching();
+    //        AssociatedObject.PasswordChanged -= OnPasswordChanged;
+    //    }
+    //}
 
-        public static void SetDialogResult(Window target, bool? value)
-        {
-            target.SetValue(DialogResultProperty, value);
-        }
-    }
+    //public static class DialogCloser
+    //{
+    //    public static readonly DependencyProperty DialogResultProperty =
+    //        DependencyProperty.RegisterAttached(
+    //            "DialogResult",
+    //            typeof(bool?),
+    //            typeof(DialogCloser),
+    //            new PropertyMetadata(DialogResultChanged));
+
+    //    private static void DialogResultChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    //    {
+    //        var window = d as Window;
+    //        if (window != null)
+    //        {
+    //            window.DialogResult = e.NewValue as bool?;
+    //        }
+    //    }
+
+    //    public static void SetDialogResult(Window target, bool? value)
+    //    {
+    //        target.SetValue(DialogResultProperty, value);
+    //    }
+    //}
 }

@@ -1,26 +1,46 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using Pmer.Db;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pmer.ViewModel
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : BaseViewModel
     {
-        private string masterUserName = Environment.UserName;
-        public string MasterUserName
+        public LoginViewModel()
         {
-            get
-            {
-                return masterUserName;
-            }
-            set
-            {
-                masterUserName = value;
-                RaisePropertyChanged();
-            }
+            db = new DbCreator();
+            db.createDbConnection();
+            LoginCommand = new RelayCommand(Login);
         }
+        DbCreator db;
+
+        #region Command
+        public RelayCommand LoginCommand { get; set; }
+        #endregion
+
+        public void Login()
+        {
+            if (string.IsNullOrEmpty(PassWord))
+            {
+                WindowToolTip = "Please enter your master password";
+                return;
+            }
+            string relpw = db.getMasterPwFromMpTable();
+            if(!string.Equals(PassWord, relpw))
+            {
+                WindowToolTip = "Incorrect password";
+                return;
+            }
+            else
+            {
+                WindowToolTip = "";
+            }
+
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.ShowDialog();
+
+        }
+
     }
 }

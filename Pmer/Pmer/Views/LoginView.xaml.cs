@@ -31,8 +31,8 @@ namespace Pmer.Views
                     this.DragMove();
             };
 
-            UserModel usermodel = new UserModel();
-            this.DataContext = usermodel;
+            LoginViewModel loginViewModel = new LoginViewModel();
+            this.DataContext = loginViewModel;
 
             DbCreator db = new DbCreator();
             db.createDbConnection();
@@ -43,13 +43,11 @@ namespace Pmer.Views
                 registView.ShowDialog();
             }
         }
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-        private void LoginBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
+
 }
