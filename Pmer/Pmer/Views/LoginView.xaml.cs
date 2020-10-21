@@ -34,14 +34,14 @@ namespace Pmer.Views
             LoginViewModel loginViewModel = new LoginViewModel();
             this.DataContext = loginViewModel;
 
-            DbCreator db = new DbCreator();
-            db.createDbConnection();
-            bool isLogin = db.Init();
-            if (!isLogin)
-            {
-                RegistView registView = new RegistView();
-                registView.ShowDialog();
-            }
+            //DbCreator db = new DbCreator();
+            //db.createDbConnection();
+            //bool isLogin = db.Init();
+            //if (!isLogin)
+            //{
+            //    RegistView registView = new RegistView();
+            //    registView.ShowDialog();
+            //}
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

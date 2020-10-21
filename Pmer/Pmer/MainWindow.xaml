@@ -11,8 +11,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pmer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
+        Title="MainWindow" Height="550" Width="950">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="325"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
 
 
     </Grid>

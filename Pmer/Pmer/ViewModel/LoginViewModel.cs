@@ -12,8 +12,10 @@ namespace Pmer.ViewModel
             db = new DbCreator();
             db.createDbConnection();
             LoginCommand = new RelayCommand(Login);
+            CloseCommand = new RelayCommand(Close);
         }
         DbCreator db;
+
 
         #region Command
         public RelayCommand LoginCommand { get; set; }

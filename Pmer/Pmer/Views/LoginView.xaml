@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
+        local:DialogCloser.DialogResult="{Binding DialogResult}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
@@ -43,7 +44,8 @@
             <Button
                 Foreground="WhiteSmoke"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                ToolTip="MaterialDesignFlatButton" Margin="0,1,0,1.667" Height="Auto" Click="Button_Click"
+                ToolTip="MaterialDesignFlatButton" Margin="0,1,0,1.667" Height="Auto" 
+                Command="{Binding CloseCommand}"
                 >
                 ✕
             </Button>
