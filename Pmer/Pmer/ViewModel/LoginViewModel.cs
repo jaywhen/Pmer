@@ -38,9 +38,7 @@ namespace Pmer.ViewModel
             {
                 WindowToolTip = "";
             }
-
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.ShowDialog();
+            SetLoginSuccess();
 
         }
 

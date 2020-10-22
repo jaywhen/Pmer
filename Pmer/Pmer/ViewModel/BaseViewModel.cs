@@ -49,9 +49,15 @@ namespace Pmer.ViewModel
 
         #region Command
         public RelayCommand CloseCommand { get; set; }
+        //public RelayCommand SetLoginSuccessCommand { get; set; }
         #endregion
 
         public void Close()
+        {
+            this.DialogResult = false;
+        }
+
+        public void SetLoginSuccess()
         {
             this.DialogResult = true;
         }

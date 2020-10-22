@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Pmer.Db;
-
+using Pmer.Views;
 
 namespace Pmer.ViewModel
 {
-    public class RegistViewModel : ViewModelBase
+    public class RegistViewModel : BaseViewModel
     {
         public RegistViewModel()
         {
@@ -21,23 +22,12 @@ namespace Pmer.ViewModel
 
         #region Property
         private string masterUserName = Environment.UserName;
-        private string passWord;
         private string rePassWord;
-        private string windowToolTip;
-        private bool shouldCloseWindow = false;
         private string regiBtnContent = "Set";
+        private bool isRegiSuccess = false;
 
         // about exit command
-        private bool? dialogResult;
-        public bool? DialogResult
-        {
-            get { return this.dialogResult; }
-            set
-            {
-                this.dialogResult = value;
-                RaisePropertyChanged("DialogResult");
-            }
-        }
+        
 
         // regist button's content
         public string RegiBtnContent
@@ -46,49 +36,37 @@ namespace Pmer.ViewModel
             set { regiBtnContent = value; RaisePropertyChanged(); }
         }
 
-        public string PassWord
+        public bool IsRegiSuccess
         {
-            get { return passWord; }
-            set { passWord = value;RaisePropertyChanged(); }
+            get { return isRegiSuccess; }
+            set { isRegiSuccess = value; }
         }
+        
         public string RePassWord
         {
             get { return rePassWord; }
             set { rePassWord = value; RaisePropertyChanged(); }
         }
-        public string WindowToolTip
-        {
-            get { return windowToolTip; }
-            set { windowToolTip = value;RaisePropertyChanged(); }
-        }
+        
    
-        public string MasterUserName
-        {
-            get
-            { return masterUserName; }
-            set
-            {
-                masterUserName = value;
-                RaisePropertyChanged();
-            }
-        }
+        
 
         #endregion
 
         #region Command
         public RelayCommand RegistCommand { get; set; }
-        public RelayCommand CloseCommand { get; set; }
         #endregion
 
-        public void Close()
-        {
-            this.DialogResult = true;
-        }
+        //public void Close()
+        //{
+        //    this.DialogResult = false;
+        //}
         public void Regist()
         {
-            if (shouldCloseWindow)
+            if (IsRegiSuccess)
             {
-                Close();
+                SetLoginSuccess();
+                return;
             }
             else
             {
@@ -112,8 +90,8 @@ namespace Pmer.ViewModel
                     WindowToolTip = "OK!";
                 }
                 db.insertMasterPw(rePassWord);
-                shouldCloseWindow = true;
                 RegiBtnContent = "Close";
+                IsRegiSuccess = true;
                 return;
             }
         }
