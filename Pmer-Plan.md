@@ -1,7 +1,8 @@
 ## 技术选型
 
 - wpf + C#
-- js
+- js + wxml + wxss
+- java
 
 ## 适配平台
 
