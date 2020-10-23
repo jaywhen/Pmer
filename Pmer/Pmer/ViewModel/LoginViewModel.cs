@@ -16,7 +16,6 @@ namespace Pmer.ViewModel
         }
         DbCreator db;
 
-
         #region Command
         public RelayCommand LoginCommand { get; set; }
         #endregion

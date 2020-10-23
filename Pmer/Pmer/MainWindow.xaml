@@ -19,8 +19,23 @@
             <ColumnDefinition Width="325"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
 
-
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border Background="#0034dd"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button
+                    
+                    Foreground="WhiteSmoke"
+                    ToolTip="MaterialDesignFlatButton" Margin="0,1,0,1.667" Height="Auto" 
+                    Command="{Binding CloseCommand}"
+                    Content=" ✕"
+                />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
