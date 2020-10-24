@@ -29,6 +29,7 @@ namespace Pmer
             {
                 RegistView registView = new RegistView();
                 bool? result =  registView.ShowDialog();
+                // 如果登录成功，显示主页面
                 if (result == true)
                 {
                     LoginView lw = new LoginView();
@@ -37,15 +38,24 @@ namespace Pmer
                     {
                         MainWindow.ShowDialog();
                     }
+                } // 若用户关闭注册窗口，则退出进程
+                else
+                {
+                    MainWindow.Close();
                 }
             }
             else
             {
                 LoginView loginView = new LoginView();
                 bool? resultLogin = loginView.ShowDialog();
+                // 登录成功，进入主界面
                 if(resultLogin.Value == true)
                 {
                     MainWindow.ShowDialog();
+                } // 否则，退出进程
+                else 
+                {
+                    MainWindow.Close();     
                 }
             }
         }
