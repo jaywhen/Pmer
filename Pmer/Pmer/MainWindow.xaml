@@ -29,12 +29,13 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
                 <Button
-                    
+                    Style="{StaticResource MaterialDesignFlatButton}"
                     Foreground="WhiteSmoke"
-                    ToolTip="MaterialDesignFlatButton" Margin="0,1,0,1.667" Height="Auto" 
+                    ToolTip="Close" Margin="0,1,0,1.667" Height="Auto" 
                     Command="{Binding CloseCommand}"
                     Content=" ✕"
                 />
+                
             </StackPanel>
         </Grid>
     </Grid>

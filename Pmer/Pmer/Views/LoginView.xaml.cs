@@ -1,18 +1,7 @@
-﻿using Pmer.Db;
-using Pmer.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Pmer.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace Pmer.Views
 {
@@ -33,15 +22,6 @@ namespace Pmer.Views
 
             LoginViewModel loginViewModel = new LoginViewModel();
             this.DataContext = loginViewModel;
-
-            //DbCreator db = new DbCreator();
-            //db.createDbConnection();
-            //bool isLogin = db.Init();
-            //if (!isLogin)
-            //{
-            //    RegistView registView = new RegistView();
-            //    registView.ShowDialog();
-            //}
         }
 
     }

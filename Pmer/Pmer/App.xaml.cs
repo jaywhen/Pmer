@@ -11,17 +11,14 @@ namespace Pmer
     /// </summary>
     public partial class App : Application
     {
-        public App()
-        {
-            // 指定mw为主窗口，只有mw关闭后，进程才结束
-            MainWindow mw = new MainWindow();
-            this.MainWindow = mw;
-            this.ShutdownMode = ShutdownMode.OnMainWindowClose;
-        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            MainWindow mv = new MainWindow();
+            this.MainWindow = mv;
+            this.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             // 检测是否具备弹出登录窗口的条件
             DbCreator db = new DbCreator();
@@ -46,6 +43,10 @@ namespace Pmer
             {
                 LoginView loginView = new LoginView();
                 bool? resultLogin = loginView.ShowDialog();
+                if(resultLogin.Value == true)
+                {
+                    MainWindow.ShowDialog();
+                }
             }
         }
 
