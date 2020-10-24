@@ -10,8 +10,10 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        xmlns:local="clr-namespace:Pmer.Views" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactivity"
-        local:DialogCloser.DialogResult="{Binding DialogResult}"
+        
+        xmlns:handler="clr-namespace:Pmer.Handler"
+        handler:DialogCloser.DialogResult="{Binding DialogResult}"
+        
         mc:Ignorable="d"
         WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True"
@@ -86,14 +88,14 @@
                 materialDesign:HintAssist.Foreground="#0034dd"
                 materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
-                local:PasswordBoxHelper.Password="{Binding PassWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                handler:PasswordBoxHelper.Password="{Binding PassWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 MinWidth="200"
                 Width="200"
                 >
                 <i:Interaction.Behaviors>
-                    <local:PasswordBoxBehavior />
+                    <handler:PasswordBoxBehavior />
                 </i:Interaction.Behaviors>
             </PasswordBox>
             
@@ -104,14 +106,14 @@
                          materialDesign:HintAssist.Foreground="#0034dd"
                          materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
                          Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
-                         local:PasswordBoxHelper.Password="{Binding RePassWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         handler:PasswordBoxHelper.Password="{Binding RePassWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          VerticalAlignment="Center"
                          HorizontalAlignment="Center"
                          MinWidth="200"
                          Width="200"         
                 >
                 <i:Interaction.Behaviors>
-                    <local:PasswordBoxBehavior />
+                    <handler:PasswordBoxBehavior />
                 </i:Interaction.Behaviors>
             </PasswordBox>
             

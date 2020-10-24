@@ -106,13 +106,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Db\DbCreator.cs" />
+    <Compile Include="Handler\BaseHandler.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MainWindowModel.cs" />
     <Compile Include="ViewModel\RegistViewModel.cs" />
     <Compile Include="ViewModel\UserModel.cs" />
-    <Compile Include="Views\BaseHandler.cs" />
+    <Compile Include="Views\ExitPromptView.xaml.cs">
+      <DependentUpon>ExitPromptView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -131,6 +133,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ExitPromptView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

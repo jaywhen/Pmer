@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GalaSoft.MvvmLight.Command;
 
 namespace Pmer.ViewModel
 {
     public class MainWindowModel : BaseViewModel
     {
+        public MainWindowModel()
+        {
+            CloseCommand = new RelayCommand(Close);
+        }
+
     }
 }

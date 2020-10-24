@@ -51,10 +51,13 @@ namespace Pmer
                 // 登录成功，进入主界面
                 if(resultLogin.Value == true)
                 {
+                    // 需要一个确认退出提示
                     MainWindow.ShowDialog();
                 } // 否则，退出进程
                 else 
                 {
+                    
+                    // 需要一个确认退出提示
                     MainWindow.Close();     
                 }
             }

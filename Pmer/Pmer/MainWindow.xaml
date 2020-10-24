@@ -9,7 +9,10 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Pmer"
+        
+        xmlns:handler="clr-namespace:Pmer.Handler"
+        handler:DialogCloser.DialogResult="{Binding DialogResult}"
+        
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
         Title="MainWindow" Height="550" Width="950">
