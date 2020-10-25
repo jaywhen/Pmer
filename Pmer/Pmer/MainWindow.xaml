@@ -18,22 +18,27 @@
         Title="MainWindow" Height="550" Width="950">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="325"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <ListView>
+            
+            
+        </ListView>
+
 
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border Background="#0034dd"/>
+            <!--<Border Background="#0034dd"/>-->
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
                 <Button
                     Style="{StaticResource MaterialDesignFlatButton}"
-                    Foreground="WhiteSmoke"
+                    Foreground="#79ceb8"
                     ToolTip="Close" Margin="0,1,0,1.667" Height="Auto" 
                     Command="{Binding CloseCommand}"
                     Content=" ✕"
