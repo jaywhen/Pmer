@@ -23,21 +23,24 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!-- 用户头像 -->
-        <StackPanel Margin="0 20 0 0">
-            <ListView>
+        <StackPanel Background="WhiteSmoke"
+                    >
+            <ListView Margin="0 20 0 0">
                 <ListViewItem>
-                    <Border CornerRadius="5"
-                            Background="#3e35c0"
+                    <Border CornerRadius="3"
+                            Background="#463dc9"
                             BorderThickness="0"
                             Margin="2"
                             Width="30"
                             Height="30"
                         >
                         <TextBox
-                            TextDecorations="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            BorderThickness="1"
+                            TextDecorations="underline"
                             IsReadOnly="True"   
                             Text="X"
-                            Foreground="White"
+                            Foreground="WhiteSmoke"
                             VerticalAlignment="Center"
                             TextAlignment="Center"
                         />
