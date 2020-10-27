@@ -78,7 +78,7 @@ namespace Pmer.Db
         {
             if (!checkIfTableExist(userTableName))
             {
-                sqlcmd = "CREATE TABLE " + userTableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT,master_pw varchar);";
+                sqlcmd = "CREATE TABLE " + userTableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar, master_pw varchar);";
                 executeQuery(sqlcmd);
             }
 
@@ -116,10 +116,10 @@ namespace Pmer.Db
         }
 
         // insert
-        public void insertMasterPw(string mpw)
+        public void insertMasterPw(string mpw, string username)
         {
             
-            sqlcmd = "insert into " + userTableName + "(id ,master_pw) values (0, " + mpw + ")";
+            sqlcmd = "insert into " + userTableName + "(id, username, master_pw) values (0, " + "'" +username+ "'" + ", "+ mpw + ")";
             executeQuery(sqlcmd);
         }
 
@@ -130,6 +130,14 @@ namespace Pmer.Db
             var result = cmd.ExecuteScalar();
             return result.ToString();
         }
+
+        public string getUserNameFromMpTable()
+        {
+            cmd.CommandText = "SELECT username FROM " + userTableName;
+            var result = cmd.ExecuteScalar();
+            return result.ToString();
+        }
+
 
     }
 }

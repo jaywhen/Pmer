@@ -89,7 +89,7 @@ namespace Pmer.ViewModel
                 {
                     WindowToolTip = "OK!";
                 }
-                db.insertMasterPw(rePassWord);
+                db.insertMasterPw(rePassWord, MasterUserName);
                 RegiBtnContent = "Close";
                 IsRegiSuccess = true;
                 return;

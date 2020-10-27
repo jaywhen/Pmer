@@ -39,7 +39,7 @@
                             BorderThickness="1"
                             TextDecorations="underline"
                             IsReadOnly="True"   
-                            Text="X"
+                            Text="{Binding FirstLetter}"
                             Foreground="WhiteSmoke"
                             VerticalAlignment="Center"
                             TextAlignment="Center"

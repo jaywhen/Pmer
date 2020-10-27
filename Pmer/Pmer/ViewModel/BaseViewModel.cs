@@ -51,6 +51,7 @@ namespace Pmer.ViewModel
         public RelayCommand CloseCommand { get; set; }
         //public RelayCommand SetLoginSuccessCommand { get; set; }
         #endregion
+        
 
         public void Close()
         {
