@@ -12,37 +12,18 @@ namespace Pmer
         public MainWindow()
         {
             InitializeComponent();
-
-            if (IsMainWindowShow)
-            {
-                MainWindowModel mainWindowModel = new MainWindowModel();
-                this.DataContext = mainWindowModel;
-            }
-            
         }
-        public MainWindow(bool IsM)
+
+        // 只有当isWindowShow为True时，才进行数据绑定
+        public MainWindow(bool isWindowShow)
         {
             InitializeComponent();
-
-            if (IsM)
+            if (isWindowShow)
             {
                 MainWindowModel mainWindowModel = new MainWindowModel();
                 this.DataContext = mainWindowModel;
             }
 
         }
-
-
-        private bool isMainWindowShow = false;
-        public bool IsMainWindowShow
-        {
-            get { return isMainWindowShow; }
-            set { 
-                isMainWindowShow = value;
-            }
-        }
-
-
-
     }
 }
