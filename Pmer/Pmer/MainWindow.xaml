@@ -47,15 +47,34 @@
                     </Border>
 
                 </ListViewItem>
-                
-                
+
+                <ListViewItem Margin="0 20 0 0" Width="50">
+                    <Button
+                        Style="{StaticResource MaterialDesignIconButton}" 
+                        Height="32" 
+                        Width="34"
+                        >
+                        <materialDesign:PackIcon Kind="Onepassword" />
+                    </Button>
+                </ListViewItem>
+                <ListViewItem Margin="0 20 0 0" Width="50">
+                    <Button
+                        Style="{StaticResource MaterialDesignIconButton}" 
+                        Height="32" 
+                        Width="34"
+                        >
+                        <materialDesign:PackIcon Kind="CogOutline" />
+                    </Button>
+                </ListViewItem>
 
 
             </ListView>
 
         </StackPanel>
 
+        <StackPanel Background="#fbfffe" Grid.Column="1">
 
+        </StackPanel>
 
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
