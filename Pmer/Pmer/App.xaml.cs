@@ -28,14 +28,16 @@ namespace Pmer
             if (!isLogin)
             {
                 RegistView registView = new RegistView();
-                bool? result =  registView.ShowDialog();
-                // 如果登录成功，显示主页面
+                bool? result = registView.ShowDialog();
+                // 如果注册成功，显示登录界面
                 if (result == true)
                 {
                     LoginView lw = new LoginView();
                     bool? ret = lw.ShowDialog();
-                    if(ret.Value == true)
+                    if (ret.Value == true)
                     {
+                        mv = new MainWindow(true);
+                        this.MainWindow = mv;
                         MainWindow.ShowDialog();
                     }
                 } // 若用户关闭注册窗口，则退出进程
@@ -49,16 +51,16 @@ namespace Pmer
                 LoginView loginView = new LoginView();
                 bool? resultLogin = loginView.ShowDialog();
                 // 登录成功，进入主界面
-                if(resultLogin.Value == true)
+                if (resultLogin.Value == true)
                 {
-                    // 需要一个确认退出提示
+                    mv = new MainWindow(true);
+                    this.MainWindow = mv;
                     MainWindow.ShowDialog();
                 } // 否则，退出进程
-                else 
+                else
                 {
-                    
                     // 需要一个确认退出提示
-                    MainWindow.Close();     
+                    MainWindow.Close();
                 }
             }
         }

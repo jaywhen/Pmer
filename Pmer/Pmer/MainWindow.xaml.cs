@@ -12,8 +12,37 @@ namespace Pmer
         public MainWindow()
         {
             InitializeComponent();
-            MainWindowModel mainWindowModel = new MainWindowModel();
-            this.DataContext = mainWindowModel;
+
+            if (IsMainWindowShow)
+            {
+                MainWindowModel mainWindowModel = new MainWindowModel();
+                this.DataContext = mainWindowModel;
+            }
+            
         }
+        public MainWindow(bool IsM)
+        {
+            InitializeComponent();
+
+            if (IsM)
+            {
+                MainWindowModel mainWindowModel = new MainWindowModel();
+                this.DataContext = mainWindowModel;
+            }
+
+        }
+
+
+        private bool isMainWindowShow = false;
+        public bool IsMainWindowShow
+        {
+            get { return isMainWindowShow; }
+            set { 
+                isMainWindowShow = value;
+            }
+        }
+
+
+
     }
 }

@@ -12,11 +12,11 @@ namespace Pmer.Db
     {
         SQLiteConnection dbConnection;
         SQLiteCommand cmd;
-        string sqlcmd;
-        string dbPath = System.Environment.CurrentDirectory + "\\Db";
-        string dbName = "\\Pmer.db";
-        string userTableName = "MasterPassword";
-        // string pwTableName = "Passwords";
+        private string sqlcmd;
+        private string dbPath = System.Environment.CurrentDirectory + "\\Db";
+        private string dbName = "\\Pmer.db";
+        private string userTableName = "MasterPassword";
+        private string pwTableName = "Passwords";
 
         public bool Init()
         {
@@ -24,12 +24,12 @@ namespace Pmer.Db
             if (!Directory.Exists(dbPath))
             {
                 createDbFile();
-                createTables();
+                createMasterUserTable();
                 return false;
             }
             else if (!checkIfTableExist(userTableName))
             {
-                createTables();
+                createMasterUserTable();
                 return false;
 
             }
@@ -74,11 +74,22 @@ namespace Pmer.Db
             return strCon;
         }
 
-        public void createTables()
+        public void createMasterUserTable()
         {
             if (!checkIfTableExist(userTableName))
             {
                 sqlcmd = "CREATE TABLE " + userTableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar, master_pw varchar);";
+                executeQuery(sqlcmd);
+            }
+
+        }
+
+        public void createPassWordsTable()
+        {
+            // 创建密码表
+            if (!checkIfTableExist(pwTableName))
+            {
+                sqlcmd = "CREATE TABLE " + pwTableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar, master_pw varchar);";
                 executeQuery(sqlcmd);
             }
 

@@ -47,11 +47,14 @@
                     </Border>
 
                 </ListViewItem>
+                
+                
+
 
             </ListView>
 
         </StackPanel>
-        
+
 
 
         <Grid Grid.Column="2">
@@ -69,7 +72,7 @@
                     Command="{Binding CloseCommand}"
                     Content=" ✕"
                 />
-                
+
             </StackPanel>
         </Grid>
     </Grid>
