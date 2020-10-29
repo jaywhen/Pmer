@@ -15,11 +15,12 @@
         
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
-        Title="MainWindow" Height="550" Width="950">
+        Title="MainWindow" Height="550" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="325"/>
+            <ColumnDefinition MinWidth="250" MaxWidth="300"/>
+            <ColumnDefinition Width="2"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!-- 用户头像 -->
@@ -49,22 +50,24 @@
                 </ListViewItem>
 
                 <ListViewItem Margin="0 20 0 0" Width="50">
-                    <Button
+                    <RadioButton
                         Style="{StaticResource MaterialDesignIconButton}" 
                         Height="32" 
                         Width="34"
                         >
                         <materialDesign:PackIcon Kind="Onepassword" />
-                    </Button>
+                    </RadioButton>
                 </ListViewItem>
-                <ListViewItem Margin="0 20 0 0" Width="50">
-                    <Button
+                
+                <ListViewItem Margin="0 50 0 0" Width="50">
+                    <RadioButton
+                        
                         Style="{StaticResource MaterialDesignIconButton}" 
                         Height="32" 
                         Width="34"
                         >
                         <materialDesign:PackIcon Kind="CogOutline" />
-                    </Button>
+                    </RadioButton>
                 </ListViewItem>
 
 
@@ -72,11 +75,14 @@
 
         </StackPanel>
 
-        <StackPanel Background="#fbfffe" Grid.Column="1">
+        <StackPanel
+            Grid.Column="1"
+            Background="#fdffff"
+            />
+        <!--分割线--> 
+        <GridSplitter Grid.Column="2" HorizontalAlignment="Stretch"/>
 
-        </StackPanel>
-
-        <Grid Grid.Column="2">
+        <Grid Grid.Column="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
