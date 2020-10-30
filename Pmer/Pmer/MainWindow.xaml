@@ -22,7 +22,7 @@
             <ColumnDefinition MinWidth="250" MaxWidth="300"/>
             <ColumnDefinition Width="2"/>
             <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>   
         <!-- 用户头像 -->
         <StackPanel Background="WhiteSmoke"
                     >
@@ -75,10 +75,39 @@
 
         </StackPanel>
 
-        <StackPanel
-            Grid.Column="1"
-            Background="#fdffff"
-            />
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!-- 搜索栏 与添加按钮-->
+            <StackPanel Orientation="Horizontal">
+                <TextBox
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.TextFieldCornerRadius="2"
+                    materialDesign:HintAssist.Hint="search"
+                    Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                    FontSize="15"
+                    Margin="10 0 20 0"
+                    Height="40"
+                    MinWidth="200"
+                    MaxWidth="280"
+                    HorizontalAlignment="Left"
+                    />
+                <Button
+                    ToolTip="Add a password"
+                    Margin="0 0 10 0"
+                    Style="{StaticResource MaterialDesignIconButton}" 
+                    >
+                    
+                    <materialDesign:PackIcon Kind="Plus" />
+                </Button>
+
+
+            </StackPanel>
+            <!-- 密码列表项 -->
+            
+        </Grid>
         <!--分割线--> 
         <GridSplitter Grid.Column="2" HorizontalAlignment="Stretch"/>
 
@@ -97,8 +126,13 @@
                     Command="{Binding CloseCommand}"
                     Content=" ✕"
                 />
-
             </StackPanel>
+            <Image 
+                Grid.Row="1"
+                Source="asset/index2.png" 
+                Margin="33,10,37,55"
+                Visibility="Visible"
+            />
         </Grid>
     </Grid>
 </Window>
