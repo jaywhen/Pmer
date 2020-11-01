@@ -13,6 +13,8 @@
         xmlns:handler="clr-namespace:Pmer.Handler"
         handler:DialogCloser.DialogResult="{Binding DialogResult}"
         
+        xmlns:component="clr-namespace:Pmer.Component"
+        
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
         Title="MainWindow" Height="550" Width="900">
@@ -95,14 +97,14 @@
                     HorizontalAlignment="Left"
                     />
                 <Button
+                    Command="{Binding AddNewPwCommand}"
                     ToolTip="Add a password"
                     Margin="0 0 10 0"
                     Style="{StaticResource MaterialDesignIconButton}" 
                     >
-                    
+
                     <materialDesign:PackIcon Kind="Plus" />
                 </Button>
-
 
             </StackPanel>
             <!-- 密码列表项 -->
@@ -127,12 +129,9 @@
                     Content=" ✕"
                 />
             </StackPanel>
-            <Image 
-                Grid.Row="1"
-                Source="asset/index2.png" 
-                Margin="33,10,37,55"
-                Visibility="Visible"
-            />
+            <component:Default Grid.Row="1" Visibility="{Binding DefaultVisibility}"/>
+            <component:AddNewPwForm Grid.Row="1" Visibility="{Binding AddNewPwFormVisibility}"/>
+
         </Grid>
     </Grid>
 </Window>
