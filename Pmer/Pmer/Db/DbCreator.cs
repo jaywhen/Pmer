@@ -29,12 +29,15 @@ namespace Pmer.Db
             }
             else if (!checkIfTableExist(userTableName))
             {
+                // 若不存在用户表，则创建用户表与密码表
                 createMasterUserTable();
+                CreatePassWordsTable();
                 return false;
 
             }
             else if (!checkIfTableContainsData(userTableName))
             {
+                // 存在用户表，但表中无数据
                 return false;
             }
             else
@@ -78,22 +81,25 @@ namespace Pmer.Db
         {
             if (!checkIfTableExist(userTableName))
             {
-                sqlcmd = "CREATE TABLE " + userTableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar, master_pw varchar);";
+                sqlcmd = "CREATE TABLE " + userTableName + 
+                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar, master_pw varchar);";
                 executeQuery(sqlcmd);
             }
 
         }
 
-        public void createPassWordsTable()
+        public void CreatePassWordsTable()
         {
             // 创建密码表
             if (!checkIfTableExist(pwTableName))
             {
-                sqlcmd = "CREATE TABLE " + pwTableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar, master_pw varchar);";
+                sqlcmd = "CREATE TABLE " + pwTableName +
+                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, title varchar, account varchar, password varchar, website varchar);";
                 executeQuery(sqlcmd);
             }
 
         }
+
 
         public bool checkIfTableExist(string tableName)
         {
@@ -130,7 +136,15 @@ namespace Pmer.Db
         public void insertMasterPw(string mpw, string username)
         {
             
-            sqlcmd = "insert into " + userTableName + "(id, username, master_pw) values (0, " + "'" +username+ "'" + ", "+ mpw + ")";
+            sqlcmd = 
+                "insert into " + userTableName + "(username, master_pw) values ('" + username + "', '" + mpw + "')";
+            executeQuery(sqlcmd);
+        }
+
+        public void InsertNewPw(string title, string account, string password, string website)
+        {
+            sqlcmd =
+                "insert into " + pwTableName + "(title, account, password, website) values ('" + title + "', '" + account + "', '" + password + "', '" + website + "')";
             executeQuery(sqlcmd);
         }
 

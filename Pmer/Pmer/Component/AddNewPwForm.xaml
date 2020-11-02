@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:Pmer.Component"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             
+             xmlns:handler="clr-namespace:Pmer.Handler"
+             xmlns:local="clr-namespace:Pmer.Component" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="700">
     <Grid>
@@ -15,31 +17,38 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <TextBlock
+            Margin="0 5 0 0"
+            Name="WindowToolTip" 
+            Text="{Binding WindowToolTip, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            FontSize="15" 
+            TextAlignment="Center" 
+            Visibility="Visible" />
         <TextBox
             Width="200"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            x:Name="NameTextBox"
-            materialDesign:HintAssist.Hint="Title">
-            <TextBox.Text>
-                <Binding
-                    Path="Title"
-                    UpdateSourceTrigger="PropertyChanged">
-                </Binding>
-            </TextBox.Text>
+            materialDesign:TextFieldAssist.HasClearButton="True"
+            materialDesign:HintAssist.Foreground="#0034dd"
+            materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
+            Style="{StaticResource MaterialDesignTextBox}"
+            materialDesign:HintAssist.Hint="Title"
+            Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            >
         </TextBox>
 
-        <TextBox Grid.Row="1"
+        <TextBox 
+            Grid.Row="1"
             Width="200"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            materialDesign:HintAssist.Hint="Name">
-            <TextBox.Text>
-                <Binding
-                    Path="Name"
-                    UpdateSourceTrigger="PropertyChanged">
-                </Binding>
-            </TextBox.Text>
+            materialDesign:TextFieldAssist.HasClearButton="True"
+            materialDesign:HintAssist.Foreground="#0034dd"
+            materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
+            Style="{StaticResource MaterialDesignTextBox}"
+            materialDesign:HintAssist.Hint="Account"
+            Text="{Binding Account, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                 >
         </TextBox>
 
         <PasswordBox
@@ -49,20 +58,38 @@
             Grid.Row="2"
             materialDesign:HintAssist.Hint="Password"
             materialDesign:TextFieldAssist.HasClearButton="True"
-            materialDesign:HintAssist.HelperText="At least 8 characters" />
-        
-        <TextBox Grid.Row="3"
+            materialDesign:HintAssist.Foreground="#0034dd"
+            materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
+            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+            handler:PasswordBoxHelper.Password="{Binding AddPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            materialDesign:HintAssist.HelperText="At least 6 characters">
+            <i:Interaction.Behaviors>
+                <handler:PasswordBoxBehavior />
+            </i:Interaction.Behaviors>
+        </PasswordBox>
+
+        <TextBox 
+            Grid.Row="3"
             Width="200"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            materialDesign:HintAssist.Hint="Website">
-            <TextBox.Text>
-                <Binding
-                    Path="WebSite"
-                    UpdateSourceTrigger="PropertyChanged">
-                </Binding>
-            </TextBox.Text>
+            materialDesign:HintAssist.Hint="Website"
+            materialDesign:TextFieldAssist.HasClearButton="True"
+            materialDesign:HintAssist.Foreground="#0034dd"
+            materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
+            Style="{StaticResource MaterialDesignTextBox}"
+            Text="{Binding Website}"
+                 >
         </TextBox>
+
+        <Button Grid.Row="4"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Width="120"
+                    Command="{Binding AddNewPasswordCommand}"
+                    Background="#2256ff"
+                    ToolTip="Resource name: MaterialDesignRaisedButton">
+            Go!
+        </Button>
 
     </Grid>
 </UserControl>
