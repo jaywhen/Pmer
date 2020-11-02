@@ -34,8 +34,8 @@ namespace MvvmTest.ViewModel
             get { return search; }
             set { search = value; RaisePropertyChanged(); }
         }
-        private ObservableCollection<Student> gridModelList;
 
+        private ObservableCollection<Student> gridModelList;
         public ObservableCollection<Student> GridModelList
         {
             get { return gridModelList; }

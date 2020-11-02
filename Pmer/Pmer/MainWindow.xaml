@@ -13,8 +13,8 @@
         xmlns:handler="clr-namespace:Pmer.Handler"
         handler:DialogCloser.DialogResult="{Binding DialogResult}"
         
-        xmlns:component="clr-namespace:Pmer.Component"
-        
+        xmlns:component="clr-namespace:Pmer.Component" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
         Title="MainWindow" Height="550" Width="900">
@@ -109,27 +109,37 @@
             </StackPanel>
             <!-- 密码列表项 -->
 
-            <ListBox Grid.Row="1">
-                <ListBoxItem>
-                    <StackPanel Orientation="Horizontal">
-                        <Image
+            <ListBox 
+                x:Name="PasswordListBox"
+                Grid.Row="1"
+                ItemsSource="{Binding PasswordLists}"
+                SelectedIndex="{Binding TestIndex}"
+                >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
                             Margin="0 0 20 0"
-                            Source="asset/bilibili.png"
-                            Width="50"
+                            Source="{Binding ItemAvatar}"
+                            Width="45"
                             />
-                        <StackPanel>
-                            <TextBlock
-                                Text="Bilibili"
-                                />
-                            <StackPanel Margin="0 10 0 0">
+                            <StackPanel>
                                 <TextBlock
-                                    Text="Vincentiang"/>
+                                Text="{Binding Title}"
+                                />
+                                <StackPanel Margin="0 10 0 0">
+                                    <TextBlock
+                                    Text="{Binding Account}"/>
+                                </StackPanel>
                             </StackPanel>
                         </StackPanel>
-
-                    </StackPanel>
-                </ListBoxItem>
-
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding FuncCommand}" CommandParameter="{Binding ElementName=PasswordListBox, Path=SelectedIndex}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </ListBox>
             
         </Grid>

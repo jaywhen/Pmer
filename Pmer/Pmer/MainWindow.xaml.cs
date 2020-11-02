@@ -13,7 +13,6 @@ namespace Pmer
         public MainWindow()
         {
             InitializeComponent();
-            
         }
 
         // 只有当isWindowShow为True时，才进行数据绑定
@@ -30,10 +29,8 @@ namespace Pmer
                 MainWindowModel mainWindowModel = new MainWindowModel();
                 this.DataContext = mainWindowModel;
             }
-            
 
         }
-
 
     }
 }

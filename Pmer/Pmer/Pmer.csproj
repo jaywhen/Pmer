@@ -116,6 +116,7 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowModel.cs" />
+    <Compile Include="ViewModel\PasswordItem.cs" />
     <Compile Include="ViewModel\RegistViewModel.cs" />
     <Compile Include="ViewModel\UserModel.cs" />
     <Compile Include="Views\ExitPromptView.xaml.cs">
