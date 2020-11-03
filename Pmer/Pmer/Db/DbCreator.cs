@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Pmer.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Pmer.Db
 {
@@ -94,7 +93,7 @@ namespace Pmer.Db
             if (!checkIfTableExist(pwTableName))
             {
                 sqlcmd = "CREATE TABLE " + pwTableName +
-                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, title varchar, account varchar, password varchar, website varchar);";
+                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, title varchar, account varchar, password varchar, website varchar, avatar varchar);";
                 executeQuery(sqlcmd);
             }
 
@@ -141,12 +140,14 @@ namespace Pmer.Db
             executeQuery(sqlcmd);
         }
 
-        public void InsertNewPw(string title, string account, string password, string website)
+        public void InsertNewPw(string title, string account, string password, string website, string avatar)
         {
+
             sqlcmd =
-                "insert into " + pwTableName + "(title, account, password, website) values ('" + title + "', '" + account + "', '" + password + "', '" + website + "')";
+                "insert into " + pwTableName + "(title, account, password, website, avatar) values ('" + title + "', '" + account + "', '" + password + "', '" + website + "', '"+ avatar + "')";
             executeQuery(sqlcmd);
         }
+
 
         // search
         public string getMasterPwFromMpTable()
@@ -163,6 +164,22 @@ namespace Pmer.Db
             return result.ToString();
         }
 
-
+        public List<PasswordItem> GetPasswordItems()
+        {
+            List<PasswordItem> passwordItems = new List<PasswordItem>();
+            cmd.CommandText = "SELECT * FROM " + pwTableName;
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                PasswordItem passwordItem = new PasswordItem();
+                passwordItem.Title = (string)reader["title"];
+                passwordItem.Account = (string)reader["account"];
+                passwordItem.Password = (string)reader["password"];
+                passwordItem.Website = (string)reader["website"];
+                passwordItem.Avatar = (string)reader["avatar"];
+                passwordItems.Add(passwordItem);
+            }
+            return passwordItems;
+        }
     }
 }

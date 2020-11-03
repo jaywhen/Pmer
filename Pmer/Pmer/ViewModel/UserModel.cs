@@ -1,9 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pmer.ViewModel
 {
@@ -13,14 +9,9 @@ namespace Pmer.ViewModel
         public string UserName
         {
             get
-            {
-                return username;
-            }
+            { return username; }
             set
-            {
-                username = value;
-                RaisePropertyChanged();
-            }
+            { username = value; RaisePropertyChanged(); }
         }
     }
 }

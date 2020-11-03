@@ -120,7 +120,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Image
                             Margin="0 0 20 0"
-                            Source="{Binding ItemAvatar}"
+                            Source="{Binding Avatar}"
                             Width="45"
                             />
                             <StackPanel>

@@ -1,19 +1,27 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pmer.ViewModel
 {
     public class PasswordItem: ViewModelBase
     {
+        public PasswordItem(string title, string account, string password, string website, string avatar)
+        {
+            this.Title = title;
+            this.Account = account;
+            this.Password = password;
+            this.Website = website;
+            this.Avatar = avatar;
+        }
+
+        public PasswordItem()
+        {
+
+        }
         private string title;
         private string account;
         private string password;
         private string website;
-        private string itemAvatar;
+        private string avatar;
 
         public string Title
         {
@@ -35,10 +43,10 @@ namespace Pmer.ViewModel
             get { return website; }
             set { website = value; RaisePropertyChanged(); }
         }
-        public string ItemAvatar
+        public string Avatar
         {
-            get { return itemAvatar; }
-            set { itemAvatar = value; RaisePropertyChanged(); }
+            get { return avatar; }
+            set { avatar = value; RaisePropertyChanged(); }
         }
 
     }

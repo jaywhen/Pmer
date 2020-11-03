@@ -1,10 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pmer.ViewModel
 {
@@ -49,7 +45,6 @@ namespace Pmer.ViewModel
 
         #region Command
         public RelayCommand CloseCommand { get; set; }
-        //public RelayCommand SetLoginSuccessCommand { get; set; }
         #endregion
         
 

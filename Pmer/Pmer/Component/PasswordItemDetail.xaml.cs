@@ -13,26 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Test
+namespace Pmer.Component
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// PasswordItemDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PasswordItemDetail : UserControl
     {
-        public MainWindow()
+        public PasswordItemDetail()
         {
             InitializeComponent();
-            this.MouseDown += (sender, e) =>
-            {
-                if (e.LeftButton == MouseButtonState.Pressed)
-                    this.DragMove();
-            };
-        }
-
-        private void btnTest_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Good");
         }
     }
 }

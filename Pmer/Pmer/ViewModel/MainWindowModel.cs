@@ -1,10 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Pmer.Db;
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace Pmer.ViewModel
 {
@@ -14,14 +12,14 @@ namespace Pmer.ViewModel
         {
             db = new DbCreator();
             db.createDbConnection();
+            InitAvatarHashTable();
             setUserFavicon();
-            Testc();
+            Query();
 
             CloseCommand = new RelayCommand(Close);
             ShowAddNewPwFormCommand = new RelayCommand(ShowAddNewPwForm);
             AddNewPasswordCommand = new RelayCommand(AddNewPassword);
             FuncCommand = new RelayCommand<int>(t => Func(t));
-
         }
 
         DbCreator db;
@@ -41,7 +39,6 @@ namespace Pmer.ViewModel
         {
             get { return addNewPwFormVisibility; }
             set { addNewPwFormVisibility = value; RaisePropertyChanged(); }
-
         }
         public char FirstLetter
         {
@@ -59,6 +56,13 @@ namespace Pmer.ViewModel
         private string account;
         private string addPassword;
         private string website;
+        private string avatar;
+        private Hashtable avatarHashTable;
+        public Hashtable AvatarHashTable
+        {
+            get { return avatarHashTable; }
+            set { avatarHashTable = value; RaisePropertyChanged(); }
+        }
         public string Title
         {
             get { return title; }
@@ -78,6 +82,11 @@ namespace Pmer.ViewModel
         {
             get { return website; }
             set { website = value; RaisePropertyChanged(); }
+        }
+        public string Avatar
+        {
+            get { return avatar; }
+            set { avatar = value; RaisePropertyChanged(); }
         }
 
         private int testIndex;
@@ -116,6 +125,17 @@ namespace Pmer.ViewModel
             DefaultVisibility = "Hidden";
             AddNewPwFormVisibility = "Visible";
         }
+
+        public void InitAvatarHashTable()
+        {
+            AvatarHashTable = new Hashtable();
+            AvatarHashTable.Add("github", "asset/github.png");
+            AvatarHashTable.Add("bilibili", "asset/bilibili.png");
+            AvatarHashTable.Add("qq", "asset/qq.png");
+            AvatarHashTable.Add("wechat", "asset/wechat.png");
+            AvatarHashTable.Add("weibo", "asset/weibo.png");
+            AvatarHashTable.Add("zhihu", "asset/zhihu.png");
+        }
         public void AddNewPassword()
         {
             if (string.IsNullOrEmpty(Title))
@@ -127,28 +147,51 @@ namespace Pmer.ViewModel
             {
                 WindowToolTip = "Please enter the password!";
             }
-            db.InsertNewPw(Title, Account, AddPassword, Website);
+            if (AvatarHashTable.ContainsKey(Title.ToLower()))
+            {
+                Avatar = (string)AvatarHashTable[Title.ToLower()];
+            }
+            else
+            {
+                Avatar = "asset/default.png";
+            }
+            db.InsertNewPw(Title, Account, AddPassword, Website, Avatar);
+            PasswordItem passwordItem = new PasswordItem(Title, Account, AddPassword, Website, Avatar);
+            AddAPwItemToPwList(passwordItem);
+           
+            ClearAddNewPwForm();
+            DefaultVisibility = "Visible";
+            AddNewPwFormVisibility = "Hidden";
 
         }
-
-
-        public void Testc()
+        // curd
+        public void AddAPwItemToPwList(PasswordItem item)
         {
-            PasswordItem bilibili = new PasswordItem();
-            bilibili.ItemAvatar = "asset/bilibili.png";
-            bilibili.Title = "Bilibili";
-            bilibili.Account = "Vincentiang";
-            PasswordLists = new ObservableCollection<PasswordItem>();
-
-            PasswordItem github = new PasswordItem();
-            github.ItemAvatar = "asset/github.png";
-            github.Title = "Github";
-            github.Account = "Jaywhen";
-            PasswordLists = new ObservableCollection<PasswordItem>();
-
-
-            PasswordLists.Add(bilibili);
-            PasswordLists.Add(github);
+            PasswordLists.Add(item);
         }
+
+        // 从数据库获取数据，并展示
+        public void Query()
+        {
+            List<PasswordItem> passwordItems = new List<PasswordItem>();
+            passwordItems = db.GetPasswordItems();
+            PasswordLists = new ObservableCollection<PasswordItem>();
+            foreach(PasswordItem item in passwordItems)
+            {
+                PasswordLists.Add(item);
+            }
+
+        }
+
+        // --- tools
+        public void ClearAddNewPwForm()
+        {
+            Title = "";
+            Account = "";
+            AddPassword = "";
+            Website = "";
+            Avatar = "";
+        }
+
     }
 }

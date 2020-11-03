@@ -1,7 +1,5 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using Pmer.Db;
-using System;
 
 namespace Pmer.ViewModel
 {

@@ -1,6 +1,5 @@
 ﻿using Pmer.ViewModel;
 using System.Windows;
-using Pmer.Views;
 using System.Windows.Input;
 
 namespace Pmer
