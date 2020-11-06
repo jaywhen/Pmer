@@ -8,7 +8,7 @@ namespace Pmer.ViewModel
         public LoginViewModel()
         {
             db = new DbCreator();
-            db.createDbConnection();
+            db.CreateDbConnection();
             LoginCommand = new RelayCommand(Login);
             CloseCommand = new RelayCommand(Close);
         }
@@ -25,7 +25,7 @@ namespace Pmer.ViewModel
                 WindowToolTip = "Please enter your master password";
                 return;
             }
-            string relpw = db.getMasterPwFromMpTable();
+            string relpw = db.GetMasterPwFromMpTable();
             if(!string.Equals(PassWord, relpw))
             {
                 WindowToolTip = "Incorrect password";

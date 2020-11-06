@@ -11,7 +11,7 @@ namespace Pmer.ViewModel
         public MainWindowModel()
         {
             db = new DbCreator();
-            db.createDbConnection();
+            db.CreateDbConnection();
             InitAvatarHashTable();
             setUserFavicon();
             Query();
@@ -30,6 +30,13 @@ namespace Pmer.ViewModel
         private char firstLetter;
         private string addNewPwFormVisibility = "Hidden";
         private string defaultVisibility = "Visible";
+        private string pwItemDetailVisibility = "Hidden";
+        
+        public string PwItemDetailVisibility
+        {
+            get { return pwItemDetailVisibility; }
+            set { pwItemDetailVisibility = value; RaisePropertyChanged(); }
+        }
         public string DefaultVisibility
         {
             get { return defaultVisibility; }
@@ -48,7 +55,7 @@ namespace Pmer.ViewModel
         public void setUserFavicon()
         {
             // 从数据库中获取用户名，截取首字母大写作为头像
-            FirstLetter = db.getUserNameFromMpTable().ToUpper()[0];
+            FirstLetter = db.GetUserNameFromMpTable().ToUpper()[0];
         }
 
         // ----------
@@ -89,6 +96,42 @@ namespace Pmer.ViewModel
             set { avatar = value; RaisePropertyChanged(); }
         }
 
+        // --- now selected items ---
+        private string nowSelectedTitle;
+        private string nowSelectedAccount;
+        private string nowSelectedAvatar;
+        private string nowSelectedPassword;
+        private string nowSelectedWebsite;
+
+        public string NowSelectedAvatar
+        {
+            get { return nowSelectedAvatar; }
+            set { nowSelectedAvatar = value; RaisePropertyChanged(); }
+        }
+        public string NowSelectedTitle
+        {
+            get { return nowSelectedTitle; }
+            set { nowSelectedTitle = value; RaisePropertyChanged(); }
+        }
+        public string NowSelectedAccount
+        {
+            get { return nowSelectedAccount; }
+            set { nowSelectedAccount = value; RaisePropertyChanged(); }
+        }
+        public string NowSelectedPassword
+        {
+            get { return nowSelectedPassword; }
+            set { nowSelectedPassword = value; RaisePropertyChanged(); }
+        }
+        public string NowSelectedWebsite
+        {
+            get { return nowSelectedWebsite; }
+            set { nowSelectedWebsite = value; RaisePropertyChanged(); }
+        }
+
+
+
+        // for test
         private int testIndex;
         public int TestIndex
         {
@@ -116,12 +159,19 @@ namespace Pmer.ViewModel
 
         public void Func(int TestIndex)
         {
-            PasswordLists[TestIndex].Title = "test";
+            // PasswordLists[TestIndex].Title = "test";
+            DefaultVisibility = "Hidden";
+            AddNewPwFormVisibility = "Hidden";
+            PwItemDetailVisibility = "Visible";
+            SetNowSelectedItems();
+
+
         }
 
         public void ShowAddNewPwForm()
         {
             //点击添加按钮，后台响应并创建表单
+            PwItemDetailVisibility = "Hidden";
             DefaultVisibility = "Hidden";
             AddNewPwFormVisibility = "Visible";
         }
@@ -191,7 +241,16 @@ namespace Pmer.ViewModel
             AddPassword = "";
             Website = "";
             Avatar = "";
+            WindowToolTip = "";
         }
 
+        public void SetNowSelectedItems()
+        {
+            NowSelectedTitle = PasswordLists[TestIndex].Title;
+            NowSelectedAvatar = "../" + PasswordLists[TestIndex].Avatar;
+            NowSelectedAccount = PasswordLists[TestIndex].Account;
+            NowSelectedPassword = PasswordLists[TestIndex].Password;
+            NowSelectedWebsite = PasswordLists[TestIndex].Website;
+        }
     }
 }

@@ -15,7 +15,9 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip"
+        WindowStyle="None" 
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True"
         MinWidth="500" MinHeight="380"
         Title="LooginView" Height="380" Width="500">
@@ -94,6 +96,9 @@
                 <i:Interaction.Behaviors>
                     <handler:PasswordBoxBehavior />
                 </i:Interaction.Behaviors>
+                <PasswordBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding LoginCommand}"/>
+                </PasswordBox.InputBindings>
             </PasswordBox>
             <TextBlock Grid.Row="3" 
                        Name="WindowToolTip" 
@@ -109,6 +114,7 @@
                     ToolTip="Resource name: MaterialDesignRaisedButton">
                 Go!
             </Button>
+            
         </Grid>
 
     </Grid>

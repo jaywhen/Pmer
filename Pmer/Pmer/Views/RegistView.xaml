@@ -115,6 +115,9 @@
                 <i:Interaction.Behaviors>
                     <handler:PasswordBoxBehavior />
                 </i:Interaction.Behaviors>
+                <PasswordBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding RegistCommand}"/>
+                </PasswordBox.InputBindings>
             </PasswordBox>
             
             <TextBlock Grid.Row="3" 

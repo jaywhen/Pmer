@@ -16,7 +16,10 @@
         xmlns:component="clr-namespace:Pmer.Component" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
         Title="MainWindow" Height="550" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -164,7 +167,7 @@
             </StackPanel>
             <component:Default Grid.Row="1" Visibility="{Binding DefaultVisibility}"/>
             <component:AddNewPwForm Grid.Row="1" Visibility="{Binding AddNewPwFormVisibility}"/>
-
+            <component:PasswordItemDetail Grid.Row="1" Visibility="{Binding PwItemDetailVisibility}"/>
         </Grid>
     </Grid>
 </Window>

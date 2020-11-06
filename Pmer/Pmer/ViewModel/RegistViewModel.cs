@@ -12,7 +12,7 @@ namespace Pmer.ViewModel
         public RegistViewModel()
         {
             db = new DbCreator();
-            db.createDbConnection();
+            db.CreateDbConnection();
 
             RegistCommand = new RelayCommand(Regist);
             CloseCommand = new RelayCommand(Close);
@@ -89,7 +89,7 @@ namespace Pmer.ViewModel
                 {
                     WindowToolTip = "OK!";
                 }
-                db.insertMasterPw(rePassWord, MasterUserName);
+                db.InsertMasterPw(rePassWord, MasterUserName);
                 RegiBtnContent = "Close";
                 IsRegiSuccess = true;
                 return;

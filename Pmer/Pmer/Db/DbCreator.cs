@@ -22,19 +22,19 @@ namespace Pmer.Db
             // 检查是否有.db && db是否有表 && 表中是否有数据
             if (!Directory.Exists(dbPath))
             {
-                createDbFile();
-                createMasterUserTable();
+                CreateDbFile();
+                CreateMasterUserTable();
                 return false;
             }
-            else if (!checkIfTableExist(userTableName))
+            else if (!CheckIfTableExist(userTableName))
             {
                 // 若不存在用户表，则创建用户表与密码表
-                createMasterUserTable();
+                CreateMasterUserTable();
                 CreatePassWordsTable();
                 return false;
 
             }
-            else if (!checkIfTableContainsData(userTableName))
+            else if (!CheckIfTableContainsData(userTableName))
             {
                 // 存在用户表，但表中无数据
                 return false;
@@ -45,7 +45,7 @@ namespace Pmer.Db
             }
         }
 
-        public void createDbFile()
+        public void CreateDbFile()
         {
             if (!string.IsNullOrEmpty(dbPath) && !Directory.Exists(dbPath))
             {
@@ -58,12 +58,12 @@ namespace Pmer.Db
             }
         }
 
-        public string createDbConnection()
+        public string CreateDbConnection()
         {
             string dbFilePath = dbPath + dbName;
             if (!Directory.Exists(dbPath))
             {
-                createDbFile();
+                CreateDbFile();
             }
             else if (!System.IO.File.Exists(dbFilePath))
             {
@@ -76,13 +76,13 @@ namespace Pmer.Db
             return strCon;
         }
 
-        public void createMasterUserTable()
+        public void CreateMasterUserTable()
         {
-            if (!checkIfTableExist(userTableName))
+            if (!CheckIfTableExist(userTableName))
             {
                 sqlcmd = "CREATE TABLE " + userTableName + 
                     "(id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar, master_pw varchar);";
-                executeQuery(sqlcmd);
+                ExecuteQuery(sqlcmd);
             }
 
         }
@@ -90,31 +90,31 @@ namespace Pmer.Db
         public void CreatePassWordsTable()
         {
             // 创建密码表
-            if (!checkIfTableExist(pwTableName))
+            if (!CheckIfTableExist(pwTableName))
             {
                 sqlcmd = "CREATE TABLE " + pwTableName +
                     "(id INTEGER PRIMARY KEY AUTOINCREMENT, title varchar, account varchar, password varchar, website varchar, avatar varchar);";
-                executeQuery(sqlcmd);
+                ExecuteQuery(sqlcmd);
             }
 
         }
 
 
-        public bool checkIfTableExist(string tableName)
+        public bool CheckIfTableExist(string tableName)
         {
             cmd.CommandText = "SELECT name FROM sqlite_master WHERE name='" + tableName + "'";
             var result = cmd.ExecuteScalar();
             return result != null && result.ToString() == tableName ? true : false;
         }
 
-        public void executeQuery(string sqlCommand)
+        public void ExecuteQuery(string sqlCommand)
         {
             SQLiteCommand triggerCommand = dbConnection.CreateCommand();
             triggerCommand.CommandText = sqlCommand;
             triggerCommand.ExecuteNonQuery();
         }
 
-        public bool checkIfTableContainsData(string tableName)
+        public bool CheckIfTableContainsData(string tableName)
         {
             cmd.CommandText = "SELECT count(*) FROM " + tableName;
             var result = cmd.ExecuteScalar();
@@ -122,22 +122,13 @@ namespace Pmer.Db
             return Convert.ToInt32(result) > 0 ? true : false;
         }
 
-        public void fillTable()
-        {
-            if (!checkIfTableContainsData("MY_TABLE"))
-            {
-                sqlcmd = "insert into MY_TABLE (code_test_type) values (999)";
-                executeQuery(sqlcmd);
-            }
-        }
-
         // insert
-        public void insertMasterPw(string mpw, string username)
+        public void InsertMasterPw(string mpw, string username)
         {
             
             sqlcmd = 
                 "insert into " + userTableName + "(username, master_pw) values ('" + username + "', '" + mpw + "')";
-            executeQuery(sqlcmd);
+            ExecuteQuery(sqlcmd);
         }
 
         public void InsertNewPw(string title, string account, string password, string website, string avatar)
@@ -145,19 +136,19 @@ namespace Pmer.Db
 
             sqlcmd =
                 "insert into " + pwTableName + "(title, account, password, website, avatar) values ('" + title + "', '" + account + "', '" + password + "', '" + website + "', '"+ avatar + "')";
-            executeQuery(sqlcmd);
+            ExecuteQuery(sqlcmd);
         }
 
 
         // search
-        public string getMasterPwFromMpTable()
+        public string GetMasterPwFromMpTable()
         {
             cmd.CommandText = "SELECT master_pw FROM " + userTableName;
             var result = cmd.ExecuteScalar();
             return result.ToString();
         }
 
-        public string getUserNameFromMpTable()
+        public string GetUserNameFromMpTable()
         {
             cmd.CommandText = "SELECT username FROM " + userTableName;
             var result = cmd.ExecuteScalar();

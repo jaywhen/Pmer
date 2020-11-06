@@ -22,7 +22,7 @@ namespace Pmer
 
             // 检测是否具备弹出登录窗口的条件
             DbCreator db = new DbCreator();
-            db.createDbConnection();
+            db.CreateDbConnection();
             bool isLogin = db.Init();
 
             if (!isLogin)
