@@ -3,6 +3,7 @@ using Pmer.Db;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Pmer.ViewModel
@@ -22,6 +23,7 @@ namespace Pmer.ViewModel
             AddNewPasswordCommand = new RelayCommand(AddNewPassword);
             SelectPasswordItemCommand = new RelayCommand<int>(t => SelectPasswordItem(t));
             CopyCommand = new RelayCommand<string>(t => Copy(t));
+            OpenWeblinkCommand = new RelayCommand(OpenWeblink);
         }
 
         DbCreator db;
@@ -128,7 +130,8 @@ namespace Pmer.ViewModel
         public string NowSelectedWebsite
         {
             get { return nowSelectedWebsite; }
-            set { nowSelectedWebsite = value; RaisePropertyChanged(); }
+            set { nowSelectedWebsite = value;RaisePropertyChanged(); }
+            
         }
 
 
@@ -158,6 +161,7 @@ namespace Pmer.ViewModel
         public RelayCommand AddNewPasswordCommand { get; set; }
         public RelayCommand<int> SelectPasswordItemCommand { get; set; }
         public RelayCommand<string> CopyCommand { get; set; }
+        public RelayCommand OpenWeblinkCommand { get; set; }
         #endregion
 
         public void SelectPasswordItem(int Index)
@@ -168,7 +172,6 @@ namespace Pmer.ViewModel
 
             SetNowSelectedItems();
             PwItemDetailVisibility = "Visible";
-            
 
         }
 
@@ -200,6 +203,10 @@ namespace Pmer.ViewModel
             if (string.IsNullOrEmpty(AddPassword))
             {
                 WindowToolTip = "Please enter the password!";
+            }
+            if (!Website.StartsWith("https://"))
+            {
+                Website = "https://" + Website;
             }
             if (AvatarHashTable.ContainsKey(Title.ToLower()))
             {
@@ -260,6 +267,12 @@ namespace Pmer.ViewModel
         public static void Copy(string content)
         {
             Clipboard.SetText(content);
+            
+        }
+
+        public void OpenWeblink()
+        {
+            Process.Start(NowSelectedWebsite);
         }
     }
 }
