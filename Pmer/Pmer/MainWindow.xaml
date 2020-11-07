@@ -140,7 +140,7 @@
                 </ListBox.ItemTemplate>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding FuncCommand}" CommandParameter="{Binding ElementName=PasswordListBox, Path=SelectedIndex}"/>
+                        <i:InvokeCommandAction Command="{Binding SelectPasswordItemCommand}" CommandParameter="{Binding ElementName=PasswordListBox, Path=SelectedIndex}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListBox>

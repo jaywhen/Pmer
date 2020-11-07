@@ -3,6 +3,7 @@ using Pmer.Db;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Pmer.ViewModel
 {
@@ -19,7 +20,8 @@ namespace Pmer.ViewModel
             CloseCommand = new RelayCommand(Close);
             ShowAddNewPwFormCommand = new RelayCommand(ShowAddNewPwForm);
             AddNewPasswordCommand = new RelayCommand(AddNewPassword);
-            FuncCommand = new RelayCommand<int>(t => Func(t));
+            SelectPasswordItemCommand = new RelayCommand<int>(t => SelectPasswordItem(t));
+            CopyCommand = new RelayCommand<string>(t => Copy(t));
         }
 
         DbCreator db;
@@ -132,11 +134,11 @@ namespace Pmer.ViewModel
 
 
         // for test
-        private int testIndex;
-        public int TestIndex
+        private int index;
+        public int Index
         {
-            get { return testIndex; }
-            set { testIndex = value; RaisePropertyChanged(); }
+            get { return index; }
+            set { index = value; RaisePropertyChanged(); }
 
         }
 
@@ -154,17 +156,19 @@ namespace Pmer.ViewModel
         #region Command
         public RelayCommand ShowAddNewPwFormCommand { get; set; }
         public RelayCommand AddNewPasswordCommand { get; set; }
-        public RelayCommand<int> FuncCommand { get; set; }
+        public RelayCommand<int> SelectPasswordItemCommand { get; set; }
+        public RelayCommand<string> CopyCommand { get; set; }
         #endregion
 
-        public void Func(int TestIndex)
+        public void SelectPasswordItem(int Index)
         {
-            // PasswordLists[TestIndex].Title = "test";
+            this.Index = Index;
             DefaultVisibility = "Hidden";
             AddNewPwFormVisibility = "Hidden";
-            PwItemDetailVisibility = "Visible";
-            SetNowSelectedItems();
 
+            SetNowSelectedItems();
+            PwItemDetailVisibility = "Visible";
+            
 
         }
 
@@ -246,11 +250,16 @@ namespace Pmer.ViewModel
 
         public void SetNowSelectedItems()
         {
-            NowSelectedTitle = PasswordLists[TestIndex].Title;
-            NowSelectedAvatar = "../" + PasswordLists[TestIndex].Avatar;
-            NowSelectedAccount = PasswordLists[TestIndex].Account;
-            NowSelectedPassword = PasswordLists[TestIndex].Password;
-            NowSelectedWebsite = PasswordLists[TestIndex].Website;
+            NowSelectedTitle = PasswordLists[Index].Title;
+            NowSelectedAvatar = "../" + PasswordLists[Index].Avatar;
+            NowSelectedAccount = PasswordLists[Index].Account;
+            NowSelectedPassword = PasswordLists[Index].Password;
+            NowSelectedWebsite = PasswordLists[Index].Website;
+        }
+
+        public static void Copy(string content)
+        {
+            Clipboard.SetText(content);
         }
     }
 }
