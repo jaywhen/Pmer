@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Pmer.Db;
+using Pmer.Encryption;
 using Pmer.Views;
 
 namespace Pmer.ViewModel
@@ -89,7 +90,12 @@ namespace Pmer.ViewModel
                 {
                     WindowToolTip = "OK!";
                 }
-                db.InsertMasterPw(rePassWord, MasterUserName);
+
+                string preSalt = Encryptor.GenerateSalt();
+                string sufSalt = Encryptor.GenerateSalt();
+                string hashedPassword = Encryptor.SHA512AddSalt(preSalt, RePassWord, sufSalt);
+
+                db.InsertMasterPw(MasterUserName, hashedPassword, preSalt, sufSalt);
                 RegiBtnContent = "Close";
                 IsRegiSuccess = true;
                 return;

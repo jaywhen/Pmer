@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Pmer.Db;
+using Pmer.Encryption;
 
 namespace Pmer.ViewModel
 {
@@ -26,7 +27,11 @@ namespace Pmer.ViewModel
                 return;
             }
             string relpw = db.GetMasterPwFromMpTable();
-            if(!string.Equals(PassWord, relpw))
+            string preSalt = db.GetPreSaltFromMpTable();
+            string sufSalt = db.GetSufSaltFromMpTable();
+            string hashedPassword = Encryptor.SHA512AddSalt(preSalt, PassWord, sufSalt);
+
+            if(!string.Equals(relpw, hashedPassword))
             {
                 WindowToolTip = "Incorrect password";
                 return;

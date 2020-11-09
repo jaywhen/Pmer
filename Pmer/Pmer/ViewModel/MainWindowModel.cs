@@ -152,7 +152,7 @@ namespace Pmer.ViewModel
             get { return passwordLists; }
             set { passwordLists = value; RaisePropertyChanged(); }
         }
-
+ 
         #endregion
 
 

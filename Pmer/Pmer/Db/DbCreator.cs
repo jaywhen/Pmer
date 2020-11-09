@@ -1,4 +1,5 @@
-﻿using Pmer.ViewModel;
+﻿using Microsoft.SqlServer.Server;
+using Pmer.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -81,7 +82,7 @@ namespace Pmer.Db
             if (!CheckIfTableExist(userTableName))
             {
                 sqlcmd = "CREATE TABLE " + userTableName + 
-                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar, master_pw varchar);";
+                    "(id INTEGER PRIMARY KEY AUTOINCREMENT, username varchar, master_pw varchar, preSalt varchar, sufSalt varchar);";
                 ExecuteQuery(sqlcmd);
             }
 
@@ -123,11 +124,12 @@ namespace Pmer.Db
         }
 
         // insert
-        public void InsertMasterPw(string mpw, string username)
+        public void InsertMasterPw(string username, string password, string preSalt, string sufSalt)
         {
-            
-            sqlcmd = 
-                "insert into " + userTableName + "(username, master_pw) values ('" + username + "', '" + mpw + "')";
+            // 待改进，此句太长
+
+            sqlcmd =
+                "insert into " + userTableName + "(username, master_pw, preSalt, sufSalt) values ('" + username + "', '" + password + "', '" + preSalt + "', '" + sufSalt + "')";
             ExecuteQuery(sqlcmd);
         }
 
@@ -144,6 +146,20 @@ namespace Pmer.Db
         public string GetMasterPwFromMpTable()
         {
             cmd.CommandText = "SELECT master_pw FROM " + userTableName;
+            var result = cmd.ExecuteScalar();
+            return result.ToString();
+        }
+
+        public string GetPreSaltFromMpTable()
+        {
+            cmd.CommandText = "SELECT preSalt FROM " + userTableName;
+            var result = cmd.ExecuteScalar();
+            return result.ToString();
+        }
+
+        public string GetSufSaltFromMpTable()
+        {
+            cmd.CommandText = "SELECT sufSalt FROM " + userTableName;
             var result = cmd.ExecuteScalar();
             return result.ToString();
         }
