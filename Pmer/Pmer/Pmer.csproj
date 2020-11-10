@@ -205,8 +205,7 @@
     <Resource Include="asset\zhihu.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="asset\index2.png" />
-    <Resource Include="asset\index3.png" />
+    <Resource Include="asset\index.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="asset\default.png" />

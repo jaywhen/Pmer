@@ -241,7 +241,6 @@ namespace Pmer.ViewModel
             {
                 PasswordLists.Add(item);
             }
-
         }
 
         // --- tools

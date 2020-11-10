@@ -10,7 +10,7 @@
         <!-- 默认展示图片 -->
         <StackPanel>
             <Image
-                Source="../asset/index2.png"
+                Source="../asset/index.png"
                 Height="600"
                 />
         </StackPanel>
