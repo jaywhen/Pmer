@@ -42,6 +42,8 @@ namespace Pmer.ViewModel
             }
             SetLoginSuccess();
 
+            // 将密码哈希后作为AES的key，存入内存或者缓存中，供解密器加解密
+
         }
 
     }

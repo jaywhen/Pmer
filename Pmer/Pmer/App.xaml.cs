@@ -11,7 +11,6 @@ namespace Pmer
     /// </summary>
     public partial class App : Application
     {
-
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -34,9 +33,10 @@ namespace Pmer
                 {
                     LoginView lw = new LoginView();
                     bool? ret = lw.ShowDialog();
+                    string key = lw.PasswordBox.Password;
                     if (ret.Value == true)
                     {
-                        mv = new MainWindow(true);
+                        mv = new MainWindow(true, key);
                         this.MainWindow = mv;
                         MainWindow.ShowDialog();
                     }
@@ -49,11 +49,13 @@ namespace Pmer
             else
             {
                 LoginView loginView = new LoginView();
+                
                 bool? resultLogin = loginView.ShowDialog();
+                string key = loginView.PasswordBox.Password;
                 // 登录成功，进入主界面
                 if (resultLogin.Value == true)
                 {
-                    mv = new MainWindow(true);
+                    mv = new MainWindow(true, key);
                     this.MainWindow = mv;
                     MainWindow.ShowDialog();
                 } // 否则，退出进程

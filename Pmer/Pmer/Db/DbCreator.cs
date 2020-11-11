@@ -1,4 +1,5 @@
 ﻿using Microsoft.SqlServer.Server;
+using Pmer.Encryption;
 using Pmer.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -171,7 +172,7 @@ namespace Pmer.Db
             return result.ToString();
         }
 
-        public List<PasswordItem> GetPasswordItems()
+        public List<PasswordItem> GetPasswordItems(byte[] keyPassword)
         {
             List<PasswordItem> passwordItems = new List<PasswordItem>();
             cmd.CommandText = "SELECT * FROM " + pwTableName;
@@ -181,7 +182,10 @@ namespace Pmer.Db
                 PasswordItem passwordItem = new PasswordItem();
                 passwordItem.Title = (string)reader["title"];
                 passwordItem.Account = (string)reader["account"];
-                passwordItem.Password = (string)reader["password"];
+
+                string cipherText = (string)reader["password"];
+                passwordItem.Password = Encryptor.AESDecrypt(cipherText, keyPassword);
+
                 passwordItem.Website = (string)reader["website"];
                 passwordItem.Avatar = (string)reader["avatar"];
                 passwordItems.Add(passwordItem);

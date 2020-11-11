@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Pmer.Db;
+using Pmer.Encryption;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,9 +27,34 @@ namespace Pmer.ViewModel
             OpenWeblinkCommand = new RelayCommand(OpenWeblink);
         }
 
+        public MainWindowModel(string key)
+        {
+            KeyPassword = Encryptor.HashedKeyByMD5(key);
+
+            db = new DbCreator();
+            db.CreateDbConnection();
+            InitAvatarHashTable();
+            setUserFavicon();
+            Query();
+
+            CloseCommand = new RelayCommand(Close);
+            ShowAddNewPwFormCommand = new RelayCommand(ShowAddNewPwForm);
+            AddNewPasswordCommand = new RelayCommand(AddNewPassword);
+            SelectPasswordItemCommand = new RelayCommand<int>(t => SelectPasswordItem(t));
+            CopyCommand = new RelayCommand<string>(t => Copy(t));
+            OpenWeblinkCommand = new RelayCommand(OpenWeblink);
+        }
+
         DbCreator db;
-        
+
         #region Property
+        private byte[] keyPassword;
+        public byte[] KeyPassword
+        {
+            get { return keyPassword; }
+            set { keyPassword = value; RaisePropertyChanged(); }
+        }
+
 
         // 将FirstLetter与MainWindow中的TextBox的Text进行绑定
         private char firstLetter;
@@ -216,7 +242,11 @@ namespace Pmer.ViewModel
             {
                 Avatar = "asset/default.png";
             }
-            db.InsertNewPw(Title, Account, AddPassword, Website, Avatar);
+
+            //对密码加密
+            string encryptedPassword = Encryptor.AESEncrypt(AddPassword, KeyPassword);
+            db.InsertNewPw(Title, Account, encryptedPassword, Website, Avatar);
+
             PasswordItem passwordItem = new PasswordItem(Title, Account, AddPassword, Website, Avatar);
             AddAPwItemToPwList(passwordItem);
            
@@ -235,7 +265,7 @@ namespace Pmer.ViewModel
         public void Query()
         {
             List<PasswordItem> passwordItems = new List<PasswordItem>();
-            passwordItems = db.GetPasswordItems();
+            passwordItems = db.GetPasswordItems(KeyPassword);
             PasswordLists = new ObservableCollection<PasswordItem>();
             foreach(PasswordItem item in passwordItems)
             {

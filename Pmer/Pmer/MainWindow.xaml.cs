@@ -15,7 +15,7 @@ namespace Pmer
         }
 
         // 只有当isWindowShow为True时，才进行数据绑定
-        public MainWindow(bool isWindowShow)
+        public MainWindow(bool isWindowShow, string key)
         {
             InitializeComponent();
             this.MouseDown += (sender, e) =>
@@ -25,7 +25,7 @@ namespace Pmer
             };
             if (isWindowShow)
             {
-                MainWindowModel mainWindowModel = new MainWindowModel();
+                MainWindowModel mainWindowModel = new MainWindowModel(key);
                 this.DataContext = mainWindowModel;
             }
 
