@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using System;
 
 namespace Pmer.ViewModel
 {
@@ -13,10 +14,8 @@ namespace Pmer.ViewModel
             this.Avatar = avatar;
         }
 
-        public PasswordItem()
-        {
-
-        }
+        public PasswordItem(){}
+        private Int64 id;
         private string title;
         private string account;
         private string password;
@@ -47,6 +46,11 @@ namespace Pmer.ViewModel
         {
             get { return avatar; }
             set { avatar = value; RaisePropertyChanged(); }
+        }
+        public Int64 Id
+        {
+            get { return id; }
+            set { id = value;RaisePropertyChanged(); }
         }
 
     }

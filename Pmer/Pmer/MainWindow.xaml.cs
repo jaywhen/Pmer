@@ -1,5 +1,6 @@
 ﻿using Pmer.ViewModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Pmer
@@ -29,6 +30,8 @@ namespace Pmer
                 this.DataContext = mainWindowModel;
             }
 
+            //test
+            //int selectedid = PasswordListBox.SelectedIndex;
         }
 
     }

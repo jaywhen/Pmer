@@ -1,67 +1,49 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Pmer.Component;
 using Pmer.Db;
 using Pmer.Encryption;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Input.StylusPlugIns;
 
 namespace Pmer.ViewModel
 {
     public class MainWindowModel : BaseViewModel
     {
-        public MainWindowModel()
-        {
-            db = new DbCreator();
-            db.CreateDbConnection();
-            InitAvatarHashTable();
-            setUserFavicon();
-            Query();
-
-            CloseCommand = new RelayCommand(Close);
-            ShowAddNewPwFormCommand = new RelayCommand(ShowAddNewPwForm);
-            AddNewPasswordCommand = new RelayCommand(AddNewPassword);
-            SelectPasswordItemCommand = new RelayCommand<int>(t => SelectPasswordItem(t));
-            CopyCommand = new RelayCommand<string>(t => Copy(t));
-            OpenWeblinkCommand = new RelayCommand(OpenWeblink);
-        }
 
         public MainWindowModel(string key)
         {
             KeyPassword = Encryptor.HashedKeyByMD5(key);
-
             db = new DbCreator();
             db.CreateDbConnection();
             InitAvatarHashTable();
-            setUserFavicon();
+            SetUserFavicon();
             Query();
 
             CloseCommand = new RelayCommand(Close);
             ShowAddNewPwFormCommand = new RelayCommand(ShowAddNewPwForm);
             AddNewPasswordCommand = new RelayCommand(AddNewPassword);
-            SelectPasswordItemCommand = new RelayCommand<int>(t => SelectPasswordItem(t));
+            SelectPasswordItemCommand = new RelayCommand<int>(t =>  SelectPasswordItem(t));
             CopyCommand = new RelayCommand<string>(t => Copy(t));
             OpenWeblinkCommand = new RelayCommand(OpenWeblink);
+            UpdateCommand = new RelayCommand(Update);
+            DeletePasswordItemCommand = new RelayCommand(DeletePasswordItem);
         }
 
         DbCreator db;
 
-        #region Property
-        private byte[] keyPassword;
-        public byte[] KeyPassword
-        {
-            get { return keyPassword; }
-            set { keyPassword = value; RaisePropertyChanged(); }
-        }
-
-
-        // 将FirstLetter与MainWindow中的TextBox的Text进行绑定
-        private char firstLetter;
+        #region Visible
+        private string deleteVisible;
+        private string updateVisible;
+        private string updateOKVisible;
         private string addNewPwFormVisibility = "Hidden";
         private string defaultVisibility = "Visible";
         private string pwItemDetailVisibility = "Hidden";
-        
+
         public string PwItemDetailVisibility
         {
             get { return pwItemDetailVisibility; }
@@ -70,23 +52,53 @@ namespace Pmer.ViewModel
         public string DefaultVisibility
         {
             get { return defaultVisibility; }
-            set { defaultVisibility = value;RaisePropertyChanged(); }
+            set { defaultVisibility = value; RaisePropertyChanged(); }
         }
         public string AddNewPwFormVisibility
         {
             get { return addNewPwFormVisibility; }
             set { addNewPwFormVisibility = value; RaisePropertyChanged(); }
         }
+
+        public string DeleteVisible
+        {
+            get { return deleteVisible; }
+            set { deleteVisible = value; RaisePropertyChanged(); }
+        }
+
+        public string UpdateVisible
+        {
+            get { return updateVisible; }
+            set { updateVisible = value; RaisePropertyChanged(); }
+        }
+
+        public string UpdateOKVisible
+        {
+            get { return updateOKVisible; }
+            set { updateOKVisible = value; RaisePropertyChanged(); }
+        }
+        #endregion
+
+
+        #region Property
+
+        // 用于AES加密解密的key
+        private byte[] keyPassword;
+        public byte[] KeyPassword
+        {
+            get { return keyPassword; }
+            set { keyPassword = value; RaisePropertyChanged(); }
+        }
+
+        // 将FirstLetter与MainWindow中的TextBox的Text进行绑定
+        private char firstLetter;
+       
         public char FirstLetter
         {
             get { return firstLetter; }
             set { firstLetter = value; RaisePropertyChanged(); }
         }
-        public void setUserFavicon()
-        {
-            // 从数据库中获取用户名，截取首字母大写作为头像
-            FirstLetter = db.GetUserNameFromMpTable().ToUpper()[0];
-        }
+        
 
         // ----------
         private string title;
@@ -127,12 +139,18 @@ namespace Pmer.ViewModel
         }
 
         // --- now selected items ---
+        private Int64 nowSelectedId;
         private string nowSelectedTitle;
         private string nowSelectedAccount;
         private string nowSelectedAvatar;
         private string nowSelectedPassword;
         private string nowSelectedWebsite;
 
+        public Int64 NowSelectedId
+        {
+            get { return nowSelectedId; }
+            set { nowSelectedId = value;RaisePropertyChanged(); }
+        }
         public string NowSelectedAvatar
         {
             get { return nowSelectedAvatar; }
@@ -160,9 +178,30 @@ namespace Pmer.ViewModel
             
         }
 
+        // password item detail
+        private string accountBoxIsReadOnly;
+        private string passwordBoxIsEnable;
+        private string websiteIsReadOnly;
 
 
-        // for test
+        public string AccountBoxIsReadOnly
+        {
+            get { return accountBoxIsReadOnly; }
+            set { accountBoxIsReadOnly = value;RaisePropertyChanged(); }
+        }
+        public string PasswordBoxIsEnable
+        {
+            get { return passwordBoxIsEnable; }
+            set { passwordBoxIsEnable = value; RaisePropertyChanged(); }
+            
+        }
+        public string WebsiteIsReadOnly
+        {
+            get { return websiteIsReadOnly; }
+            set { websiteIsReadOnly = value;RaisePropertyChanged(); }
+        }
+
+        // SelectedIndex
         private int index;
         public int Index
         {
@@ -171,7 +210,7 @@ namespace Pmer.ViewModel
 
         }
 
-        // -----  -----
+        // ----- 视图层ListBox的ItemsSource-----
         private ObservableCollection<PasswordItem> passwordLists;
         public ObservableCollection<PasswordItem> PasswordLists
         {
@@ -188,17 +227,64 @@ namespace Pmer.ViewModel
         public RelayCommand<int> SelectPasswordItemCommand { get; set; }
         public RelayCommand<string> CopyCommand { get; set; }
         public RelayCommand OpenWeblinkCommand { get; set; }
+        public RelayCommand UpdateCommand { get; set; }
+        public RelayCommand UpdateOKCommand { get; set; }
+        public RelayCommand DeletePasswordItemCommand { get; set; }
         #endregion
+
+        public void UpdateOK()
+        {
+            // 改
+
+        }
+
+        public void Update()
+        {
+            UpdateVisible = "Hidden";
+            DeleteVisible = "Hidden";
+            UpdateOKVisible = "Visible";
+
+            AccountBoxIsReadOnly = "False";
+            PasswordBoxIsEnable = "True";
+            WebsiteIsReadOnly = "False";
+        }
+
+        public void DeletePasswordItem()
+        {
+            db.DeletePasswordItem(NowSelectedId);
+            PwItemDetailVisibility = "Hidden";
+            DefaultVisibility = "Visible";
+            // Query();
+            PasswordLists.Remove(PasswordLists[Index]);
+        }
 
         public void SelectPasswordItem(int Index)
         {
-            this.Index = Index;
-            DefaultVisibility = "Hidden";
-            AddNewPwFormVisibility = "Hidden";
+            if(Index == -1)
+            {
+                // 代表未选中任何一项
+                // 则不对其进行绑定
+                // do nothing
+                // Index = 0;
+            }
+            else
+            {
+                this.Index = Index;
+                DefaultVisibility = "Hidden";
+                AddNewPwFormVisibility = "Hidden";
 
-            SetNowSelectedItems();
-            PwItemDetailVisibility = "Visible";
+                SetNowSelectedItems();
+                PwItemDetailVisibility = "Visible";
 
+                AccountBoxIsReadOnly = "True";
+                PasswordBoxIsEnable = "False";
+                WebsiteIsReadOnly = "True";
+
+                DeleteVisible = "Visible";
+                UpdateVisible = "Visible";
+                UpdateOKVisible = "Hidden";
+            }
+            
         }
 
         public void ShowAddNewPwForm()
@@ -271,6 +357,7 @@ namespace Pmer.ViewModel
             {
                 PasswordLists.Add(item);
             }
+
         }
 
         // --- tools
@@ -286,6 +373,7 @@ namespace Pmer.ViewModel
 
         public void SetNowSelectedItems()
         {
+            NowSelectedId = PasswordLists[Index].Id;
             NowSelectedTitle = PasswordLists[Index].Title;
             NowSelectedAvatar = "../" + PasswordLists[Index].Avatar;
             NowSelectedAccount = PasswordLists[Index].Account;
@@ -302,6 +390,12 @@ namespace Pmer.ViewModel
         public void OpenWeblink()
         {
             Process.Start(NowSelectedWebsite);
+        }
+
+        public void SetUserFavicon()
+        {
+            // 从数据库中获取用户名，截取首字母大写作为头像
+            FirstLetter = db.GetUserNameFromMpTable().ToUpper()[0];
         }
     }
 }

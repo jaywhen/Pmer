@@ -180,6 +180,7 @@ namespace Pmer.Db
             while (reader.Read())
             {
                 PasswordItem passwordItem = new PasswordItem();
+                passwordItem.Id = (Int64)reader["id"];
                 passwordItem.Title = (string)reader["title"];
                 passwordItem.Account = (string)reader["account"];
 
@@ -191,6 +192,15 @@ namespace Pmer.Db
                 passwordItems.Add(passwordItem);
             }
             return passwordItems;
+        }
+
+        //delete
+
+        public void DeletePasswordItem(Int64 itemId)
+        {
+
+            cmd.CommandText = "delete from passwords where id = " + itemId.ToString();
+            cmd.ExecuteNonQuery();
         }
     }
 }

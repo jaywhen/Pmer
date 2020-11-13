@@ -116,7 +116,6 @@
                 x:Name="PasswordListBox"
                 Grid.Row="1"
                 ItemsSource="{Binding PasswordLists}"
-                SelectedIndex="{Binding TestIndex}"
                 >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -140,7 +139,9 @@
                 </ListBox.ItemTemplate>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding SelectPasswordItemCommand}" CommandParameter="{Binding ElementName=PasswordListBox, Path=SelectedIndex}"/>
+                        <i:InvokeCommandAction 
+                            Command="{Binding SelectPasswordItemCommand}" 
+                            CommandParameter="{Binding ElementName=PasswordListBox, Path=SelectedIndex}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListBox>
