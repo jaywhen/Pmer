@@ -31,6 +31,7 @@ namespace Pmer.ViewModel
             CopyCommand = new RelayCommand<string>(t => Copy(t));
             OpenWeblinkCommand = new RelayCommand(OpenWeblink);
             UpdateCommand = new RelayCommand(Update);
+            UpdateOKCommand = new RelayCommand(UpdateOK);
             DeletePasswordItemCommand = new RelayCommand(DeletePasswordItem);
         }
 
@@ -183,7 +184,6 @@ namespace Pmer.ViewModel
         private string passwordBoxIsEnable;
         private string websiteIsReadOnly;
 
-
         public string AccountBoxIsReadOnly
         {
             get { return accountBoxIsReadOnly; }
@@ -207,7 +207,6 @@ namespace Pmer.ViewModel
         {
             get { return index; }
             set { index = value; RaisePropertyChanged(); }
-
         }
 
         // ----- 视图层ListBox的ItemsSource-----
@@ -235,7 +234,14 @@ namespace Pmer.ViewModel
         public void UpdateOK()
         {
             // 改
-
+            string password = Encryptor.AESEncrypt(nowSelectedPassword, KeyPassword);
+            db.UpdatePasswordItem(NowSelectedAccount, password, NowSelectedWebsite, NowSelectedId);
+            PasswordLists[Index].Account = NowSelectedAccount;
+            PasswordLists[Index].Password = NowSelectedPassword;
+            PasswordLists[Index].Website = NowSelectedWebsite;
+            DeleteVisible = "Visible";
+            UpdateVisible = "Visible";
+            UpdateOKVisible = "Hidden";
         }
 
         public void Update()

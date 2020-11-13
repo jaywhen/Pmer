@@ -195,11 +195,17 @@ namespace Pmer.Db
         }
 
         //delete
-
         public void DeletePasswordItem(Int64 itemId)
         {
 
             cmd.CommandText = "delete from passwords where id = " + itemId.ToString();
+            cmd.ExecuteNonQuery();
+        }
+
+        //update
+        public void UpdatePasswordItem(string account ,string cipherText, string website, Int64 id)
+        {
+            cmd.CommandText = "UPDATE passwords set Account = '" + account + "', password = '" + cipherText + "', website = '" + website + "' where id = " + id.ToString();
             cmd.ExecuteNonQuery();
         }
     }
