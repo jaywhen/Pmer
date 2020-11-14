@@ -1,5 +1,4 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using Pmer.Component;
 using Pmer.Db;
 using Pmer.Encryption;
 using System;
@@ -8,7 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input.StylusPlugIns;
 
 namespace Pmer.ViewModel
 {

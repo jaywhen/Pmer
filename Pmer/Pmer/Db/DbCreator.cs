@@ -1,5 +1,4 @@
-﻿using Microsoft.SqlServer.Server;
-using Pmer.Encryption;
+﻿using Pmer.Encryption;
 using Pmer.ViewModel;
 using System;
 using System.Collections.Generic;

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Text.RegularExpressions;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Pmer.Db;
 using Pmer.Encryption;
-using Pmer.Views;
 
 namespace Pmer.ViewModel
 {
