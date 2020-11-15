@@ -88,6 +88,7 @@
             <!-- 搜索栏 与添加按钮-->
             <StackPanel Orientation="Horizontal">
                 <TextBox
+                    x:Name="SearchBox"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.TextFieldCornerRadius="2"
                     materialDesign:HintAssist.Hint="search"
@@ -98,7 +99,14 @@
                     MinWidth="200"
                     MaxWidth="280"
                     HorizontalAlignment="Left"
-                    />
+                    Text="{Binding QueryStr}"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" 
+                                    Command="{Binding SearchCommand}" 
+                                    CommandParameter="{Binding ElementName=SearchBox, Path=Text}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <Button
                     Command="{Binding ShowAddNewPwFormCommand}"
                     ToolTip="Add a password"

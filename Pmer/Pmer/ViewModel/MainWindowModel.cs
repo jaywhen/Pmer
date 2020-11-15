@@ -31,6 +31,7 @@ namespace Pmer.ViewModel
             UpdateCommand = new RelayCommand(Update);
             UpdateOKCommand = new RelayCommand(UpdateOK);
             DeletePasswordItemCommand = new RelayCommand(DeletePasswordItem);
+            SearchCommand = new RelayCommand<string>(t => Search(t));
         }
 
         DbCreator db;
@@ -214,7 +215,15 @@ namespace Pmer.ViewModel
             get { return passwordLists; }
             set { passwordLists = value; RaisePropertyChanged(); }
         }
- 
+
+        // 搜索的字符串
+        private string queryStr;
+        public string QueryStr
+        {
+            get { return queryStr; }
+            set { queryStr = value;RaisePropertyChanged(); }
+        }
+
         #endregion
 
 
@@ -227,6 +236,7 @@ namespace Pmer.ViewModel
         public RelayCommand UpdateCommand { get; set; }
         public RelayCommand UpdateOKCommand { get; set; }
         public RelayCommand DeletePasswordItemCommand { get; set; }
+        public RelayCommand<string> SearchCommand { get; set; }
         #endregion
 
         public void UpdateOK()
@@ -400,6 +410,21 @@ namespace Pmer.ViewModel
         {
             // 从数据库中获取用户名，截取首字母大写作为头像
             FirstLetter = db.GetUserNameFromMpTable().ToUpper()[0];
+        }
+
+        public void Search(string queryStr)
+        {
+            foreach(PasswordItem it in PasswordLists)
+            {
+                if (it.Title == queryStr)
+                {
+                    Index = PasswordLists.IndexOf(it);
+                    SetNowSelectedItems();
+                    DefaultVisibility = "Hidden";
+                    PwItemDetailVisibility = "Visible";
+                    break;
+                }
+            }
         }
     }
 }
