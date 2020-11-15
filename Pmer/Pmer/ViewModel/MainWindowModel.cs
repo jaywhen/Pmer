@@ -216,14 +216,6 @@ namespace Pmer.ViewModel
             set { passwordLists = value; RaisePropertyChanged(); }
         }
 
-        // 搜索的字符串
-        private string queryStr;
-        public string QueryStr
-        {
-            get { return queryStr; }
-            set { queryStr = value;RaisePropertyChanged(); }
-        }
-
         #endregion
 
 

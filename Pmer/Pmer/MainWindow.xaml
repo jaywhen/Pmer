@@ -99,7 +99,6 @@
                     MinWidth="200"
                     MaxWidth="280"
                     HorizontalAlignment="Left"
-                    Text="{Binding QueryStr}"
                 >
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter" 
