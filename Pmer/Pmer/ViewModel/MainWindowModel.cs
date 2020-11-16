@@ -310,6 +310,16 @@ namespace Pmer.ViewModel
             AvatarHashTable.Add("wechat", "asset/wechat.png");
             AvatarHashTable.Add("weibo", "asset/weibo.png");
             AvatarHashTable.Add("zhihu", "asset/zhihu.png");
+            AvatarHashTable.Add("paypal", "asset/paypal.png");
+            AvatarHashTable.Add("facebook", "asset/Facebook.png");
+            AvatarHashTable.Add("gmail", "asset/gmail.png");
+            AvatarHashTable.Add("instagram", "asset/instagram.png");
+            AvatarHashTable.Add("jetbrains", "asset/jetbrains.png");
+            AvatarHashTable.Add("leetcode", "asset/leetcode.png");
+            AvatarHashTable.Add("mysql", "asset/mysql.png");
+            AvatarHashTable.Add("twitter", "asset/twitter.png");
+            AvatarHashTable.Add("unity", "asset/unity.png");
+            AvatarHashTable.Add("amazon", "asset/amazon.png");
         }
         public void AddNewPassword()
         {
