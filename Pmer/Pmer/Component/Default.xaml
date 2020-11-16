@@ -10,6 +10,7 @@
         <!-- 默认展示图片 -->
         <StackPanel>
             <Image
+                RenderOptions.BitmapScalingMode="HighQuality"
                 Source="../asset/index.png"
                 Height="600"
                 />

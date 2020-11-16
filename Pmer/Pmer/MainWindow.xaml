@@ -128,9 +128,10 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <Image
-                            Margin="0 0 20 0"
-                            Source="{Binding Avatar}"
-                            Width="45"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Margin="0 0 20 0"
+                                Source="{Binding Avatar}"
+                                Width="45"
                             />
                             <StackPanel>
                                 <TextBlock
