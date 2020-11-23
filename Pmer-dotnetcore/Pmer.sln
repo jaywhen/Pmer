@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pmer", "Pmer\Pmer.csproj", "{EA74F3C6-B398-4A34-98B0-FF2B8C798834}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA74F3C6-B398-4A34-98B0-FF2B8C798834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA74F3C6-B398-4A34-98B0-FF2B8C798834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA74F3C6-B398-4A34-98B0-FF2B8C798834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA74F3C6-B398-4A34-98B0-FF2B8C798834}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E0EA3F4-4CC1-4349-86D7-A96C7D0CD0A7}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="assets\1password.png" />
+    <None Remove="assets\amazon.png" />
+    <None Remove="assets\bilibili.png" />
+    <None Remove="assets\coursera.png" />
+    <None Remove="assets\default.png" />
+    <None Remove="assets\dingding.png" />
+    <None Remove="assets\Dribbble.png" />
+    <None Remove="assets\Facebook.png" />
+    <None Remove="assets\gitee-fill-round.png" />
+    <None Remove="assets\github.png" />
+    <None Remove="assets\gmail.png" />
+    <None Remove="assets\index.png" />
+    <None Remove="assets\instagram.png" />
+    <None Remove="assets\jetbrains.png" />
+    <None Remove="assets\leetcode.png" />
+    <None Remove="assets\mysql.png" />
+    <None Remove="assets\paypal %281%29.png" />
+    <None Remove="assets\paypal.png" />
+    <None Remove="assets\qq.png" />
+    <None Remove="assets\twitter.png" />
+    <None Remove="assets\unity.png" />
+    <None Remove="assets\v2ex.png" />
+    <None Remove="assets\wechat.png" />
+    <None Remove="assets\weibo.png" />
+    <None Remove="assets\zhihu.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="3.2.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.113.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\1password.png" />
+    <Resource Include="assets\amazon.png" />
+    <Resource Include="assets\bilibili.png" />
+    <Resource Include="assets\coursera.png" />
+    <Resource Include="assets\default.png" />
+    <Resource Include="assets\dingding.png" />
+    <Resource Include="assets\Dribbble.png" />
+    <Resource Include="assets\Facebook.png" />
+    <Resource Include="assets\gitee-fill-round.png" />
+    <Resource Include="assets\github.png" />
+    <Resource Include="assets\gmail.png" />
+    <Resource Include="assets\index.png" />
+    <Resource Include="assets\instagram.png" />
+    <Resource Include="assets\jetbrains.png" />
+    <Resource Include="assets\leetcode.png" />
+    <Resource Include="assets\mysql.png" />
+    <Resource Include="assets\paypal (1).png" />
+    <Resource Include="assets\paypal.png" />
+    <Resource Include="assets\qq.png" />
+    <Resource Include="assets\twitter.png" />
+    <Resource Include="assets\unity.png" />
+    <Resource Include="assets\v2ex.png" />
+    <Resource Include="assets\wechat.png" />
+    <Resource Include="assets\weibo.png" />
+    <Resource Include="assets\zhihu.png" />
+  </ItemGroup>
+
+</Project>

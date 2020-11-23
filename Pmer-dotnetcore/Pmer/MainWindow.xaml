@@ -1,0 +1,185 @@
+﻿<Window x:Class="Pmer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pmer"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        
+        xmlns:handler="clr-namespace:Pmer.Handler"
+        handler:DialogCloser.DialogResult="{Binding DialogResult}"
+        
+        xmlns:component="clr-namespace:Pmer.Component" 
+        
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        Title="MainWindow" Height="550" Width="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition MinWidth="250" MaxWidth="300"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!-- 用户头像 -->
+        <StackPanel Background="WhiteSmoke"
+                    >
+            <ListView Margin="0 20 0 0">
+                <ListViewItem>
+                    <Border CornerRadius="3"
+                            Background="#463dc9"
+                            BorderThickness="0"
+                            Margin="2"
+                            Width="30"
+                            Height="30"
+                        >
+                        <TextBox
+                            BorderBrush="{x:Null}"
+                            BorderThickness="1"
+                            TextDecorations="underline"
+                            IsReadOnly="True"   
+                            Text="{Binding FirstLetter}"
+                            Foreground="WhiteSmoke"
+                            VerticalAlignment="Center"
+                            TextAlignment="Center"
+                        />
+                    </Border>
+
+                </ListViewItem>
+
+                <ListViewItem Margin="0 20 0 0" Width="50">
+                    <RadioButton
+                        Style="{StaticResource MaterialDesignIconButton}" 
+                        Height="32" 
+                        Width="34"
+                        >
+                        <materialDesign:PackIcon Kind="Onepassword" />
+                    </RadioButton>
+                </ListViewItem>
+
+                <ListViewItem Margin="0 50 0 0" Width="50">
+                    <RadioButton
+                        
+                        Style="{StaticResource MaterialDesignIconButton}" 
+                        Height="32" 
+                        Width="34"
+                        >
+                        <materialDesign:PackIcon Kind="CogOutline" />
+                    </RadioButton>
+                </ListViewItem>
+
+
+            </ListView>
+
+        </StackPanel>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!-- 搜索栏 与添加按钮-->
+            <StackPanel Orientation="Horizontal">
+                <TextBox
+                    x:Name="SearchBox"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.TextFieldCornerRadius="2"
+                    materialDesign:HintAssist.Hint="search"
+                    Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                    FontSize="15"
+                    Margin="10 0 20 0"
+                    Height="40"
+                    MinWidth="200"
+                    MaxWidth="280"
+                    HorizontalAlignment="Left"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" 
+                                    Command="{Binding SearchCommand}" 
+                                    CommandParameter="{Binding ElementName=SearchBox, Path=Text}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button
+                    Command="{Binding ShowAddNewPwFormCommand}"
+                    ToolTip="Add a password"
+                    Margin="0 0 10 0"
+                    Style="{StaticResource MaterialDesignIconButton}" 
+                    >
+
+                    <materialDesign:PackIcon Kind="Plus" />
+                </Button>
+
+            </StackPanel>
+            <!-- 密码列表项 -->
+
+            <ListBox 
+                x:Name="PasswordListBox"
+                Grid.Row="1"
+                ItemsSource="{Binding PasswordLists}"
+                >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Margin="0 0 20 0"
+                                Source="{Binding Avatar}"
+                                Width="45"
+                            />
+                            <StackPanel>
+                                <TextBlock
+                                Text="{Binding Title}"
+                                />
+                                <StackPanel Margin="0 10 0 0">
+                                    <TextBlock
+                                    Text="{Binding Account}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction 
+                            Command="{Binding SelectPasswordItemCommand}" 
+                            CommandParameter="{Binding ElementName=PasswordListBox, Path=SelectedIndex}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBox>
+
+        </Grid> 
+        <!--分割线-->
+        <GridSplitter Grid.Column="2" HorizontalAlignment="Stretch"/>
+
+        <Grid Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!--<Border Background="#0034dd"/>-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Foreground="#79ceb8"
+                    ToolTip="Close" Margin="0,1,0,1.667" Height="Auto" 
+                    Command="{Binding CloseCommand}"
+                    Content=" ✕"
+                />
+            </StackPanel>
+            <component:Default Grid.Row="1" Visibility="{Binding DefaultVisibility}"/>
+            <component:AddNewPwForm Grid.Row="1" Visibility="{Binding AddNewPwFormVisibility}"/>
+            <component:PasswordItemDetail Grid.Row="1" Visibility="{Binding PwItemDetailVisibility}"/>
+        </Grid>
+    </Grid>
+</Window>

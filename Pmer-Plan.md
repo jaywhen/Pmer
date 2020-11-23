@@ -12,3 +12,6 @@
 
 
 
+## Windows
+
+- 改为 .net core
