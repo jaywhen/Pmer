@@ -19,9 +19,10 @@ namespace Pmer
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             // 检测是否具备弹出登录窗口的条件
-            DbCreator db = new DbCreator();
-            db.CreateDbConnection();
-            bool isLogin = db.Init();
+            // DbCreator db = new DbCreator();
+            // db.CreateDbConnection();
+
+            bool isLogin = DbHelper.IfRegister();
 
             if (!isLogin)
             {

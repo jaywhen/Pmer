@@ -91,8 +91,8 @@ namespace Pmer.ViewModel
                 string preSalt = Encryptor.GenerateSalt();
                 string sufSalt = Encryptor.GenerateSalt();
                 string hashedPassword = Encryptor.SHA512AddSalt(preSalt, RePassWord, sufSalt);
-
-                db.InsertMasterPw(MasterUserName, hashedPassword, preSalt, sufSalt);
+                DbHelper.InsertMainPassword(MasterUserName, hashedPassword, preSalt, sufSalt);
+                // db.InsertMasterPw(MasterUserName, hashedPassword, preSalt, sufSalt);
                 RegiBtnContent = "Close";
                 IsRegiSuccess = true;
                 return;
