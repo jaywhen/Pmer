@@ -6,6 +6,16 @@ namespace Pmer.Models
 {
     public class PasswordItem
     {
+        public PasswordItem() { }
+        public PasswordItem(int id, string title, string account, string password, string website, string avatar)
+        {
+            this.Id = id;
+            this.Title = title;
+            this.Account = account;
+            this.Password = password;
+            this.Website = website;
+            this.Avatar = avatar;
+        }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Account { get; set; }

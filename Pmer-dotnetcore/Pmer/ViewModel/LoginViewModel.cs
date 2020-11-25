@@ -9,12 +9,12 @@ namespace Pmer.ViewModel
     {
         public LoginViewModel()
         {
-            db = new DbCreator();
-            db.CreateDbConnection();
+            // db = new DbCreator();
+            // db.CreateDbConnection();
             LoginCommand = new RelayCommand(Login);
             CloseCommand = new RelayCommand(Close);
         }
-        DbCreator db;
+        // DbCreator db;
 
         #region Command
         public RelayCommand LoginCommand { get; set; }
@@ -43,8 +43,6 @@ namespace Pmer.ViewModel
                 WindowToolTip = "";
             }
             SetLoginSuccess();
-
-            // 将密码哈希后作为AES的key，存入内存或者缓存中，供解密器加解密
 
         }
 

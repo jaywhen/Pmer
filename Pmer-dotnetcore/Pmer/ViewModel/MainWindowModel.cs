@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
-
+using Pmer.Models;
 namespace Pmer.ViewModel
 {
     public class MainWindowModel : BaseViewModel
@@ -16,8 +16,8 @@ namespace Pmer.ViewModel
         public MainWindowModel(string key)
         {
             KeyPassword = Encryptor.HashedKeyByMD5(key);
-            db = new DbCreator();
-            db.CreateDbConnection();
+            // db = new DbCreator();
+            // db.CreateDbConnection();
             InitAvatarHashTable();
             SetUserFavicon();
             Query();
@@ -34,7 +34,7 @@ namespace Pmer.ViewModel
             SearchCommand = new RelayCommand<string>(t => Search(t));
         }
 
-        DbCreator db;
+        // DbCreator db;
 
         #region Visible
         private string deleteVisible;
@@ -92,14 +92,12 @@ namespace Pmer.ViewModel
 
         // 将FirstLetter与MainWindow中的TextBox的Text进行绑定
         private char firstLetter;
-       
         public char FirstLetter
         {
             get { return firstLetter; }
             set { firstLetter = value; RaisePropertyChanged(); }
         }
         
-
         // ----------
         private string title;
         private string account;
@@ -139,14 +137,14 @@ namespace Pmer.ViewModel
         }
 
         // --- now selected items ---
-        private Int64 nowSelectedId;
+        private int nowSelectedId;
         private string nowSelectedTitle;
         private string nowSelectedAccount;
         private string nowSelectedAvatar;
         private string nowSelectedPassword;
         private string nowSelectedWebsite;
 
-        public Int64 NowSelectedId
+        public int NowSelectedId
         {
             get { return nowSelectedId; }
             set { nowSelectedId = value;RaisePropertyChanged(); }
@@ -235,7 +233,18 @@ namespace Pmer.ViewModel
         {
             // 改
             string password = Encryptor.AESEncrypt(nowSelectedPassword, KeyPassword);
-            db.UpdatePasswordItem(NowSelectedAccount, password, NowSelectedWebsite, NowSelectedId);
+            PasswordItem passwordItem = new PasswordItem(
+                NowSelectedId,
+                NowSelectedTitle, 
+                NowSelectedAccount, 
+                password, 
+                NowSelectedWebsite, 
+                NowSelectedAvatar);
+            DbHelper.UpdatePasswordItem(passwordItem);
+
+
+
+            // db.UpdatePasswordItem(NowSelectedAccount, password, NowSelectedWebsite, NowSelectedId);
             PasswordLists[Index].Account = NowSelectedAccount;
             PasswordLists[Index].Password = NowSelectedPassword;
             PasswordLists[Index].Website = NowSelectedWebsite;
@@ -257,7 +266,8 @@ namespace Pmer.ViewModel
 
         public void DeletePasswordItem()
         {
-            db.DeletePasswordItem(NowSelectedId);
+            // db.DeletePasswordItem(NowSelectedId);
+            DbHelper.DeletePasswordItem(NowSelectedId);
             PwItemDetailVisibility = "Hidden";
             DefaultVisibility = "Visible";
             // Query();
@@ -346,10 +356,23 @@ namespace Pmer.ViewModel
             }
 
             //对密码加密
-            string encryptedPassword = Encryptor.AESEncrypt(AddPassword, KeyPassword);
-            db.InsertNewPw(Title, Account, encryptedPassword, Website, Avatar);
+            // 构造密码项一处应为函数
 
-            PasswordItem passwordItem = new PasswordItem(Title, Account, AddPassword, Website, Avatar);
+            string encryptedPassword = Encryptor.AESEncrypt(AddPassword, KeyPassword);
+            PasswordItem passwordItem = new PasswordItem
+            {
+                Account = Account,
+                Avatar = Avatar,
+                Password = encryptedPassword,
+                Website = Website,
+                Title = Title
+            };
+            DbHelper.InsertPasswordItem(passwordItem);
+
+            // db.InsertNewPw(Title, Account, encryptedPassword, Website, Avatar);
+
+            // PasswordItem passwordItem = new PasswordItem(Title, Account, AddPassword, Website, Avatar);
+            passwordItem.Password = AddPassword;
             AddAPwItemToPwList(passwordItem);
            
             ClearAddNewPwForm();
@@ -367,7 +390,8 @@ namespace Pmer.ViewModel
         public void Query()
         {
             List<PasswordItem> passwordItems = new List<PasswordItem>();
-            passwordItems = db.GetPasswordItems(KeyPassword);
+            passwordItems = DbHelper.GetAllPasswordItems(KeyPassword);
+
             PasswordLists = new ObservableCollection<PasswordItem>();
             foreach(PasswordItem item in passwordItems)
             {
@@ -420,7 +444,8 @@ namespace Pmer.ViewModel
         public void SetUserFavicon()
         {
             // 从数据库中获取用户名，截取首字母大写作为头像
-            FirstLetter = db.GetUserNameFromMpTable().ToUpper()[0];
+            // FirstLetter = db.GetUserNameFromMpTable().ToUpper()[0];
+            FirstLetter = System.Environment.UserName.ToUpper()[0];
         }
 
         public void Search(string queryStr)

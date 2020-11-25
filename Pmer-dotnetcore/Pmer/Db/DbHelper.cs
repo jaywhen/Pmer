@@ -1,4 +1,6 @@
-﻿using Pmer.Models;
+﻿using Pmer.Encryption;
+using Pmer.Models;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -13,6 +15,15 @@ namespace Pmer.Db
             PmerDbContext dbContext = new PmerDbContext();
             int item_nums = dbContext.MainPassword.ToList().Count();
             return item_nums > 0 ? true : false;
+        }
+
+        static List<PasswordItem> DecrypPasswordItem(List<PasswordItem> passwordItems, byte[] keyPassword)
+        {
+            for(int i = 0; i < passwordItems.Count(); i++)
+            {
+                passwordItems[i].Password = Encryptor.AESDecrypt(passwordItems[i].Password, keyPassword);
+            }
+            return passwordItems;
         }
 
         // 
@@ -51,6 +62,8 @@ namespace Pmer.Db
             }
         }
 
+        #region Insert
+
         /// <summary>
         /// 将主密码以及用户名和盐插入MainPassword表中
         /// </summary>
@@ -73,6 +86,42 @@ namespace Pmer.Db
             dbContext.SaveChanges();
         }
 
+        /// <summary>
+        /// 将添加的密码项插入表中
+        /// </summary>
+        /// <param name="passwordItem"></param>
+        public static void InsertPasswordItem(PasswordItem passwordItem)
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            dbContext.Add(passwordItem);
+            dbContext.SaveChanges();
+        }
+
+        #endregion
+
+        #region Update
+        public static void UpdatePasswordItem(PasswordItem passwordItem)
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            dbContext.PasswordItems.Update(passwordItem);
+            dbContext.SaveChanges();
+        }
+        #endregion
+
+        #region Search
+        /// <summary>
+        /// 获取所有的密码项
+        /// </summary>
+        /// <param name="keyPassword">用于解密的密钥</param>
+        /// <returns></returns>
+        public static List<PasswordItem> GetAllPasswordItems(byte[] keyPassword)
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            List<PasswordItem> passwordItems = dbContext.PasswordItems.ToList();
+            passwordItems = DecrypPasswordItem(passwordItems, keyPassword);
+            return passwordItems;
+        }
+
         public static MainPassword GetMainPasswordItem()
         {
 
@@ -84,6 +133,21 @@ namespace Pmer.Db
             return mainPassword;
 
         }
+
+        #endregion
+
+        #region Delete
+        public static void DeletePasswordItem(int id)
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            PasswordItem passwordItem = dbContext.PasswordItems.Find(id);
+            dbContext.PasswordItems.Remove(passwordItem);
+            dbContext.SaveChanges();
+        }
+
+        #endregion
+
+
 
     }
 }

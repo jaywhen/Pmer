@@ -9,14 +9,14 @@ namespace Pmer.ViewModel
     {
         public RegistViewModel()
         {
-            db = new DbCreator();
-            db.CreateDbConnection();
+            // db = new DbCreator();
+            // db.CreateDbConnection();
 
             RegistCommand = new RelayCommand(Regist);
             CloseCommand = new RelayCommand(Close);
         }
 
-        DbCreator db;
+        // DbCreator db;
 
         #region Property
         private string masterUserName = Environment.UserName;
