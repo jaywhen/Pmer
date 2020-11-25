@@ -12,12 +12,9 @@ namespace Pmer.ViewModel
 {
     public class MainWindowModel : BaseViewModel
     {
-
         public MainWindowModel(string key)
         {
             KeyPassword = Encryptor.HashedKeyByMD5(key);
-            // db = new DbCreator();
-            // db.CreateDbConnection();
             InitAvatarHashTable();
             SetUserFavicon();
             Query();
@@ -33,8 +30,6 @@ namespace Pmer.ViewModel
             DeletePasswordItemCommand = new RelayCommand(DeletePasswordItem);
             SearchCommand = new RelayCommand<string>(t => Search(t));
         }
-
-        // DbCreator db;
 
         #region Visible
         private string deleteVisible;
@@ -362,7 +357,7 @@ namespace Pmer.ViewModel
             PasswordItem passwordItem = new PasswordItem
             {
                 Account = Account,
-                Avatar = Avatar,
+                Avatar = "../" + Avatar,
                 Password = encryptedPassword,
                 Website = Website,
                 Title = Title
@@ -415,7 +410,7 @@ namespace Pmer.ViewModel
         {
             NowSelectedId = PasswordLists[Index].Id;
             NowSelectedTitle = PasswordLists[Index].Title;
-            NowSelectedAvatar = "../" + PasswordLists[Index].Avatar;
+            NowSelectedAvatar = PasswordLists[Index].Avatar;
             NowSelectedAccount = PasswordLists[Index].Account;
             NowSelectedPassword = PasswordLists[Index].Password;
             NowSelectedWebsite = PasswordLists[Index].Website;

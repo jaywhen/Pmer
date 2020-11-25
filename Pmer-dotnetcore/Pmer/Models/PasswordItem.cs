@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GalaSoft.MvvmLight;
 
 namespace Pmer.Models
 {
-    public class PasswordItem
+    /// <summary>
+    /// 密码项类
+    /// </summary>
+    public class PasswordItem : ViewModelBase
     {
         public PasswordItem() { }
         public PasswordItem(int id, string title, string account, string password, string website, string avatar)
@@ -16,11 +17,44 @@ namespace Pmer.Models
             this.Website = website;
             this.Avatar = avatar;
         }
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Account { get; set; }
-        public string Password { get; set; }
-        public string Website { get; set; }
-        public string Avatar { get; set; }
+        #region Property
+        private int id;
+        private string title;
+        private string account;
+        private string password;
+        private string website;
+        private string avatar;
+
+        public int Id 
+        {
+            get { return id; }
+            set { id = value; RaisePropertyChanged(); } 
+        }
+        public string Title 
+        {
+            get { return title; }
+            set { title = value; RaisePropertyChanged(); }
+        }
+        public string Account 
+        {
+            get { return account; }
+            set { account = value; RaisePropertyChanged(); }
+        }
+        public string Password
+        {
+            get { return password; }
+            set { password = value; RaisePropertyChanged(); }
+        }
+        public string Website
+        {
+            get { return website; }
+            set { website = value; RaisePropertyChanged(); }
+        }
+        public string Avatar 
+        {
+            get { return avatar; }
+            set { avatar = value; RaisePropertyChanged(); }
+        }
+        #endregion
     }
 }

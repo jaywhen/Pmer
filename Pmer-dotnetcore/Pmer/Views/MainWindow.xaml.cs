@@ -1,9 +1,8 @@
 ﻿using Pmer.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Pmer
+namespace Pmer.Views
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -29,9 +28,6 @@ namespace Pmer
                 MainWindowModel mainWindowModel = new MainWindowModel(key);
                 this.DataContext = mainWindowModel;
             }
-
-            //test
-            //int selectedid = PasswordListBox.SelectedIndex;
         }
 
     }

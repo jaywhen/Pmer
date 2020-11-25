@@ -1,7 +1,7 @@
 ﻿using Pmer.Db;
 using Pmer.Views;
 using System.Windows;
-
+using System.Configuration;
 
 namespace Pmer
 {
@@ -10,18 +10,41 @@ namespace Pmer
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// 配置数据库文件所在位置以及所在文件夹位置
+        /// </summary>
+        public void Config()
+        {
+            if (ConfigurationManager.AppSettings["LocalPath"] == null)
+            {
+                // 若应用程序第一次启动， 设置appdata文件夹的位置
+                Configuration cf = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                string localPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData);
+                cf.AppSettings.Settings.Add("LocalPath", localPath);
+
+                // 添加数据库文件所在的文件夹位置
+                string dbDir = localPath + ConfigurationManager.AppSettings["DataBaseDirName"];
+                cf.AppSettings.Settings.Add("DataBaseDirNamePath", dbDir);
+                // 添加数据库文件所在的位置
+                string dbFile = dbDir + ConfigurationManager.AppSettings["DataBaseFileName"];
+                cf.AppSettings.Settings.Add("DataBaseFileNamePath", dbFile);
+
+                cf.Save();
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            Config();
+
 
             MainWindow mv = new MainWindow();
             this.MainWindow = mv;
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             // 检测是否具备弹出登录窗口的条件
-            // DbCreator db = new DbCreator();
-            // db.CreateDbConnection();
-
             bool isLogin = DbHelper.IfRegister();
 
             if (!isLogin)

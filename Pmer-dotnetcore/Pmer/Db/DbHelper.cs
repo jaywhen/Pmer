@@ -3,29 +3,13 @@ using Pmer.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Configuration;
 
 namespace Pmer.Db
 {
     // 数据库帮助类
     public static class DbHelper
     {
-        static bool ContianData()
-        {
-            // 检查MainPassword中是否含有数据
-            PmerDbContext dbContext = new PmerDbContext();
-            int item_nums = dbContext.MainPassword.ToList().Count();
-            return item_nums > 0 ? true : false;
-        }
-
-        static List<PasswordItem> DecrypPasswordItem(List<PasswordItem> passwordItems, byte[] keyPassword)
-        {
-            for(int i = 0; i < passwordItems.Count(); i++)
-            {
-                passwordItems[i].Password = Encryptor.AESDecrypt(passwordItems[i].Password, keyPassword);
-            }
-            return passwordItems;
-        }
-
         // 
         /// <summary>
         /// 判断用户是否已经注册
@@ -33,9 +17,10 @@ namespace Pmer.Db
         /// <returns>已经注册返回true， 否则返回false</returns>
         public static bool IfRegister()
         {
-            string dbDirectory = System.Environment.CurrentDirectory + "\\Db";
-            string dbFile = dbDirectory + "\\PmerDb.db";
-            using(var db = new PmerDbContext())
+            string dbDirectory = ConfigurationManager.AppSettings["DataBaseDirNamePath"];
+            string dbFile = ConfigurationManager.AppSettings["DataBaseFileNamePath"];
+
+            using (var db = new PmerDbContext())
             {
                 if (!Directory.Exists(dbDirectory))
                 {
@@ -147,6 +132,25 @@ namespace Pmer.Db
 
         #endregion
 
+        #region Tools
+        // 一些工具函数
+        static bool ContianData()
+        {
+            // 检查MainPassword中是否含有数据
+            PmerDbContext dbContext = new PmerDbContext();
+            int item_nums = dbContext.MainPassword.ToList().Count();
+            return item_nums > 0 ? true : false;
+        }
+
+        static List<PasswordItem> DecrypPasswordItem(List<PasswordItem> passwordItems, byte[] keyPassword)
+        {
+            for (int i = 0; i < passwordItems.Count(); i++)
+            {
+                passwordItems[i].Password = Encryptor.AESDecrypt(passwordItems[i].Password, keyPassword);
+            }
+            return passwordItems;
+        }
+        #endregion
 
 
     }
