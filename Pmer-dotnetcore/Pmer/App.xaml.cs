@@ -19,7 +19,7 @@ namespace Pmer
             {
                 // 若应用程序第一次启动， 设置appdata文件夹的位置
                 Configuration cf = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                string localPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData);
+                string localPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
                 cf.AppSettings.Settings.Add("LocalPath", localPath);
 
                 // 添加数据库文件所在的文件夹位置
@@ -39,11 +39,9 @@ namespace Pmer
             base.OnStartup(e);
             Config();
 
-
             MainWindow mv = new MainWindow();
             this.MainWindow = mv;
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
-
             // 检测是否具备弹出登录窗口的条件
             bool isLogin = DbHelper.IfRegister();
 
@@ -72,7 +70,6 @@ namespace Pmer
             else
             {
                 LoginView loginView = new LoginView();
-
                 bool? resultLogin = loginView.ShowDialog();
                 string key = loginView.PasswordBox.Password;
                 // 登录成功，进入主界面
@@ -89,6 +86,5 @@ namespace Pmer
                 }
             }
         }
-
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using Pmer.Models;
+using Pmer.Views;
 namespace Pmer.ViewModel
 {
     public class MainWindowModel : BaseViewModel
@@ -29,6 +30,7 @@ namespace Pmer.ViewModel
             UpdateOKCommand = new RelayCommand(UpdateOK);
             DeletePasswordItemCommand = new RelayCommand(DeletePasswordItem);
             SearchCommand = new RelayCommand<string>(t => Search(t));
+            AboutCommand = new RelayCommand(About);
         }
 
         #region Visible
@@ -222,6 +224,7 @@ namespace Pmer.ViewModel
         public RelayCommand UpdateOKCommand { get; set; }
         public RelayCommand DeletePasswordItemCommand { get; set; }
         public RelayCommand<string> SearchCommand { get; set; }
+        public RelayCommand AboutCommand { get; set; }
         #endregion
 
         public void UpdateOK()
@@ -456,6 +459,12 @@ namespace Pmer.ViewModel
                     break;
                 }
             }
+        }
+
+        public void About()
+        {
+            AboutView ab = new AboutView();
+            ab.ShowDialog();
         }
     }
 }

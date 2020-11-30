@@ -54,9 +54,7 @@
                             TextAlignment="Center"
                         />
                     </Border>
-
                 </ListViewItem>
-
                 <ListViewItem Margin="0 20 0 0" Width="50">
                     <RadioButton
                         Style="{StaticResource MaterialDesignIconButton}" 
@@ -66,7 +64,6 @@
                         <materialDesign:PackIcon Kind="Onepassword" />
                     </RadioButton>
                 </ListViewItem>
-
                 <ListViewItem Margin="0 50 0 0" Width="50">
                     <RadioButton
                         
@@ -75,6 +72,16 @@
                         Width="34"
                         >
                         <materialDesign:PackIcon Kind="CogOutline" />
+                    </RadioButton>
+                </ListViewItem>
+                <ListViewItem Margin="0 50 0 0" Width="50">
+                    <RadioButton
+                        Command="{Binding AboutCommand}"
+                        Style="{StaticResource MaterialDesignIconButton}" 
+                        Height="32" 
+                        Width="34" Cursor="Hand"
+                        >
+                        <materialDesign:PackIcon Kind="InformationVariant" />
                     </RadioButton>
                 </ListViewItem>
 
@@ -113,7 +120,7 @@
                     Command="{Binding ShowAddNewPwFormCommand}"
                     ToolTip="Add a password"
                     Margin="0 0 10 0"
-                    Style="{StaticResource MaterialDesignIconButton}" 
+                    Style="{StaticResource MaterialDesignIconButton}" Cursor="Hand" 
                     >
 
                     <materialDesign:PackIcon Kind="Plus" />

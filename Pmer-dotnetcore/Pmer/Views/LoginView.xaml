@@ -23,7 +23,7 @@
         Title="LooginView" Height="380" Width="500">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="120"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -49,7 +49,7 @@
                 Foreground="WhiteSmoke"
                 Style="{StaticResource MaterialDesignFlatButton}"
                 ToolTip="Close" Margin="0,1,0,1.667" Height="Auto" 
-                Command="{Binding CloseCommand}"
+                Command="{Binding CloseCommand}" Cursor="Hand"
                 >
                 ✕
             </Button>
@@ -91,7 +91,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 MinWidth="200"
-                Width="200"
+                Width="200" Cursor="IBeam"
                 >
                 <i:Interaction.Behaviors>
                     <handler:PasswordBoxBehavior />
@@ -111,7 +111,7 @@
                     Width="120"
                     Command="{Binding LoginCommand}"
                     Background="#2256ff"
-                    ToolTip="Resource name: MaterialDesignRaisedButton">
+                    ToolTip="Resource name: MaterialDesignRaisedButton" Cursor="Hand">
                 Go!
             </Button>
             
