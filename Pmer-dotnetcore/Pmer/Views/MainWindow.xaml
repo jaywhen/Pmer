@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="#fff"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
@@ -18,12 +18,22 @@
         handler:DialogCloser.DialogResult="{Binding DialogResult}"
         
         xmlns:component="clr-namespace:Pmer.Component" 
-        
+        BorderThickness="24"
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None" 
         AllowsTransparency="True"
         ResizeMode="CanResizeWithGrip"
-        Title="MainWindow" Height="550" Width="900">
+        Title="MainWindow" 
+        MinHeight="550" MinWidth="900">
+    <Window.Effect>
+        <DropShadowEffect 
+            BlurRadius="10" 
+            Color="#c4c4c4" 
+            Direction="90" 
+            ShadowDepth="1"
+            RenderingBias="Quality"
+            />
+    </Window.Effect>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>

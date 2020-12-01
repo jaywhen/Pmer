@@ -14,13 +14,26 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         ResizeMode="CanResizeWithGrip"
         mc:Ignorable="d"
+        
+        BorderThickness="24"
         Title="About" 
-        Height="350" 
-        Width="400"
+        MinHeight="398" 
+        MinWidth="428"
+        MaxHeight="398" 
+        MaxWidth="428"
         WindowStyle="None"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         >
+    <Window.Effect>
+        <DropShadowEffect 
+            BlurRadius="24" 
+            Color="#ddd" 
+            Direction="90" 
+            ShadowDepth="1"
+            RenderingBias="Quality"
+            />
+    </Window.Effect>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -48,10 +61,6 @@
                     Text="Pmer(0.0.1)"
                     />
                 <LineBreak/>
-                <Run
-                    FontSize="12"
-                    Text="License: MIT"
-                    />
             </TextBlock>
             <TextBlock
                 HorizontalAlignment="Center"
@@ -68,6 +77,26 @@
                     />
                 <LineBreak/>
             </TextBlock>
+            <TextBlock
+                Margin="0 30 0 0"
+                HorizontalAlignment="Center"
+                >
+                <Run
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Text="Thanks for using!" FontFamily="Comic Sans MS"
+                    />
+            </TextBlock>
+            <Button
+                Margin="10 60 10 0"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                Style="{StaticResource MaterialDesignIconButton}" 
+                RenderOptions.BitmapScalingMode="HighQuality"
+                Command="{Binding OpenCodeReposCommand}" Cursor="Hand"
+                >
+                <materialDesign:PackIcon Kind="Github" />
+            </Button>
         </StackPanel>
     </Grid>
 </Window>
