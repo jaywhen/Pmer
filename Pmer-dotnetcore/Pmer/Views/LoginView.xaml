@@ -9,7 +9,7 @@
         
         xmlns:handler="clr-namespace:Pmer.Handler"
         handler:DialogCloser.DialogResult="{Binding DialogResult}"
-        
+        BorderThickness="20"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
@@ -21,6 +21,15 @@
         AllowsTransparency="True"
         MinWidth="500" MinHeight="380"
         Title="LooginView" Height="380" Width="500">
+    <Window.Effect>
+        <DropShadowEffect 
+            BlurRadius="10" 
+            Color="#c4c4c4" 
+            Direction="90" 
+            ShadowDepth="1"
+            RenderingBias="Quality"
+            />
+    </Window.Effect>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

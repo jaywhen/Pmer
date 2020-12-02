@@ -23,6 +23,15 @@
         AllowsTransparency="True"
         MinWidth="550" MinHeight="420"
         Title="RegistView" Height="420" Width="550">
+    <Window.Effect>
+        <DropShadowEffect 
+            BlurRadius="24" 
+            Color="#ddd" 
+            Direction="90" 
+            ShadowDepth="1"
+            RenderingBias="Quality"
+            />
+    </Window.Effect>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
