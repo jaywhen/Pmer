@@ -15,7 +15,7 @@
         
         xmlns:handler="clr-namespace:Pmer.Handler"
         handler:DialogCloser.DialogResult="{Binding DialogResult}"
-        
+        BorderThickness="10"
         mc:Ignorable="d"
         WindowStyle="None" 
         WindowStartupLocation="CenterScreen" 
@@ -25,8 +25,8 @@
         Title="RegistView" Height="420" Width="550">
     <Window.Effect>
         <DropShadowEffect 
-            BlurRadius="24" 
-            Color="#ddd" 
+            BlurRadius="10" 
+            Color="#c4c4c4" 
             Direction="90" 
             ShadowDepth="1"
             RenderingBias="Quality"

@@ -306,22 +306,26 @@ namespace Pmer.ViewModel
         public void InitAvatarHashTable()
         {
             AvatarHashTable = new Hashtable();
-            AvatarHashTable.Add("github", "assets/github.png");
-            AvatarHashTable.Add("bilibili", "assets/bilibili.png");
-            AvatarHashTable.Add("qq", "assets/qq.png");
-            AvatarHashTable.Add("wechat", "assets/wechat.png");
-            AvatarHashTable.Add("weibo", "assets/weibo.png");
-            AvatarHashTable.Add("zhihu", "assets/zhihu.png");
-            AvatarHashTable.Add("paypal", "assets/paypal.png");
-            AvatarHashTable.Add("facebook", "assets/Facebook.png");
-            AvatarHashTable.Add("gmail", "assets/gmail.png");
-            AvatarHashTable.Add("instagram", "assets/instagram.png");
-            AvatarHashTable.Add("jetbrains", "assets/jetbrains.png");
-            AvatarHashTable.Add("leetcode", "assets/leetcode.png");
-            AvatarHashTable.Add("mysql", "assets/mysql.png");
-            AvatarHashTable.Add("twitter", "assets/twitter.png");
-            AvatarHashTable.Add("unity", "assets/unity.png");
-            AvatarHashTable.Add("amazon", "assets/amazon.png");
+            AvatarHashTable.Add("coursera", "coursera.png");
+            AvatarHashTable.Add("github", "github.png");
+            AvatarHashTable.Add("gitee", "gitee.png");
+            AvatarHashTable.Add("bilibili", "bilibili.png");
+            AvatarHashTable.Add("qq", "qq.png");
+            AvatarHashTable.Add("wechat", "wechat.png");
+            AvatarHashTable.Add("weibo", "weibo.png");
+            AvatarHashTable.Add("zhihu", "zhihu.png");
+            AvatarHashTable.Add("paypal", "paypal.png");
+            AvatarHashTable.Add("facebook", "Facebook.png");
+            AvatarHashTable.Add("gmail", "gmail.png");
+            AvatarHashTable.Add("instagram", "instagram.png");
+            AvatarHashTable.Add("jetbrains", "jetbrains.png");
+            AvatarHashTable.Add("leetcode", "leetcode.png");
+            AvatarHashTable.Add("mysql", "mysql.png");
+            AvatarHashTable.Add("twitter", "twitter.png");
+            AvatarHashTable.Add("unity", "unity.png");
+            AvatarHashTable.Add("amazon", "amazon.png");
+            AvatarHashTable.Add("dribbble", "Dribbble.png");
+            AvatarHashTable.Add("dingding", "dingding.png");
         }
         public void AddNewPassword()
         {
@@ -344,7 +348,14 @@ namespace Pmer.ViewModel
             }
             else
             {
-                Avatar = "assets/default.png";
+                if (Title.Equals("v2ex") || Title.Equals("1password"))
+                {
+                    Avatar = Title + ".png";
+                } 
+                else
+                {
+                    Avatar = "default.png";
+                }
             }
 
             //对密码加密
@@ -354,7 +365,7 @@ namespace Pmer.ViewModel
             PasswordItem passwordItem = new PasswordItem
             {
                 Account = Account,
-                Avatar = "../" + Avatar,
+                Avatar = "../assets/" + Avatar,
                 Password = encryptedPassword,
                 Website = Website,
                 Title = Title

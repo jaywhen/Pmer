@@ -65,7 +65,12 @@
                         />
                     </Border>
                 </ListViewItem>
-                <ListViewItem Margin="0 20 0 0" Width="50">
+                <!-- 没想好，Hidden -->
+                <ListViewItem 
+                    Margin="0 20 0 0" 
+                    Width="50"
+                    Visibility="Hidden"
+                    >
                     <RadioButton
                         Style="{StaticResource MaterialDesignIconButton}" 
                         Height="32" 
@@ -74,7 +79,11 @@
                         <materialDesign:PackIcon Kind="Onepassword" />
                     </RadioButton>
                 </ListViewItem>
-                <ListViewItem Margin="0 50 0 0" Width="50">
+                <ListViewItem 
+                    Margin="0 50 0 0" 
+                    Width="50"
+                    Visibility="Hidden"
+                    >
                     <RadioButton
                         
                         Style="{StaticResource MaterialDesignIconButton}" 
@@ -94,10 +103,7 @@
                         <materialDesign:PackIcon Kind="InformationVariant" />
                     </RadioButton>
                 </ListViewItem>
-
-
             </ListView>
-
         </StackPanel>
 
         <Grid Grid.Column="1">
