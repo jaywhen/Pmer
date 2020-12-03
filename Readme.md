@@ -4,12 +4,12 @@ Pmer(**P**assword **m**anag**er**) 是一个 ~~bug比功能多的~~ 简易的、
 
 
 
-<center>
+<div align="center">
     <img style="border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"
      src="https://cdn.jsdelivr.net/gh/jaywhen/imageBed/imgregi.png"
      />
     <br />
-</center>
+</div>
 <div align="center">
         Register
 </div>
