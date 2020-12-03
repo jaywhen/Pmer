@@ -4,6 +4,9 @@ using System.Windows.Controls;
 
 namespace Pmer.Handler
 {
+    /// <summary>
+    /// PasswordBox帮助类，Password属性可以与ViewModel的属性进行绑定
+    /// </summary>
     public static class PasswordBoxHelper
     {
         public static readonly DependencyProperty PasswordProperty =
@@ -53,6 +56,9 @@ namespace Pmer.Handler
         }
     }
 
+    /// <summary>
+    /// MVVM的方式关闭窗口
+    /// </summary>
     public static class DialogCloser
     {
         public static readonly DependencyProperty DialogResultProperty =

@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Pmer.Db;
 using Pmer.Encryption;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -229,7 +228,7 @@ namespace Pmer.ViewModel
 
         public void UpdateOK()
         {
-            // 改
+            // issue
             string password = Encryptor.AESEncrypt(nowSelectedPassword, KeyPassword);
             PasswordItem passwordItem = new PasswordItem(
                 NowSelectedId,
@@ -240,9 +239,6 @@ namespace Pmer.ViewModel
                 NowSelectedAvatar);
             DbHelper.UpdatePasswordItem(passwordItem);
 
-
-
-            // db.UpdatePasswordItem(NowSelectedAccount, password, NowSelectedWebsite, NowSelectedId);
             PasswordLists[Index].Account = NowSelectedAccount;
             PasswordLists[Index].Password = NowSelectedPassword;
             PasswordLists[Index].Website = NowSelectedWebsite;
@@ -264,11 +260,9 @@ namespace Pmer.ViewModel
 
         public void DeletePasswordItem()
         {
-            // db.DeletePasswordItem(NowSelectedId);
             DbHelper.DeletePasswordItem(NowSelectedId);
             PwItemDetailVisibility = "Hidden";
             DefaultVisibility = "Visible";
-            // Query();
             PasswordLists.Remove(PasswordLists[Index]);
         }
 
@@ -367,9 +361,6 @@ namespace Pmer.ViewModel
             };
             DbHelper.InsertPasswordItem(passwordItem);
 
-            // db.InsertNewPw(Title, Account, encryptedPassword, Website, Avatar);
-
-            // PasswordItem passwordItem = new PasswordItem(Title, Account, AddPassword, Website, Avatar);
             passwordItem.Password = AddPassword;
             AddAPwItemToPwList(passwordItem);
            
@@ -441,8 +432,6 @@ namespace Pmer.ViewModel
 
         public void SetUserFavicon()
         {
-            // 从数据库中获取用户名，截取首字母大写作为头像
-            // FirstLetter = db.GetUserNameFromMpTable().ToUpper()[0];
             FirstLetter = System.Environment.UserName.ToUpper()[0];
         }
 

@@ -9,14 +9,9 @@ namespace Pmer.ViewModel
     {
         public RegistViewModel()
         {
-            // db = new DbCreator();
-            // db.CreateDbConnection();
-
             RegistCommand = new RelayCommand(Regist);
             CloseCommand = new RelayCommand(Close);
         }
-
-        // DbCreator db;
 
         #region Property
         private string masterUserName = Environment.UserName;
@@ -55,10 +50,6 @@ namespace Pmer.ViewModel
         public RelayCommand RegistCommand { get; set; }
         #endregion
 
-        //public void Close()
-        //{
-        //    this.DialogResult = false;
-        //}
         public void Regist()
         {
             if (IsRegiSuccess)
@@ -92,7 +83,6 @@ namespace Pmer.ViewModel
                 string sufSalt = Encryptor.GenerateSalt();
                 string hashedPassword = Encryptor.SHA512AddSalt(preSalt, RePassWord, sufSalt);
                 DbHelper.InsertMainPassword(MasterUserName, hashedPassword, preSalt, sufSalt);
-                // db.InsertMasterPw(MasterUserName, hashedPassword, preSalt, sufSalt);
                 RegiBtnContent = "Close";
                 IsRegiSuccess = true;
                 return;

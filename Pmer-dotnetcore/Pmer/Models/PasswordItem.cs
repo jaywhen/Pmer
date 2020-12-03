@@ -3,7 +3,7 @@
 namespace Pmer.Models
 {
     /// <summary>
-    /// 密码项类
+    /// 密码项Model
     /// </summary>
     public class PasswordItem : ViewModelBase
     {

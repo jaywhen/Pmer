@@ -9,8 +9,6 @@ namespace Pmer.ViewModel
     {
         public LoginViewModel()
         {
-            // db = new DbCreator();
-            // db.CreateDbConnection();
             LoginCommand = new RelayCommand(Login);
             CloseCommand = new RelayCommand(Close);
         }
@@ -28,8 +26,6 @@ namespace Pmer.ViewModel
                 return;
             }
             MainPassword mainPasswordItem = DbHelper.GetMainPasswordItem();
-            //string preSalt = db.GetPreSaltFromMpTable();
-            //string sufSalt = db.GetSufSaltFromMpTable();
 
             string hashedPassword = Encryptor.SHA512AddSalt(mainPasswordItem.PreSalt, PassWord, mainPasswordItem.SufSalt);
 

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Pmer.Models
 {
+    /// <summary>
+    /// 主密码Model
+    /// </summary>
     public class MainPassword
     {
         public int Id { get; set; }

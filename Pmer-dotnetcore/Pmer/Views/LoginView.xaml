@@ -75,7 +75,7 @@
                 <Run
                     FontSize="25"
                     FontWeight="SemiBold"
-                    Text="Enter the master password to log in"/>
+                    Text="Enter the main password to log in"/>
                 <LineBreak/>
                 <LineBreak/>
                 <Run
