@@ -10,15 +10,10 @@ Pmer(**P**assword **m**anag**er**) 是一个 ~~bug比功能多的~~ 简易的、
      src="https://cdn.jsdelivr.net/gh/jaywhen/imageBed/imgregi.png"
          />
     <br />
-    <div style="color:orange; 
-                border-bottom: 1px solid #d9d9d9;
-                display: inline-block; 
-                color: #999; 
-                padding: 1px;
-                ">
-        Register
-    </div>
 </center>
+<div align="center">
+        Register
+</div>
 
 
 
@@ -30,15 +25,13 @@ Pmer(**P**assword **m**anag**er**) 是一个 ~~bug比功能多的~~ 简易的、
      src="https://cdn.jsdelivr.net/gh/jaywhen/imageBed/imgregi.png"
          />
     <br />
-    <div style="color:orange; 
-                border-bottom: 1px solid #d9d9d9;
-                display: inline-block; 
-                color: #999; 
-                padding: 1px;
-                ">
-        Login
-    </div>
 </center>
+
+<div align="center">
+        Login
+</div>
+
+
 
 
 
@@ -47,15 +40,16 @@ Pmer(**P**assword **m**anag**er**) 是一个 ~~bug比功能多的~~ 简易的、
      box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"
      src="https://cdn.jsdelivr.net/gh/jaywhen/imageBed/imgmain.png"
          />
-    <div style="color:orange; 
-                border-bottom: 1px solid #d9d9d9;
-                display: inline-block; 
-                color: #999; 
-                padding: 1px;
-                ">
-        Main && About
-    </div>
 </center>
+
+<div align="center">
+        Main && About
+</div>
+
+
+
+
+
 
 ## 加密方式
 
