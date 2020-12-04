@@ -17,14 +17,14 @@ Pmer(**P**assword **m**anag**er**) 是一个 ~~bug比功能多的~~ 简易的、
 
 
 
-
 <div align="center">
     <img style="border-radius: 0.3125em; 
      box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"
-     src="https://cdn.jsdelivr.net/gh/jaywhen/imageBed/imgregi.png"
+     src="https://cdn.jsdelivr.net/gh/jaywhen/imageBed/imglogin.png"
          />
     <br />
 </div>
+
 
 <div align="center">
         Login
@@ -50,7 +50,7 @@ Pmer(**P**assword **m**anag**er**) 是一个 ~~bug比功能多的~~ 简易的、
 
 ## 加密方式
 
-- 登录密码：将登录密码首尾加盐后做一遍 `SHA512` 后存入库中，用户再次登录时，对明文做同样的操作并与库中值比对；
+- 登录密码：将登录密码首尾加盐后做一遍 `SHA512` 存入库中，用户再次登录时，对明文做同样的操作并与库中值比对；
 - 用户存储的密码s：采用 `AES` 的加密方式，密钥是用户的登录密码明文进行一遍 `MD5` 后的值。
 
 ## Pmer是用这些构建的：
