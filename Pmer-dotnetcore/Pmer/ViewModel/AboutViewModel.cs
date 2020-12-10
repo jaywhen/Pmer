@@ -10,10 +10,11 @@ namespace Pmer.ViewModel
         {
             CloseCommand = new RelayCommand(Close);
             OpenCodeReposCommand = new RelayCommand(OpenCodeRepos);
+            SubmitNewIssueCommand = new RelayCommand(SubmitNewIssue);
         }
 
         public RelayCommand OpenCodeReposCommand { get; set; }
-
+        public RelayCommand SubmitNewIssueCommand { get; set; }
         public void OpenCodeRepos()
         {
             var url = ConfigurationManager.AppSettings["CodeRepos"];
@@ -24,6 +25,17 @@ namespace Pmer.ViewModel
             };
             Process.Start(psi);
         }
+        public void SubmitNewIssue()
+        {
+            var url = ConfigurationManager.AppSettings["NewIssue"];
+            var psi = new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
+        }
+
 
     }
 }

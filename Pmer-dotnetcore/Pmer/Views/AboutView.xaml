@@ -87,16 +87,28 @@
                     Text="Thanks for using!" FontFamily="Comic Sans MS"
                     />
             </TextBlock>
-            <Button
-                Margin="10 60 10 0"
-                VerticalAlignment="Bottom"
+            <StackPanel
+                Orientation="Horizontal"
                 HorizontalAlignment="Center"
+                >
+                <Button
+                Margin="10 60 10 0"
                 Style="{StaticResource MaterialDesignIconButton}" 
                 RenderOptions.BitmapScalingMode="HighQuality"
                 Command="{Binding OpenCodeReposCommand}" Cursor="Hand"
                 >
-                <materialDesign:PackIcon Kind="Github" />
-            </Button>
+                    <materialDesign:PackIcon Kind="Github" />
+                </Button>
+                <Button
+                Margin="10 60 10 0"
+                Style="{StaticResource MaterialDesignIconButton}" 
+                RenderOptions.BitmapScalingMode="HighQuality"
+                Command="{Binding SubmitNewIssueCommand}" Cursor="Hand"
+                >
+                    <materialDesign:PackIcon Kind="Bug" />
+                </Button>
+            </StackPanel>
+
         </StackPanel>
     </Grid>
 </Window>
