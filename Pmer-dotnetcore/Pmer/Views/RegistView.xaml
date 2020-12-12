@@ -144,9 +144,9 @@
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Width="120"
                     Background="#2256ff"
-                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                    ToolTip="Registered"
                     Content="{Binding RegiBtnContent}"
-                    Command="{Binding RegistCommand}"
+                    Command="{Binding RegistCommand}" Cursor="Hand"
                     />
         </Grid>
     </Grid>

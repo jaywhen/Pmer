@@ -120,7 +120,7 @@
                     Width="120"
                     Command="{Binding LoginCommand}"
                     Background="#2256ff"
-                    ToolTip="Resource name: MaterialDesignRaisedButton" Cursor="Hand">
+                    ToolTip="Login" Cursor="Hand">
                 Go!
             </Button>
             
