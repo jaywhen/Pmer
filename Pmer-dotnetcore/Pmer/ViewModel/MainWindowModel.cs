@@ -424,7 +424,6 @@ namespace Pmer.ViewModel
         public static void Copy(string content)
         {
             Clipboard.SetText(content);
-            
         }
 
         public void OpenWeblink()
@@ -437,7 +436,6 @@ namespace Pmer.ViewModel
                 FileName = url,
                 UseShellExecute = true
             };
-
             Process.Start(psi);
         }
 
@@ -445,7 +443,6 @@ namespace Pmer.ViewModel
         {
             FirstLetter = System.Environment.UserName.ToUpper()[0];
         }
-
         public void Search(string queryStr)
         {
             foreach(PasswordItem it in PasswordLists)
@@ -460,7 +457,6 @@ namespace Pmer.ViewModel
                 }
             }
         }
-
         public void About()
         {
             AboutView ab = new AboutView();
