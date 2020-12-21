@@ -65,32 +65,17 @@
                         />
                     </Border>
                 </ListViewItem>
-                <!-- 没想好，Hidden -->
-                <ListViewItem 
-                    Margin="0 20 0 0" 
-                    Width="50"
-                    Visibility="Hidden"
-                    >
-                    <RadioButton
-                        Style="{StaticResource MaterialDesignIconButton}" 
-                        Height="32" 
-                        Width="34"
-                        >
-                        <materialDesign:PackIcon Kind="Onepassword" />
-                    </RadioButton>
-                </ListViewItem>
                 <ListViewItem 
                     Margin="0 50 0 0" 
                     Width="50"
-                    Visibility="Hidden"
                     >
                     <RadioButton
-                        
                         Style="{StaticResource MaterialDesignIconButton}" 
                         Height="32" 
                         Width="34"
+                        ToolTip="Import from a Chrome .csv file"
                         >
-                        <materialDesign:PackIcon Kind="CogOutline" />
+                        <materialDesign:PackIcon Kind="FileImport" />
                     </RadioButton>
                 </ListViewItem>
                 <ListViewItem Margin="0 50 0 0" Width="50">
