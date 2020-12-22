@@ -1,17 +1,3 @@
-## 技术选型
-
-- wpf + C#
-- js + wxml + wxss
-- java
-
-## 适配平台
-
-- windows桌面端
-- 微信小程序
-- 安卓移动端
-
-
-
-## Windows
-
 - 改为 .net core
+- 增加导入 chrome 密码 .csv 文件的支持
+- 增加多密码库支持

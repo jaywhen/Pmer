@@ -18,7 +18,9 @@
         handler:DialogCloser.DialogResult="{Binding DialogResult}"
         
         xmlns:component="clr-namespace:Pmer.Component" 
-        BorderThickness="24"
+        
+        BorderThickness="0"
+        
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None" 
         AllowsTransparency="True"
@@ -74,6 +76,7 @@
                         Height="32" 
                         Width="34"
                         ToolTip="Import from a Chrome .csv file"
+                        Command="{Binding OpenCSVFileCommand}" Cursor="Hand"
                         >
                         <materialDesign:PackIcon Kind="FileImport" />
                     </RadioButton>
@@ -185,9 +188,9 @@
                     Content=" ✕"
                 />
             </StackPanel>
-            <component:Default Grid.Row="1" Visibility="{Binding DefaultVisibility}"/>
-            <component:AddNewPwForm Grid.Row="1" Visibility="{Binding AddNewPwFormVisibility}"/>
-            <component:PasswordItemDetail Grid.Row="1" Visibility="{Binding PwItemDetailVisibility}"/>
+            <component:Default Grid.Row="1" Visibility="{Binding Path=Switcher.DefaultVisibility}"/>
+            <component:AddNewPwForm Grid.Row="1" Visibility="{Binding Path=Switcher.AddNewPwFormVisibility}"/>
+            <component:PasswordItemDetail Grid.Row="1" Visibility="{Binding Path=Switcher.PwItemDetailVisibility}"/>
         </Grid>
     </Grid>
 </Window>

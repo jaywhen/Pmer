@@ -8,12 +8,16 @@ using System.Diagnostics;
 using System.Windows;
 using Pmer.Models;
 using Pmer.Views;
+using Microsoft.Win32;
+using Pmer.Handler;
+
 namespace Pmer.ViewModel
 {
     public class MainWindowModel : BaseViewModel
     {
         public MainWindowModel(string key)
         {
+            Switcher = new ComponentSwitcher();
             KeyPassword = Encryptor.HashedKeyByMD5(key);
             InitAvatarHashTable();
             SetUserFavicon();
@@ -30,54 +34,12 @@ namespace Pmer.ViewModel
             DeletePasswordItemCommand = new RelayCommand(DeletePasswordItem);
             SearchCommand = new RelayCommand<string>(t => Search(t));
             AboutCommand = new RelayCommand(About);
+            OpenCSVFileCommand = new RelayCommand(OpenCSVFile);
         }
-
-        #region Visible
-        private string deleteVisible;
-        private string updateVisible;
-        private string updateOKVisible;
-        private string addNewPwFormVisibility = "Hidden";
-        private string defaultVisibility = "Visible";
-        private string pwItemDetailVisibility = "Hidden";
-
-        public string PwItemDetailVisibility
-        {
-            get { return pwItemDetailVisibility; }
-            set { pwItemDetailVisibility = value; RaisePropertyChanged(); }
-        }
-        public string DefaultVisibility
-        {
-            get { return defaultVisibility; }
-            set { defaultVisibility = value; RaisePropertyChanged(); }
-        }
-        public string AddNewPwFormVisibility
-        {
-            get { return addNewPwFormVisibility; }
-            set { addNewPwFormVisibility = value; RaisePropertyChanged(); }
-        }
-
-        public string DeleteVisible
-        {
-            get { return deleteVisible; }
-            set { deleteVisible = value; RaisePropertyChanged(); }
-        }
-
-        public string UpdateVisible
-        {
-            get { return updateVisible; }
-            set { updateVisible = value; RaisePropertyChanged(); }
-        }
-
-        public string UpdateOKVisible
-        {
-            get { return updateOKVisible; }
-            set { updateOKVisible = value; RaisePropertyChanged(); }
-        }
-        #endregion
-
 
         #region Property
-
+        public ComponentSwitcher Switcher { get; set; }
+        
         // 用于AES加密解密的key
         private byte[] keyPassword;
         public byte[] KeyPassword
@@ -171,30 +133,6 @@ namespace Pmer.ViewModel
             set { nowSelectedWebsite = value;RaisePropertyChanged(); }
             
         }
-
-        // password item detail
-        private string accountBoxIsReadOnly;
-        private string passwordBoxIsEnable;
-        private string websiteIsReadOnly;
-
-        public string AccountBoxIsReadOnly
-        {
-            get { return accountBoxIsReadOnly; }
-            set { accountBoxIsReadOnly = value;RaisePropertyChanged(); }
-        }
-        public string PasswordBoxIsEnable
-        {
-            get { return passwordBoxIsEnable; }
-            set { passwordBoxIsEnable = value; RaisePropertyChanged(); }
-            
-        }
-        public string WebsiteIsReadOnly
-        {
-            get { return websiteIsReadOnly; }
-            set { websiteIsReadOnly = value;RaisePropertyChanged(); }
-        }
-
-        // SelectedIndex
         private int index;
         public int Index
         {
@@ -224,6 +162,8 @@ namespace Pmer.ViewModel
         public RelayCommand DeletePasswordItemCommand { get; set; }
         public RelayCommand<string> SearchCommand { get; set; }
         public RelayCommand AboutCommand { get; set; }
+
+        public RelayCommand OpenCSVFileCommand { get; set; }
         #endregion
 
         public void UpdateOK()
@@ -242,27 +182,19 @@ namespace Pmer.ViewModel
             PasswordLists[Index].Account = NowSelectedAccount;
             PasswordLists[Index].Password = NowSelectedPassword;
             PasswordLists[Index].Website = NowSelectedWebsite;
-            DeleteVisible = "Visible";
-            UpdateVisible = "Visible";
-            UpdateOKVisible = "Hidden";
+
+            Switcher.UpdateOK();
         }
 
         public void Update()
         {
-            UpdateVisible = "Hidden";
-            DeleteVisible = "Hidden";
-            UpdateOKVisible = "Visible";
-
-            AccountBoxIsReadOnly = "False";
-            PasswordBoxIsEnable = "True";
-            WebsiteIsReadOnly = "False";
+            Switcher.Update();
         }
 
         public void DeletePasswordItem()
         {
             DbHelper.DeletePasswordItem(NowSelectedId);
-            PwItemDetailVisibility = "Hidden";
-            DefaultVisibility = "Visible";
+            Switcher.DeletePasswordItem();
             PasswordLists.Remove(PasswordLists[Index]);
         }
 
@@ -278,19 +210,8 @@ namespace Pmer.ViewModel
             else
             {
                 this.Index = Index;
-                DefaultVisibility = "Hidden";
-                AddNewPwFormVisibility = "Hidden";
-
                 SetNowSelectedItems();
-                PwItemDetailVisibility = "Visible";
-
-                AccountBoxIsReadOnly = "True";
-                PasswordBoxIsEnable = "False";
-                WebsiteIsReadOnly = "True";
-
-                DeleteVisible = "Visible";
-                UpdateVisible = "Visible";
-                UpdateOKVisible = "Hidden";
+                Switcher.SelectPasswordItem();
             }
             
         }
@@ -298,9 +219,7 @@ namespace Pmer.ViewModel
         public void ShowAddNewPwForm()
         {
             //点击添加按钮，后台响应并创建表单
-            PwItemDetailVisibility = "Hidden";
-            DefaultVisibility = "Hidden";
-            AddNewPwFormVisibility = "Visible";
+            Switcher.ShowAddNewPwForm();
         }
 
         public void InitAvatarHashTable()
@@ -376,8 +295,7 @@ namespace Pmer.ViewModel
             AddAPwItemToPwList(passwordItem);
            
             ClearAddNewPwForm();
-            DefaultVisibility = "Visible";
-            AddNewPwFormVisibility = "Hidden";
+            Switcher.AddNewPassword();
 
         }
         // curd
@@ -438,7 +356,6 @@ namespace Pmer.ViewModel
             };
             Process.Start(psi);
         }
-
         public void SetUserFavicon()
         {
             FirstLetter = System.Environment.UserName.ToUpper()[0];
@@ -451,8 +368,7 @@ namespace Pmer.ViewModel
                 {
                     Index = PasswordLists.IndexOf(it);
                     SetNowSelectedItems();
-                    DefaultVisibility = "Hidden";
-                    PwItemDetailVisibility = "Visible";
+                    Switcher.Search();
                     break;
                 }
             }
@@ -461,6 +377,11 @@ namespace Pmer.ViewModel
         {
             AboutView ab = new AboutView();
             ab.ShowDialog();
+        }
+        public void OpenCSVFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog() { Multiselect = true };
+            bool? response = openFileDialog.ShowDialog();
         }
     }
 }
