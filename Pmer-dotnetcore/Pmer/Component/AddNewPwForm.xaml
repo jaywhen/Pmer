@@ -104,9 +104,7 @@
                     Style="{StaticResource MaterialDesignTextBox}"
                     Text="{Binding Website}"
                  >
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Enter" Command="{Binding AddNewPasswordCommand}"/>
-                    </TextBox.InputBindings>
+                    
                 </TextBox>
 
                 <Button 
