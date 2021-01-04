@@ -26,7 +26,7 @@ namespace Pmer.Views
             if (isWindowShow)
             {
                 MainWindowModel mainWindowModel = new MainWindowModel(key);
-                this.DataContext = mainWindowModel;
+                this.DataContext = mainWindowModel;                                
             }
         }
 

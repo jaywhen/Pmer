@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Configuration;
+using System.Collections.ObjectModel;
 
 namespace Pmer.Db
 {
@@ -35,7 +36,7 @@ namespace Pmer.Db
                     db.Database.EnsureCreated();
                     return false;
                 }
-                else if (!ContianData())
+                else if (!IfMPContainData())
                 {
                     // 存在数据库文件，表中无数据
                     return false;
@@ -67,7 +68,9 @@ namespace Pmer.Db
                 SufSalt = sufSalt
             };
             PmerDbContext dbContext = new PmerDbContext();
-            dbContext.Add(mainPassword);
+            // dbContext.Add(mainPassword); // 修改过
+            dbContext.MainPassword.Add(mainPassword);
+
             dbContext.SaveChanges();
         }
 
@@ -78,8 +81,29 @@ namespace Pmer.Db
         public static void InsertPasswordItem(PasswordItem passwordItem)
         {
             PmerDbContext dbContext = new PmerDbContext();
-            dbContext.Add(passwordItem);
+
+            // 修改过
+            dbContext.PasswordItems.Add(passwordItem);
             dbContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// 插入 tag name 返回 tag id
+        /// </summary>
+        /// <param name="tagName"></param>
+        /// <returns>tag id</returns>
+        public static int InsertTag(string tagName)
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            Tag tg = new Tag
+            {
+                TagName = tagName
+            };
+            dbContext.Tags.Add(tg);
+            dbContext.SaveChanges();
+
+            var lastTag = dbContext.Tags.OrderBy(tg => tg.TagId).Last();
+            return lastTag.TagId;
         }
 
         #endregion
@@ -116,12 +140,46 @@ namespace Pmer.Db
             // 后期维护改进
             MainPassword mainPassword = dbContext.MainPassword.Single(p => p.Id == 1);
             return mainPassword;
-
         }
 
+        public static int GetTagId(string TagNameAdded)
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            var tagItem = dbContext.Tags.Single(tg => tg.TagName.Equals(TagNameAdded));
+            return tagItem.TagId;
+        }
+
+        /// <summary>
+        /// 返回 Tags 表中的所有内容
+        /// </summary>
+        /// <returns></returns>
+        public static List<Tag> GetAllTags()
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            var retList = dbContext.Tags.ToList();
+            return retList;
+        }
+
+
+        /// <summary>
+        /// 从库中取回密码项，并对密码解密
+        /// </summary>
+        /// <param name="tagId"></param>
+        /// <returns>明文密码项目</returns>
+        public static List<PasswordItem> GetAllPasswordItemFromTag(int tagId, byte[] keyPassword)
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            var passwords = dbContext.PasswordItems.Where(pw => pw.TagId == tagId).ToList();
+            passwords = DecrypPasswordItem(passwords, keyPassword);
+            return passwords;
+        }
         #endregion
 
         #region Delete
+        /// <summary>
+        /// 删除置顶 Id 的密码项
+        /// </summary>
+        /// <param name="id">密码项目的 Id</param>
         public static void DeletePasswordItem(int id)
         {
             PmerDbContext dbContext = new PmerDbContext();
@@ -134,7 +192,11 @@ namespace Pmer.Db
 
         #region Tools
         // 一些工具函数
-        static bool ContianData()
+        /// <summary>
+        /// MP: MainPassword
+        /// </summary>
+        /// <returns></returns>
+        private static bool IfMPContainData()
         {
             // 检查MainPassword中是否含有数据
             PmerDbContext dbContext = new PmerDbContext();
@@ -142,13 +204,39 @@ namespace Pmer.Db
             return item_nums > 0 ? true : false;
         }
 
-        static List<PasswordItem> DecrypPasswordItem(List<PasswordItem> passwordItems, byte[] keyPassword)
+        /// <summary>
+        /// 对含有密文密码属性的 passwordItem 解密
+        /// </summary>
+        /// <param name="passwordItems"></param>
+        /// <param name="keyPassword"></param>
+        /// <returns></returns>
+        private static List<PasswordItem> DecrypPasswordItem(List<PasswordItem> passwordItems, byte[] keyPassword)
         {
             for (int i = 0; i < passwordItems.Count(); i++)
             {
                 passwordItems[i].Password = Encryptor.AESDecrypt(passwordItems[i].Password, keyPassword);
             }
             return passwordItems;
+        }
+
+        /// <summary>
+        /// 查找 TagList 是否包含 tag 名为
+        /// tagName 的元素
+        /// </summary>
+        /// <param name="tags"></param>
+        /// <param name="tagName"></param>
+        /// <returns></returns>
+        public static bool IfTagedPasswordListContain(ObservableCollection<Tag> tags, string tagName)
+        {
+            if (tags == null) return false;
+            foreach(Tag td in tags)
+            {
+                if (td.TagName.Equals(tagName))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
 

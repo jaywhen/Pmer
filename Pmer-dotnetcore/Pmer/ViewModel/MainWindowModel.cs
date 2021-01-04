@@ -18,21 +18,23 @@ namespace Pmer.ViewModel
         public MainWindowModel(string key)
         {
             Switcher = new ComponentSwitcher();
+            PasswordForm = new PasswordItem();
             KeyPassword = Encryptor.HashedKeyByMD5(key);
             InitAvatarHashTable();
             SetUserFavicon();
-            Query();
+            UpdateTagList();
 
+            // Commands
             CloseCommand = new RelayCommand(Close);
             ShowAddNewPwFormCommand = new RelayCommand(ShowAddNewPwForm);
             AddNewPasswordCommand = new RelayCommand(AddNewPassword);
-            SelectPasswordItemCommand = new RelayCommand<int>(t =>  SelectPasswordItem(t));
+            SelectPasswordItemCommand = new RelayCommand<PasswordItem>(t =>  SelectPasswordItem(t));
             CopyCommand = new RelayCommand<string>(t => Copy(t));
             OpenWeblinkCommand = new RelayCommand(OpenWeblink);
             UpdateCommand = new RelayCommand(Update);
             UpdateOKCommand = new RelayCommand(UpdateOK);
             DeletePasswordItemCommand = new RelayCommand(DeletePasswordItem);
-            SearchCommand = new RelayCommand<string>(t => Search(t));
+            // SearchCommand = new RelayCommand<string>(t => Search(t));
             AboutCommand = new RelayCommand(About);
             OpenCSVFileCommand = new RelayCommand(OpenCSVFile);
         }
@@ -55,8 +57,9 @@ namespace Pmer.ViewModel
             get { return firstLetter; }
             set { firstLetter = value; RaisePropertyChanged(); }
         }
-        
+
         // ----------
+        private string tagNameAdded;
         private string title;
         private string account;
         private string addPassword;
@@ -68,10 +71,15 @@ namespace Pmer.ViewModel
             get { return avatarHashTable; }
             set { avatarHashTable = value; RaisePropertyChanged(); }
         }
+        public string TagNameAdded
+        {
+            get { return tagNameAdded; }
+            set { tagNameAdded = value; RaisePropertyChanged(); }
+        }
         public string Title
         {
             get { return title; }
-            set { title = value;RaisePropertyChanged(); }
+            set { title = value; RaisePropertyChanged(); }
         }
         public string Account
         {
@@ -140,13 +148,46 @@ namespace Pmer.ViewModel
             set { index = value; RaisePropertyChanged(); }
         }
 
-        // ----- 视图层ListBox的ItemsSource-----
+        // above will be comment if this passing
+        private PasswordItem passwordForm;
+        private PasswordItem selectedPassword;
+        public PasswordItem PasswordForm
+        {
+            get { return passwordForm; }
+            set { passwordForm = value; RaisePropertyChanged(); }
+        }
+        public PasswordItem SelectedPassword
+        {
+            get { return selectedPassword; }
+            set { selectedPassword = value; RaisePropertyChanged(); }
+        }
+
+
+        #region ViewItemSource
+        // 视图层ListView\组件AddNewPw表单的ItemsSource
         private ObservableCollection<PasswordItem> passwordLists;
+        
         public ObservableCollection<PasswordItem> PasswordLists
         {
             get { return passwordLists; }
             set { passwordLists = value; RaisePropertyChanged(); }
         }
+        
+
+        // 存放所有的 tag : pwlist 对
+        private ObservableCollection<string> tagNames;
+        private ObservableCollection<Tag> tagList;
+        public ObservableCollection<Tag> TagList
+        {
+            get { return tagList; }
+            set { tagList = value; RaisePropertyChanged(); }
+        }
+        public ObservableCollection<string> TagNames
+        {
+            get { return tagNames; }
+            set { tagNames = value; RaisePropertyChanged(); }
+        }
+        #endregion
 
         #endregion
 
@@ -154,7 +195,7 @@ namespace Pmer.ViewModel
         #region Command
         public RelayCommand ShowAddNewPwFormCommand { get; set; }
         public RelayCommand AddNewPasswordCommand { get; set; }
-        public RelayCommand<int> SelectPasswordItemCommand { get; set; }
+        public RelayCommand<PasswordItem> SelectPasswordItemCommand { get; set; }
         public RelayCommand<string> CopyCommand { get; set; }
         public RelayCommand OpenWeblinkCommand { get; set; }
         public RelayCommand UpdateCommand { get; set; }
@@ -166,62 +207,88 @@ namespace Pmer.ViewModel
         public RelayCommand OpenCSVFileCommand { get; set; }
         #endregion
 
+        #region Command Function
+
         public void UpdateOK()
         {
+            // waiting for test
             // issue
-            string password = Encryptor.AESEncrypt(nowSelectedPassword, KeyPassword);
-            PasswordItem passwordItem = new PasswordItem(
-                NowSelectedId,
-                NowSelectedTitle, 
-                NowSelectedAccount, 
-                password, 
-                NowSelectedWebsite, 
-                NowSelectedAvatar);
-            DbHelper.UpdatePasswordItem(passwordItem);
+            string originPassword = SelectedPassword.Password;
+            SelectedPassword.Password = Encryptor.AESEncrypt(SelectedPassword.Password, KeyPassword);
+            //PasswordItem passwordItem = new PasswordItem {
+            //    NowSelectedId,
+            //    NowSelectedTitle,
+            //    NowSelectedAccount,
+            //    password,
+            //    NowSelectedWebsite,
+            //    NowSelectedAvatar
+            //};
+            DbHelper.UpdatePasswordItem(SelectedPassword);
 
-            PasswordLists[Index].Account = NowSelectedAccount;
-            PasswordLists[Index].Password = NowSelectedPassword;
-            PasswordLists[Index].Website = NowSelectedWebsite;
-
+            //PasswordLists[Index].Account = NowSelectedAccount;
+            //PasswordLists[Index].Password = NowSelectedPassword;
+            //PasswordLists[Index].Website = NowSelectedWebsite;
+            SelectedPassword.Password = originPassword;
+            UpdateTagList();
             Switcher.UpdateOK();
         }
+
+        //public void Search(string queryStr)
+        //{
+        //    foreach (PasswordItem it in PasswordLists)
+        //    {
+        //        if (it.Title == queryStr)
+        //        {
+        //            Index = PasswordLists.IndexOf(it);
+        //            SetNowSelectedItems();
+        //            Switcher.Search();
+        //            break;
+        //        }
+        //    }
+        //}
+
 
         public void Update()
         {
             Switcher.Update();
         }
 
+        // bug & waiting for optimization
         public void DeletePasswordItem()
         {
-            DbHelper.DeletePasswordItem(NowSelectedId);
-            Switcher.DeletePasswordItem();
-            PasswordLists.Remove(PasswordLists[Index]);
-        }
-
-        public void SelectPasswordItem(int Index)
-        {
-            if(Index == -1)
-            {
-                // 代表未选中任何一项
-                // 则不对其进行绑定
-                // do nothing
-                // Index = 0;
-            }
-            else
-            {
-                this.Index = Index;
-                SetNowSelectedItems();
-                Switcher.SelectPasswordItem();
-            }
             
+            DbHelper.DeletePasswordItem(SelectedPassword.PasswordItemId);
+            Switcher.DeletePasswordItem();
+            // PasswordLists.Remove(PasswordLists[Index]);
+            // remove passwordItem from TagList
+            //foreach(Tag tg in TagList)
+            //{
+            //    if(tg.TagId == SelectedPassword.TagId)
+            //    {
+            //       tg.PasswordItems.Remove(SelectedPassword);
+            //        break;
+            //    }
+            //}
+            UpdateTagList();
         }
 
+        // passing
+        public void SelectPasswordItem(PasswordItem selectedItem)
+        {
+            // 获取到了当前被选择的 PasswordItem
+            SelectedPassword = new PasswordItem();
+            SelectedPassword = selectedItem;
+            Switcher.SelectPasswordItem();
+        }
+
+        // passing
         public void ShowAddNewPwForm()
         {
             //点击添加按钮，后台响应并创建表单
             Switcher.ShowAddNewPwForm();
         }
 
+        // passing
         public void InitAvatarHashTable()
         {
             AvatarHashTable = new Hashtable();
@@ -246,65 +313,131 @@ namespace Pmer.ViewModel
             AvatarHashTable.Add("dribbble", "Dribbble.png");
             AvatarHashTable.Add("dingding", "dingding.png");
         }
+
+        // passing
         public void AddNewPassword()
         {
-            if (string.IsNullOrEmpty(Title))
+            
+            // 表单验证
+            if (string.IsNullOrEmpty(TagNameAdded))
+            {
+                WindowToolTip = "Please choose or add a tag for the password";
+                return;
+            }
+            if (string.IsNullOrEmpty(PasswordForm.Title))
             {
                 WindowToolTip = "Please fill the title";
                 return;
             }
-            if (string.IsNullOrEmpty(AddPassword))
+            if (string.IsNullOrEmpty(PasswordForm.Password))
             {
                 WindowToolTip = "Please enter the password!";
             }
-            if (!Website.StartsWith("https://"))
+            if (!PasswordForm.Website.StartsWith("https://"))
             {
-                Website = "https://" + Website;
+                PasswordForm.Website = "https://" + PasswordForm.Website;
             }
-            if (AvatarHashTable.ContainsKey(Title.ToLower()))
+            if (AvatarHashTable.ContainsKey(PasswordForm.Title.ToLower()))
             {
-                Avatar = (string)AvatarHashTable[Title.ToLower()];
+                PasswordForm.Avatar = (string)AvatarHashTable[PasswordForm.Title.ToLower()];
             }
             else
             {
-                if (Title.Equals("v2ex") || Title.Equals("1password"))
+                if (PasswordForm.Title.Equals("v2ex") || PasswordForm.Title.Equals("1password"))
                 {
-                    Avatar = Title + ".png";
+                    PasswordForm.Avatar = PasswordForm.Title + ".png";
                 } 
                 else
                 {
-                    Avatar = "default.png";
+                    PasswordForm.Avatar = "default.png";
                 }
             }
 
-            //对密码加密
-            // 构造密码项一处应为函数
-
-            string encryptedPassword = Encryptor.AESEncrypt(AddPassword, KeyPassword);
-            PasswordItem passwordItem = new PasswordItem
+            if(DbHelper.IfTagedPasswordListContain(TagList, TagNameAdded))
             {
-                Account = Account,
-                Avatar = "../assets/" + Avatar,
-                Password = encryptedPassword,
-                Website = Website,
-                Title = Title
-            };
-            DbHelper.InsertPasswordItem(passwordItem);
+                // 如果该 tag 在列表中已存在
+                int tagId = DbHelper.GetTagId(TagNameAdded);
+                // 保留明文密码
+                string password = PasswordForm.Password;
+                string encryptedPassword = Encryptor.AESEncrypt(PasswordForm.Password, KeyPassword);
+                PasswordForm.TagId = tagId;
+                PasswordForm.Avatar = "../assets/" + PasswordForm.Avatar;
+                PasswordForm.Password = encryptedPassword;
+                DbHelper.InsertPasswordItem(PasswordForm);
+                // 处理好后将密码明文添加进TagList
+                PasswordForm.Password = password;
+                AddPasswordToTagList(PasswordForm, TagNameAdded);
+            }
+            else
+            {
+                // tag 不存在, 将新来的 tag 入表
+                // 插入新 tag 返回 tag Id
+                int tagId = DbHelper.InsertTag(TagNameAdded);
+                // 重复，待优化
+                string password = PasswordForm.Password;
+                string encryptedPassword = Encryptor.AESEncrypt(PasswordForm.Password, KeyPassword);
+                PasswordForm.TagId = tagId;
+                PasswordForm.Avatar = "../assets/" + PasswordForm.Avatar;
+                PasswordForm.Password = encryptedPassword;
+                DbHelper.InsertPasswordItem(PasswordForm);
+                // 处理好后将密码明文添加进TagList
+                PasswordForm.Password = password;
+                AddPasswordToTagList(PasswordForm, TagNameAdded);
+            }
+            UpdateTagList();
 
-            passwordItem.Password = AddPassword;
-            AddAPwItemToPwList(passwordItem);
-           
-            ClearAddNewPwForm();
+            PasswordForm.Clean();
             Switcher.AddNewPassword();
+        }
+
+        // some functions contains discard
+
+        // passing
+        /// <summary>
+        /// 将添加的密码项添加到已存在的 Tag 中去，此时该密码项
+        /// 的密码已在库中密文存储，在列表中明文存在
+        /// </summary>
+        /// <param name="passwordItem"></param>
+        /// <param name="tagName"></param>
+        public void AddPasswordToTagList(PasswordItem passwordItem, string tagName)
+        {
+            foreach(Tag td in TagList)
+            {
+                if (td.TagName.Equals(tagName))
+                {
+                    td.PasswordItems.Add(passwordItem);
+                }
+            }
 
         }
-        // curd
+
+        // passing
+        public void UpdateTagList()
+        {
+            // get all tags
+            var tags = DbHelper.GetAllTags();
+            TagList = new ObservableCollection<Tag>();
+            foreach (Tag tg in tags)
+            {
+                // 拿回明文密码
+                List<PasswordItem> passwordItems = DbHelper.GetAllPasswordItemFromTag(tg.TagId, KeyPassword);
+                //Tag tagedPassword = new Tag
+                //{
+                //    TagName = tn,
+                //    PasswordItems = passwordItems
+                //};
+                tg.PasswordItems = passwordItems;
+                TagList.Add(tg);
+            }
+        }
+
+        // discard
         public void AddAPwItemToPwList(PasswordItem item)
         {
             PasswordLists.Add(item);
         }
 
-        // 从数据库获取数据，并展示
+        // discard 从数据库获取数据，并展示
         public void Query()
         {
             List<PasswordItem> passwordItems = new List<PasswordItem>();
@@ -315,38 +448,37 @@ namespace Pmer.ViewModel
             {
                 PasswordLists.Add(item);
             }
-
         }
 
         // --- tools
-        public void ClearAddNewPwForm()
-        {
-            Title = "";
-            Account = "";
-            AddPassword = "";
-            Website = "";
-            Avatar = "";
-            WindowToolTip = "";
-        }
+        //public void ClearAddNewPwForm()
+        //{
+        //    Title = "";
+        //    Account = "";
+        //    AddPassword = "";
+        //    Website = "";
+        //    Avatar = "";
+        //    WindowToolTip = "";
+        //}
 
-        public void SetNowSelectedItems()
-        {
-            NowSelectedId = PasswordLists[Index].Id;
-            NowSelectedTitle = PasswordLists[Index].Title;
-            NowSelectedAvatar = PasswordLists[Index].Avatar;
-            NowSelectedAccount = PasswordLists[Index].Account;
-            NowSelectedPassword = PasswordLists[Index].Password;
-            NowSelectedWebsite = PasswordLists[Index].Website;
-        }
+        //public void SetNowSelectedItems()
+        //{
+        //    NowSelectedId = PasswordLists[Index].PasswordItemId;
+        //    NowSelectedTitle = PasswordLists[Index].Title;
+        //    NowSelectedAvatar = PasswordLists[Index].Avatar;
+        //    NowSelectedAccount = PasswordLists[Index].Account;
+        //    NowSelectedPassword = PasswordLists[Index].Password;
+        //    NowSelectedWebsite = PasswordLists[Index].Website;
+        //}
 
+        // passing
         public static void Copy(string content)
         {
             Clipboard.SetText(content);
         }
-
         public void OpenWeblink()
         {
-            var url = NowSelectedWebsite;
+            var url = SelectedPassword.Website;
             // .netcore 中默认UseShellExecute为false，此处需将其设置为true、
             // 否则将报错
             var psi = new ProcessStartInfo
@@ -360,28 +492,18 @@ namespace Pmer.ViewModel
         {
             FirstLetter = System.Environment.UserName.ToUpper()[0];
         }
-        public void Search(string queryStr)
-        {
-            foreach(PasswordItem it in PasswordLists)
-            {
-                if (it.Title == queryStr)
-                {
-                    Index = PasswordLists.IndexOf(it);
-                    SetNowSelectedItems();
-                    Switcher.Search();
-                    break;
-                }
-            }
-        }
         public void About()
         {
             AboutView ab = new AboutView();
             ab.ShowDialog();
         }
+
+        // developing
         public void OpenCSVFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog() { Multiselect = true };
             bool? response = openFileDialog.ShowDialog();
         }
+        #endregion
     }
 }

@@ -7,28 +7,26 @@ namespace Pmer.Models
     /// </summary>
     public class PasswordItem : ViewModelBase
     {
-        public PasswordItem() { }
-        public PasswordItem(int id, string title, string account, string password, string website, string avatar)
-        {
-            this.Id = id;
-            this.Title = title;
-            this.Account = account;
-            this.Password = password;
-            this.Website = website;
-            this.Avatar = avatar;
-        }
         #region Property
-        private int id;
+        private int passwordItemId;
         private string title;
         private string account;
         private string password;
         private string website;
         private string avatar;
+        private int tagId; // 外键，引用自 tag 表
+        private Tag tag;
 
-        public int Id 
+        
+        public int PasswordItemId
         {
-            get { return id; }
-            set { id = value; RaisePropertyChanged(); } 
+            get { return passwordItemId; }
+            set { passwordItemId = value; RaisePropertyChanged(); } 
+        }
+        public int TagId
+        {
+            get { return tagId; }
+            set { tagId = value; RaisePropertyChanged(); }
         }
         public string Title 
         {
@@ -55,6 +53,22 @@ namespace Pmer.Models
             get { return avatar; }
             set { avatar = value; RaisePropertyChanged(); }
         }
+        public Tag Tag
+        {
+            get { return tag; }
+            set { tag = value; RaisePropertyChanged(); }
+        }
         #endregion
+
+        public void Clean()
+        {
+            Title = "";
+            Account = "";
+            Password = "";
+            Website = "";
+            Avatar = "";
+            TagId = 0;
+            PasswordItemId = 0;
+        }
     }
 }

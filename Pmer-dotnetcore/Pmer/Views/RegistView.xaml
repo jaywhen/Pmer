@@ -40,12 +40,12 @@
         </Grid.RowDefinitions>
 
         <Border Background="#0034dd"/>
-        <TextBlock 
-                   FontSize="14"
-                   Foreground="WhiteSmoke"
-                   VerticalAlignment="Center"
-                   Margin="10 0 0 0"
-                   >
+        <TextBlock
+            FontSize="14"
+            Foreground="WhiteSmoke"
+            VerticalAlignment="Center"
+            Margin="10 0 0 0"
+            >
             <Run
                 Text="Hi! "
                 Foreground="AliceBlue"/>

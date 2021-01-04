@@ -8,6 +8,8 @@ namespace Pmer.Db
     {
         public DbSet<MainPassword> MainPassword { get; set; }
         public DbSet<PasswordItem> PasswordItems { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite($"Data Source= {ConfigurationManager.AppSettings["DataBaseFileNamePath"]} ");

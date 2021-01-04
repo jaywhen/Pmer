@@ -13,7 +13,7 @@
              d:DesignHeight="600" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"/>
+            <RowDefinition Height="70"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
@@ -37,29 +37,29 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1">
-            <Grid Margin="0 50 0 0">
+            <Grid Margin="0 10 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="70"/>
+                    <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
-                <TextBox
+                <!--  -->
+                <ComboBox
+                    materialDesign:HintAssist.Hint="Tag"
+                    IsEditable="True"
                     Grid.Row="0"
-                    Width="200"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
-                    materialDesign:HintAssist.Foreground="#0034dd"
-                    materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
-                    Style="{StaticResource MaterialDesignTextBox}"
-                    materialDesign:HintAssist.Hint="Title"
-                    Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                >
-                </TextBox>
-
-                <TextBox 
+                    MaxWidth="200"
+                    materialDesign:HintAssist.HelperText="Select a grouping tag or add one"
+                    Text="{Binding TagNameAdded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding TagList}"
+                    DisplayMemberPath="TagName"
+                    IsTextSearchEnabled="True"
+                    >
+                </ComboBox>
+                <TextBox
                     Grid.Row="1"
                     Width="200"
                     VerticalAlignment="Center"
@@ -68,8 +68,22 @@
                     materialDesign:HintAssist.Foreground="#0034dd"
                     materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
                     Style="{StaticResource MaterialDesignTextBox}"
+                    materialDesign:HintAssist.Hint="Title"
+                    Text="{Binding Path=PasswordForm.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                >
+                </TextBox>
+
+                <TextBox 
+                    Grid.Row="2"
+                    Width="200"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:HintAssist.Foreground="#0034dd"
+                    materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
+                    Style="{StaticResource MaterialDesignTextBox}"
                     materialDesign:HintAssist.Hint="Account"
-                    Text="{Binding Account, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                    Text="{Binding Path=PasswordForm.Account, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
                  >
                 </TextBox>
 
@@ -77,14 +91,14 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Width="200"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     materialDesign:HintAssist.Hint="Password"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     materialDesign:HintAssist.Foreground="#0034dd"
                     materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                     
-                    handler:PasswordBoxHelper.Password="{Binding AddPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    handler:PasswordBoxHelper.Password="{Binding Path=PasswordForm.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     materialDesign:HintAssist.HelperText="At least 6 characters">
                         <i:Interaction.Behaviors>
                             <handler:PasswordBoxBehavior />
@@ -93,7 +107,7 @@
                 </PasswordBox>
 
                 <TextBox 
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Width="200"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
@@ -102,13 +116,13 @@
                     materialDesign:HintAssist.Foreground="#0034dd"
                     materialDesign:TextFieldAssist.UnderlineBrush="#0034dd"
                     Style="{StaticResource MaterialDesignTextBox}"
-                    Text="{Binding Website}"
+                    Text="{Binding Path=PasswordForm.Website}"
                  >
                     
                 </TextBox>
 
                 <Button 
-                    Grid.Row="4"
+                    Grid.Row="5"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Width="120"
                     Command="{Binding AddNewPasswordCommand}"
