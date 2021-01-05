@@ -204,7 +204,7 @@
                     Width="120"
                     Command="{Binding AddNewPasswordCommand}"
                     Background="#2256ff"
-                    ToolTip="Resource name: MaterialDesignRaisedButton">
+                    ToolTip="save this password">
             Go!
         </Button>-->
 

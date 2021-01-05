@@ -92,7 +92,7 @@ namespace Pmer.Db
         /// </summary>
         /// <param name="tagName"></param>
         /// <returns>tag id</returns>
-        public static int InsertTag(string tagName)
+        public static int InsertTagName(string tagName)
         {
             PmerDbContext dbContext = new PmerDbContext();
             Tag tg = new Tag
@@ -104,6 +104,17 @@ namespace Pmer.Db
 
             var lastTag = dbContext.Tags.OrderBy(tg => tg.TagId).Last();
             return lastTag.TagId;
+        }
+
+        /// <summary>
+        /// testing
+        /// </summary>
+        /// <param name="tag"></param>
+        public static void InsertTag(Tag tag)
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            dbContext.Tags.Add(tag);
+            dbContext.SaveChanges();
         }
 
         #endregion
@@ -172,6 +183,25 @@ namespace Pmer.Db
             var passwords = dbContext.PasswordItems.Where(pw => pw.TagId == tagId).ToList();
             passwords = DecrypPasswordItem(passwords, keyPassword);
             return passwords;
+        }
+
+        /// <summary>
+        /// 获取 Tags 标中最大的 TagId
+        /// </summary>
+        /// <returns></returns>
+        public static int GetMaxTagId()
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            int retId = 0;
+            if(dbContext.Tags.ToList().Count() != 0)
+            {
+                retId = dbContext.Tags.Select(t => t.TagId).Max();
+            }
+            else
+            {
+                retId = -1;
+            }
+            return retId;
         }
         #endregion
 

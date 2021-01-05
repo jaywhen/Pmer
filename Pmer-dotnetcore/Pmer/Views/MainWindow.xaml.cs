@@ -1,5 +1,6 @@
 ﻿using Pmer.ViewModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Pmer.Views
@@ -30,5 +31,21 @@ namespace Pmer.Views
             }
         }
 
+        private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                // 内层ListBox拦截鼠标滚轮事件
+                e.Handled = true;
+
+                // 激发一个鼠标滚轮事件，冒泡给外层ListBox接收到
+                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
+                eventArg.RoutedEvent = UIElement.MouseWheelEvent;
+                eventArg.Source = sender;
+                var parent = ((Control)sender).Parent as UIElement;
+                parent.RaiseEvent(eventArg);
+            }
+
+        }
     }
 }

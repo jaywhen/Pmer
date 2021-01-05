@@ -10,6 +10,7 @@ using Pmer.Models;
 using Pmer.Views;
 using Microsoft.Win32;
 using Pmer.Handler;
+using Pmer.Helper;
 
 namespace Pmer.ViewModel
 {
@@ -20,7 +21,7 @@ namespace Pmer.ViewModel
             Switcher = new ComponentSwitcher();
             PasswordForm = new PasswordItem();
             KeyPassword = Encryptor.HashedKeyByMD5(key);
-            InitAvatarHashTable();
+            // InitAvatarHashTable();
             SetUserFavicon();
             UpdateTagList();
 
@@ -58,7 +59,7 @@ namespace Pmer.ViewModel
             set { firstLetter = value; RaisePropertyChanged(); }
         }
 
-        // ----------
+        #region discard
         private string tagNameAdded;
         private string title;
         private string account;
@@ -147,6 +148,7 @@ namespace Pmer.ViewModel
             get { return index; }
             set { index = value; RaisePropertyChanged(); }
         }
+        #endregion
 
         // above will be comment if this passing
         private PasswordItem passwordForm;
@@ -288,7 +290,7 @@ namespace Pmer.ViewModel
             Switcher.ShowAddNewPwForm();
         }
 
-        // passing
+        // discard
         public void InitAvatarHashTable()
         {
             AvatarHashTable = new Hashtable();
@@ -337,21 +339,22 @@ namespace Pmer.ViewModel
             {
                 PasswordForm.Website = "https://" + PasswordForm.Website;
             }
-            if (AvatarHashTable.ContainsKey(PasswordForm.Title.ToLower()))
-            {
-                PasswordForm.Avatar = (string)AvatarHashTable[PasswordForm.Title.ToLower()];
-            }
-            else
-            {
-                if (PasswordForm.Title.Equals("v2ex") || PasswordForm.Title.Equals("1password"))
-                {
-                    PasswordForm.Avatar = PasswordForm.Title + ".png";
-                } 
-                else
-                {
-                    PasswordForm.Avatar = "default.png";
-                }
-            }
+            //if (AvatarHashTable.ContainsKey(PasswordForm.Title.ToLower()))
+            //{
+            //    PasswordForm.Avatar = (string)AvatarHashTable[PasswordForm.Title.ToLower()];
+            //}
+            //else
+            //{
+            //    if (PasswordForm.Title.Equals("v2ex") || PasswordForm.Title.Equals("1password"))
+            //    {
+            //        PasswordForm.Avatar = PasswordForm.Title + ".png";
+            //    } 
+            //    else
+            //    {
+            //        PasswordForm.Avatar = "default.png";
+            //    }
+            //}
+
 
             if(DbHelper.IfTagedPasswordListContain(TagList, TagNameAdded))
             {
@@ -361,7 +364,7 @@ namespace Pmer.ViewModel
                 string password = PasswordForm.Password;
                 string encryptedPassword = Encryptor.AESEncrypt(PasswordForm.Password, KeyPassword);
                 PasswordForm.TagId = tagId;
-                PasswordForm.Avatar = "../assets/" + PasswordForm.Avatar;
+                PasswordForm.Avatar = AvatarDictionary.GetAvatarPath(PasswordForm.Title);
                 PasswordForm.Password = encryptedPassword;
                 DbHelper.InsertPasswordItem(PasswordForm);
                 // 处理好后将密码明文添加进TagList
@@ -372,12 +375,12 @@ namespace Pmer.ViewModel
             {
                 // tag 不存在, 将新来的 tag 入表
                 // 插入新 tag 返回 tag Id
-                int tagId = DbHelper.InsertTag(TagNameAdded);
+                int tagId = DbHelper.InsertTagName(TagNameAdded);
                 // 重复，待优化
                 string password = PasswordForm.Password;
                 string encryptedPassword = Encryptor.AESEncrypt(PasswordForm.Password, KeyPassword);
                 PasswordForm.TagId = tagId;
-                PasswordForm.Avatar = "../assets/" + PasswordForm.Avatar;
+                PasswordForm.Avatar = AvatarDictionary.GetAvatarPath(PasswordForm.Title);
                 PasswordForm.Password = encryptedPassword;
                 DbHelper.InsertPasswordItem(PasswordForm);
                 // 处理好后将密码明文添加进TagList
@@ -501,8 +504,19 @@ namespace Pmer.ViewModel
         // developing
         public void OpenCSVFile()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog() { Multiselect = true };
+            OpenFileDialog openFileDialog = new OpenFileDialog() 
+            { 
+                Filter = "chrome 密码文件(*.csv)|*.csv",
+                Title = "choose a .csv file",
+            };
             bool? response = openFileDialog.ShowDialog();
+            var path = openFileDialog.FileName;
+
+            // test: if passing will add a view for user setting
+            // 返回的 tag 中包含的密码为密文
+            Tag csvTag = FileHelper.ChromeCSVToTag(path, openFileDialog.SafeFileName, KeyPassword);
+            DbHelper.InsertTag(csvTag);
+            UpdateTagList();
         }
         #endregion
     }

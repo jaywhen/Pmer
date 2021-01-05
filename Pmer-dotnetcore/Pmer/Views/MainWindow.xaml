@@ -156,61 +156,68 @@
             </StackPanel>
             
             <!-- 密码列表项 -->
-            <ListView
-                x:Name="ParentList"
-                ItemContainerStyle="{StaticResource ListViewItemStyle}"
-                ItemsSource="{Binding TagList}"
+            <ScrollViewer
                 Grid.Row="1"
                 >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Expander>
-                            <Expander.Header>
-                                <TextBlock Text="{Binding TagName}"/>
-                            </Expander.Header>
-                            <Expander.Content>
-                                <ListBox 
-                                    x:Name="PasswordListBox"
-                                    Grid.Row="1"
-                                    ItemsSource="{Binding PasswordItems}"
-                                    Width="300"
-                                    >
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Image
-                                                    RenderOptions.BitmapScalingMode="HighQuality"
-                                                    Margin="0 0 20 0"
-                                                    Source="{Binding Avatar}"
-                                                    Width="45"
-                                                    />
-                                                <StackPanel>
-                                                    <TextBlock
-                                                        Text="{Binding Title}"
+                <ListView
+                    PreviewMouseWheel="ListBox_PreviewMouseWheel"
+                    x:Name="ParentList"
+                    ItemContainerStyle="{StaticResource ListViewItemStyle}"
+                    ItemsSource="{Binding TagList}"
+                    >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Expander>
+                                <Expander.Header>
+                                    <TextBlock Text="{Binding TagName}"/>
+                                </Expander.Header>
+                                <Expander.Content>
+                                    <ListBox 
+                                        x:Name="PasswordListBox"
+                                        Grid.Row="1"
+                                        ItemsSource="{Binding PasswordItems}"
+                                        Width="300"
+                                        ScrollViewer.CanContentScroll="True"
+                                        PreviewMouseWheel="ListBox_PreviewMouseWheel"
+                                        >
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image
+                                                        RenderOptions.BitmapScalingMode="HighQuality"
+                                                        Margin="0 0 20 0"
+                                                        Source="{Binding Avatar}"
+                                                        Width="45"
                                                         />
-                                                    <StackPanel Margin="0 10 0 0">
+                                                    <StackPanel>
                                                         <TextBlock
-                                                            Text="{Binding Account}"/>
+                                                            Text="{Binding Title}"
+                                                            />
+                                                        <StackPanel Margin="0 10 0 0">
+                                                            <TextBlock
+                                                                Text="{Binding Account}"/>
+                                                        </StackPanel>
                                                     </StackPanel>
                                                 </StackPanel>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="SelectionChanged">
-                                            <!-- 为Command 绑定 MainWindow 的数据上下文的 SelectPasswordItemCommand 函数 -->
-                                            <i:InvokeCommandAction
-                                                Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type views:MainWindow}} ,Path=DataContext.SelectPasswordItemCommand,Mode=TwoWay}" 
-                                                CommandParameter="{Binding ElementName=PasswordListBox, 
-                                                Path=SelectedItem}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </ListBox>
-                            </Expander.Content>
-                        </Expander>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <!-- 为Command 绑定 MainWindow 的数据上下文的 SelectPasswordItemCommand 函数 -->
+                                                <i:InvokeCommandAction
+                                            Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type views:MainWindow}} ,Path=DataContext.SelectPasswordItemCommand,Mode=TwoWay}" 
+                                            CommandParameter="{Binding ElementName=PasswordListBox, 
+                                            Path=SelectedItem}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ListBox>
+                                </Expander.Content>
+                            </Expander>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            
             
         </Grid> 
         <!--分割线-->

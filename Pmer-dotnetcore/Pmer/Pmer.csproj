@@ -48,8 +48,8 @@
     <Resource Include="assets\coursera.png" />
     <Resource Include="assets\default.png" />
     <Resource Include="assets\dingding.png" />
-    <Resource Include="assets\Dribbble.png" />
-    <Resource Include="assets\Facebook.png" />
+    <Resource Include="assets\dribbble.png" />
+    <Resource Include="assets\facebook.png" />
     <Resource Include="assets\gitee.png" />
     <Resource Include="assets\github.png" />
     <Resource Include="assets\gmail.png" />

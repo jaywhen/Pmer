@@ -1,7 +1,4 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Pmer.Handler
 {
@@ -134,11 +131,5 @@ namespace Pmer.Handler
             DefaultVisibility = "Hidden";
             PwItemDetailVisibility = "Visible";
         }
-
-
-
-
-
-
     }
 }
