@@ -75,12 +75,12 @@
                 <Run
                     FontSize="25"
                     FontWeight="SemiBold"
-                    Text="Please set a master password"/>
+                    Text="Please set a main password"/>
                 <LineBreak/>
                 <Run
                     FontSize="10"
                     Foreground="#A3A3A4"
-                    Text="You can just remember the msater password,"/>
+                    Text="You can just remember the main password,"/>
                 <Run
                     FontSize="10"
                     Foreground="#A3A3A4"

@@ -58,7 +58,7 @@
                 FontSize="20"
                 >
                 <Run
-                    Text="Pmer(0.0.1)"
+                    Text="Pmer(0.0.2)"
                     />
                 <LineBreak/>
             </TextBlock>

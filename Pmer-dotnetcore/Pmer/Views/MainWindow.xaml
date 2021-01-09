@@ -20,7 +20,7 @@
         xmlns:component="clr-namespace:Pmer.Component" 
         xmlns:views="clr-namespace:Pmer.Views"
         
-        BorderThickness="0"
+        BorderThickness="10"
         
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None" 
