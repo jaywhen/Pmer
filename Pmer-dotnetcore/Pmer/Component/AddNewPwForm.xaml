@@ -127,7 +127,7 @@
                     Width="120"
                     Command="{Binding AddNewPasswordCommand}"
                     Background="#2256ff"
-                    ToolTip="Resource name: MaterialDesignRaisedButton">
+                    ToolTip="Add it!">
                     Go!
                 </Button>
             </Grid>

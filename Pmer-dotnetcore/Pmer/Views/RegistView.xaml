@@ -58,8 +58,8 @@
             <Button
                 Foreground="WhiteSmoke"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                ToolTip="MaterialDesignFlatButton" Margin="0,1,0,1.667" Height="Auto"
-                Command="{Binding CloseCommand}"
+                ToolTip="Close" Margin="0,1,0,1.667" Height="Auto"
+                Command="{Binding CloseCommand}" Cursor="Hand"
                 >
                 ✕
             </Button>

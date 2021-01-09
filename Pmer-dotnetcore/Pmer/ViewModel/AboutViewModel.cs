@@ -35,7 +35,5 @@ namespace Pmer.ViewModel
             };
             Process.Start(psi);
         }
-
-
     }
 }

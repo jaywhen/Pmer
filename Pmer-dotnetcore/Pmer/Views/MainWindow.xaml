@@ -108,6 +108,7 @@
                     <RadioButton
                         Command="{Binding AboutCommand}"
                         Style="{StaticResource MaterialDesignIconButton}" 
+                        ToolTip="About Pmer"
                         Height="32" 
                         Width="34" Cursor="Hand"
                         >
@@ -158,6 +159,7 @@
             <!-- 密码列表项 -->
             <ScrollViewer
                 Grid.Row="1"
+                HorizontalScrollBarVisibility="Hidden"
                 >
                 <ListView
                     PreviewMouseWheel="ListBox_PreviewMouseWheel"
@@ -205,9 +207,9 @@
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <!-- 为Command 绑定 MainWindow 的数据上下文的 SelectPasswordItemCommand 函数 -->
                                                 <i:InvokeCommandAction
-                                            Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type views:MainWindow}} ,Path=DataContext.SelectPasswordItemCommand,Mode=TwoWay}" 
-                                            CommandParameter="{Binding ElementName=PasswordListBox, 
-                                            Path=SelectedItem}"/>
+                                                    Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type views:MainWindow}} ,Path=DataContext.SelectPasswordItemCommand,Mode=TwoWay}" 
+                                                    CommandParameter="{Binding ElementName=PasswordListBox, 
+                                                    Path=SelectedItem}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </ListBox>

@@ -171,7 +171,6 @@ namespace Pmer.Db
             return retList;
         }
 
-
         /// <summary>
         /// 从库中取回密码项，并对密码解密
         /// </summary>
@@ -202,6 +201,20 @@ namespace Pmer.Db
                 retId = -1;
             }
             return retId;
+        }
+
+        /// <summary>
+        /// 根据密码名查询密码
+        /// </summary>
+        /// <param name="passwordName"></param>
+        /// <returns>查询成功返回该密码项，失败返回 null</returns>
+        public static PasswordItem SearchPasswordByName(string passwordName)
+        {
+            PmerDbContext dbContext = new PmerDbContext();
+            // 忽略大小写比较，本应该使用 string.Equals(str1,str2,System.StringComparison.OrdinalIgnoreCase)
+            // 但 Linq 中不支持 StringComparison.OrdinalIgnoreCase
+            PasswordItem retPassword = dbContext.PasswordItems.SingleOrDefault(pw => pw.Title.ToLower().Equals(passwordName.ToLower()));
+            return retPassword;
         }
         #endregion
 

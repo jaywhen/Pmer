@@ -21,7 +21,6 @@ namespace Pmer.ViewModel
             Switcher = new ComponentSwitcher();
             PasswordForm = new PasswordItem();
             KeyPassword = Encryptor.HashedKeyByMD5(key);
-            // InitAvatarHashTable();
             SetUserFavicon();
             UpdateTagList();
 
@@ -35,7 +34,7 @@ namespace Pmer.ViewModel
             UpdateCommand = new RelayCommand(Update);
             UpdateOKCommand = new RelayCommand(UpdateOK);
             DeletePasswordItemCommand = new RelayCommand(DeletePasswordItem);
-            // SearchCommand = new RelayCommand<string>(t => Search(t));
+            SearchCommand = new RelayCommand<string>(t => Search(t));
             AboutCommand = new RelayCommand(About);
             OpenCSVFileCommand = new RelayCommand(OpenCSVFile);
         }
@@ -66,12 +65,6 @@ namespace Pmer.ViewModel
         private string addPassword;
         private string website;
         private string avatar;
-        private Hashtable avatarHashTable;
-        public Hashtable AvatarHashTable
-        {
-            get { return avatarHashTable; }
-            set { avatarHashTable = value; RaisePropertyChanged(); }
-        }
         public string TagNameAdded
         {
             get { return tagNameAdded; }
@@ -217,38 +210,29 @@ namespace Pmer.ViewModel
             // issue
             string originPassword = SelectedPassword.Password;
             SelectedPassword.Password = Encryptor.AESEncrypt(SelectedPassword.Password, KeyPassword);
-            //PasswordItem passwordItem = new PasswordItem {
-            //    NowSelectedId,
-            //    NowSelectedTitle,
-            //    NowSelectedAccount,
-            //    password,
-            //    NowSelectedWebsite,
-            //    NowSelectedAvatar
-            //};
             DbHelper.UpdatePasswordItem(SelectedPassword);
 
-            //PasswordLists[Index].Account = NowSelectedAccount;
-            //PasswordLists[Index].Password = NowSelectedPassword;
-            //PasswordLists[Index].Website = NowSelectedWebsite;
             SelectedPassword.Password = originPassword;
             UpdateTagList();
             Switcher.UpdateOK();
         }
 
-        //public void Search(string queryStr)
-        //{
-        //    foreach (PasswordItem it in PasswordLists)
-        //    {
-        //        if (it.Title == queryStr)
-        //        {
-        //            Index = PasswordLists.IndexOf(it);
-        //            SetNowSelectedItems();
-        //            Switcher.Search();
-        //            break;
-        //        }
-        //    }
-        //}
-
+        public void Search(string queryStr)
+        {
+            PasswordItem passwordItem = DbHelper.SearchPasswordByName(queryStr);
+            if(passwordItem == null)
+            {
+                // null 需要提示窗口
+                WarningView wv = new WarningView("have no this guys");
+                wv.ShowDialog();
+                
+            }
+            else
+            {
+                passwordItem.Password = Encryptor.AESDecrypt(passwordItem.Password, KeyPassword);
+                SelectPasswordItem(passwordItem);
+            }
+        }
 
         public void Update()
         {
@@ -290,32 +274,6 @@ namespace Pmer.ViewModel
             Switcher.ShowAddNewPwForm();
         }
 
-        // discard
-        public void InitAvatarHashTable()
-        {
-            AvatarHashTable = new Hashtable();
-            AvatarHashTable.Add("coursera", "coursera.png");
-            AvatarHashTable.Add("github", "github.png");
-            AvatarHashTable.Add("gitee", "gitee.png");
-            AvatarHashTable.Add("bilibili", "bilibili.png");
-            AvatarHashTable.Add("qq", "qq.png");
-            AvatarHashTable.Add("wechat", "wechat.png");
-            AvatarHashTable.Add("weibo", "weibo.png");
-            AvatarHashTable.Add("zhihu", "zhihu.png");
-            AvatarHashTable.Add("paypal", "paypal.png");
-            AvatarHashTable.Add("facebook", "Facebook.png");
-            AvatarHashTable.Add("gmail", "gmail.png");
-            AvatarHashTable.Add("instagram", "instagram.png");
-            AvatarHashTable.Add("jetbrains", "jetbrains.png");
-            AvatarHashTable.Add("leetcode", "leetcode.png");
-            AvatarHashTable.Add("mysql", "mysql.png");
-            AvatarHashTable.Add("twitter", "twitter.png");
-            AvatarHashTable.Add("unity", "unity.png");
-            AvatarHashTable.Add("amazon", "amazon.png");
-            AvatarHashTable.Add("dribbble", "Dribbble.png");
-            AvatarHashTable.Add("dingding", "dingding.png");
-        }
-
         // passing
         public void AddNewPassword()
         {
@@ -339,22 +297,6 @@ namespace Pmer.ViewModel
             {
                 PasswordForm.Website = "https://" + PasswordForm.Website;
             }
-            //if (AvatarHashTable.ContainsKey(PasswordForm.Title.ToLower()))
-            //{
-            //    PasswordForm.Avatar = (string)AvatarHashTable[PasswordForm.Title.ToLower()];
-            //}
-            //else
-            //{
-            //    if (PasswordForm.Title.Equals("v2ex") || PasswordForm.Title.Equals("1password"))
-            //    {
-            //        PasswordForm.Avatar = PasswordForm.Title + ".png";
-            //    } 
-            //    else
-            //    {
-            //        PasswordForm.Avatar = "default.png";
-            //    }
-            //}
-
 
             if(DbHelper.IfTagedPasswordListContain(TagList, TagNameAdded))
             {
@@ -452,27 +394,6 @@ namespace Pmer.ViewModel
                 PasswordLists.Add(item);
             }
         }
-
-        // --- tools
-        //public void ClearAddNewPwForm()
-        //{
-        //    Title = "";
-        //    Account = "";
-        //    AddPassword = "";
-        //    Website = "";
-        //    Avatar = "";
-        //    WindowToolTip = "";
-        //}
-
-        //public void SetNowSelectedItems()
-        //{
-        //    NowSelectedId = PasswordLists[Index].PasswordItemId;
-        //    NowSelectedTitle = PasswordLists[Index].Title;
-        //    NowSelectedAvatar = PasswordLists[Index].Avatar;
-        //    NowSelectedAccount = PasswordLists[Index].Account;
-        //    NowSelectedPassword = PasswordLists[Index].Password;
-        //    NowSelectedWebsite = PasswordLists[Index].Website;
-        //}
 
         // passing
         public static void Copy(string content)
