@@ -57,91 +57,12 @@ namespace Pmer.ViewModel
             get { return firstLetter; }
             set { firstLetter = value; RaisePropertyChanged(); }
         }
-
-        #region discard
         private string tagNameAdded;
-        private string title;
-        private string account;
-        private string addPassword;
-        private string website;
-        private string avatar;
         public string TagNameAdded
         {
             get { return tagNameAdded; }
             set { tagNameAdded = value; RaisePropertyChanged(); }
         }
-        public string Title
-        {
-            get { return title; }
-            set { title = value; RaisePropertyChanged(); }
-        }
-        public string Account
-        {
-            get { return account; }
-            set { account = value; RaisePropertyChanged(); }
-        }
-        public string AddPassword
-        {
-            get { return addPassword; }
-            set { addPassword = value; RaisePropertyChanged(); }
-        }
-        public string Website
-        {
-            get { return website; }
-            set { website = value; RaisePropertyChanged(); }
-        }
-        public string Avatar
-        {
-            get { return avatar; }
-            set { avatar = value; RaisePropertyChanged(); }
-        }
-
-        // --- now selected items ---
-        private int nowSelectedId;
-        private string nowSelectedTitle;
-        private string nowSelectedAccount;
-        private string nowSelectedAvatar;
-        private string nowSelectedPassword;
-        private string nowSelectedWebsite;
-
-        public int NowSelectedId
-        {
-            get { return nowSelectedId; }
-            set { nowSelectedId = value;RaisePropertyChanged(); }
-        }
-        public string NowSelectedAvatar
-        {
-            get { return nowSelectedAvatar; }
-            set { nowSelectedAvatar = value; RaisePropertyChanged(); }
-        }
-        public string NowSelectedTitle
-        {
-            get { return nowSelectedTitle; }
-            set { nowSelectedTitle = value; RaisePropertyChanged(); }
-        }
-        public string NowSelectedAccount
-        {
-            get { return nowSelectedAccount; }
-            set { nowSelectedAccount = value; RaisePropertyChanged(); }
-        }
-        public string NowSelectedPassword
-        {
-            get { return nowSelectedPassword; }
-            set { nowSelectedPassword = value; RaisePropertyChanged(); }
-        }
-        public string NowSelectedWebsite
-        {
-            get { return nowSelectedWebsite; }
-            set { nowSelectedWebsite = value;RaisePropertyChanged(); }
-            
-        }
-        private int index;
-        public int Index
-        {
-            get { return index; }
-            set { index = value; RaisePropertyChanged(); }
-        }
-        #endregion
 
         // above will be comment if this passing
         private PasswordItem passwordForm;
@@ -159,16 +80,7 @@ namespace Pmer.ViewModel
 
 
         #region ViewItemSource
-        // 视图层ListView\组件AddNewPw表单的ItemsSource
-        private ObservableCollection<PasswordItem> passwordLists;
         
-        public ObservableCollection<PasswordItem> PasswordLists
-        {
-            get { return passwordLists; }
-            set { passwordLists = value; RaisePropertyChanged(); }
-        }
-        
-
         // 存放所有的 tag : pwlist 对
         private ObservableCollection<string> tagNames;
         private ObservableCollection<Tag> tagList;
@@ -366,34 +278,29 @@ namespace Pmer.ViewModel
             {
                 // 拿回明文密码
                 List<PasswordItem> passwordItems = DbHelper.GetAllPasswordItemFromTag(tg.TagId, KeyPassword);
-                //Tag tagedPassword = new Tag
-                //{
-                //    TagName = tn,
-                //    PasswordItems = passwordItems
-                //};
                 tg.PasswordItems = passwordItems;
                 TagList.Add(tg);
             }
         }
 
         // discard
-        public void AddAPwItemToPwList(PasswordItem item)
-        {
-            PasswordLists.Add(item);
-        }
+        //public void AddAPwItemToPwList(PasswordItem item)
+        //{
+        //    PasswordLists.Add(item);
+        //}
 
-        // discard 从数据库获取数据，并展示
-        public void Query()
-        {
-            List<PasswordItem> passwordItems = new List<PasswordItem>();
-            passwordItems = DbHelper.GetAllPasswordItems(KeyPassword);
+        //// discard 从数据库获取数据，并展示
+        //public void Query()
+        //{
+        //    List<PasswordItem> passwordItems = new List<PasswordItem>();
+        //    passwordItems = DbHelper.GetAllPasswordItems(KeyPassword);
 
-            PasswordLists = new ObservableCollection<PasswordItem>();
-            foreach(PasswordItem item in passwordItems)
-            {
-                PasswordLists.Add(item);
-            }
-        }
+        //    PasswordLists = new ObservableCollection<PasswordItem>();
+        //    foreach(PasswordItem item in passwordItems)
+        //    {
+        //        PasswordLists.Add(item);
+        //    }
+        //}
 
         // passing
         public static void Copy(string content)
