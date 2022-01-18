@@ -62,7 +62,7 @@ Pmer(**P**assword **m**anag**er**) 是一个 ~~bug比功能多的~~ 简易的、
 
 ## 感谢
 
--  [WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/?view=netdesktop-5.0) + [C#](https://docs.microsoft.com/en-us/dotnet/csharp/) {:-< 我没有系统的学习过 `C#` 与 `WPF`，由此可见代码可能比较丑陋}
+-  [WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/?view=netdesktop-5.0) + [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 - [MaterialDesignInXaml](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
 - [Sqlite](https://sqlite.org/index.html)
 - [EF](https://docs.microsoft.com/zh-cn/ef/core/)
